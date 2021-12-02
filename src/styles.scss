@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+.bg-login-image {
+  background: url('./assets/img/logo-celeste.png') center center;
+  background-size: cover;
+}
+
+.bg-login-image-white {
+  background: url('./assets/img/logo-celeste-white.png') center center;
+  background-size: cover;
+}
+
+.text-color-white {
+  color: #fff;
+}
+
+.bg-gradient-celeste {
+  background-color: #4e73df;
+  background-image: linear-gradient(180deg,#d7e2ff 10%,#134fff 100%);
+  background-size: cover;
+}

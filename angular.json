@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "celeste"
+  "defaultProject": "celeste",
+  "cli": {
+    "analytics": "931c34b6-e6ee-43a0-adfb-8466aa99a447"
+  }
 }
