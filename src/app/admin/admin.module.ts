@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { PagesModule } from "../shared/pages/pages.module";
+import { SharedModule } from "@shared/shared.module";
 import { AdminRoute } from "./admin.routing";
 import { HomeComponent } from "./home/home.component";
 
@@ -9,8 +9,8 @@ import { HomeComponent } from "./home/home.component";
   declarations: [HomeComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminRoute),
-    PagesModule
+    SharedModule,
+    RouterModule.forChild(AdminRoute)
   ]
 })
 export class AdminModule { }

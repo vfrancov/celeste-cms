@@ -2,6 +2,6 @@ import { Component } from "@angular/core";
 
 @Component({
   selector: 'usuarios-component',
-  templateUrl: './usuarios.component.html'
+  templateUrl: './users.component.html'
 })
-export class UsuariosPageComponent { }
+export class UsersPageComponent { }
