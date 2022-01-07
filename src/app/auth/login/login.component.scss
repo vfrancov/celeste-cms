@@ -3,4 +3,19 @@
   align-items: center;
   justify-content: center;
   height: 100vh !important;
+  position: relative;
+}
+
+.top-bar-celeste {
+  height: 10vh;
+  background-color: #3891ff;
+  width: 100%;
+  position: fixed;
+  background-image: linear-gradient(180deg, #4a66ff 100%, #3eb1fe 100%);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 100px;
 }

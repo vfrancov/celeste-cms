@@ -4,7 +4,13 @@
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <topbar-component></topbar-component>
-        <router-outlet></router-outlet>
+        <div *ngIf="isHome; then showDashboard else showPages"></div>
+        <ng-template #showDashboard>
+          <dashboard-component></dashboard-component>
+        </ng-template>
+        <ng-template #showPages>
+          <router-outlet></router-outlet>
+        </ng-template>
       </div>
     </div>
   </div>

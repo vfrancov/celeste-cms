@@ -1,8 +1,13 @@
-<div class="bg-gradient-celeste">
+<div class="bg-login-image-pc">
+  <div class="top-bar-celeste d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between full-width">
+      <h2 class="ml-5 text-color-white">Celeste CMS</h2>
+      <small class="mr-5 text-color-white">Version 1.0.0</small>
+    </div>
+  </div>
   <div class="container">
     <div class="card-body p-0">
       <div class="row">
-        <div class="col-lg-6 d-none d-lg-block bg-login-image-white"></div>
         <div class="col-lg-6">
           <div class="p-5">
             <div class="text-center">
@@ -11,7 +16,7 @@
             <form class="user">
               <div class="form-group">
                 <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                  aria-describedby="emailHelp" placeholder="Ingresa tu Usuario">
+                  aria-describedby="emailHelp" placeholder="Ingresa tu Usuario" autofocus>
               </div>
               <div class="form-group">
                 <input type="password" class="form-control form-control-user" id="exampleInputPassword"
@@ -20,7 +25,7 @@
               <div class="form-group">
                 <div class="custom-control custom-checkbox small">
                   <input type="checkbox" class="custom-control-input" id="customCheck">
-                  <label class="custom-control-label" for="customCheck">Recordar datos de sesión</label>
+                  <label class="custom-control-label text-color-white" for="customCheck">Recordar datos de sesión</label>
                 </div>
               </div>
               <a [routerLink]="'admin/home'" class="btn btn-primary btn-user btn-block">
@@ -31,6 +36,16 @@
             <div class="text-center">
               <a class="small text-color-white">¿Olvidaste tu contraseña?</a>
             </div>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block bg-login-image-white"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <span class="text-color-white">Todos los derechos reservados &copy; 2021</span>
           </div>
         </div>
       </div>
