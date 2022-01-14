@@ -10,16 +10,17 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="p-5">
+            <div class="alert alert-danger text-center" [hidden]="!errorMessage">Usuario y/o contraseña invalidos</div>
             <div class="text-center">
               <h1 class="h4 mb-4 text-color-white">Celeste CMS</h1>
             </div>
-            <form class="user">
+            <form [formGroup]="authLoginForm" class="user">
               <div class="form-group">
-                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                <input type="text" formControlName="username" class="form-control form-control-user" id="exampleInputEmail"
                   aria-describedby="emailHelp" placeholder="Ingresa tu Usuario" autofocus>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                <input type="password" formControlName="password" class="form-control form-control-user" id="exampleInputPassword"
                   placeholder="Contraseña">
               </div>
               <div class="form-group">
@@ -28,9 +29,9 @@
                   <label class="custom-control-label text-color-white" for="customCheck">Recordar datos de sesión</label>
                 </div>
               </div>
-              <a [routerLink]="'admin/home'" class="btn btn-primary btn-user btn-block">
+              <button class="btn btn-primary btn-user btn-block" (click)="initSession()" [disabled]="authLoginForm.invalid">
                 Ingresar
-              </a>
+              </button>
             </form>
             <hr>
             <div class="text-center">

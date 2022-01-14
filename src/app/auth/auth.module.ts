@@ -1,7 +1,7 @@
 import { AuthProvider } from './service/auth.provider';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { authRoute } from "./auth.routing";
 import { AuthLoginComponent } from "./login/login.component";
@@ -10,6 +10,7 @@ import { AuthLoginComponent } from "./login/login.component";
   declarations: [AuthLoginComponent],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(authRoute)
   ],
