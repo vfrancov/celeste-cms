@@ -3,12 +3,12 @@ import { IAuthRepository } from '@domain/auth/IAuthRepository';
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UserDto } from '@domain/auth/UserDto';
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Navigation } from '@core/constants/Navigation';
 import { RepositoryProvider } from '@core/constants/Repository.enum';
 import { ILocalStorageRepository } from '@domain/localstorage/ILocalStorageRepository';
-import { AuthenticationFormFields, AuthProviderEnum } from './../auth.enum';
+import { AuthenticationFormFields, AuthProviderEnum, StatusLogin } from './../auth.enum';
 
 @Component({
   selector: 'auth-login',
@@ -18,7 +18,9 @@ import { AuthenticationFormFields, AuthProviderEnum } from './../auth.enum';
 export class AuthLoginComponent implements OnInit {
 
   authLoginForm: FormGroup;
-  errorMessage: boolean = false;
+  errorAuthentication: boolean = false;
+  errorAuthenticationService: HttpErrorResponse;
+  isLoading: boolean = StatusLogin.notLoading;
 
   constructor(
     @Inject(AuthProviderEnum.AuthRespository) private authService: IAuthRepository,
@@ -35,15 +37,16 @@ export class AuthLoginComponent implements OnInit {
   }
 
   initSession(): void {
+    this.isLoading = StatusLogin.isLoading;
     this.authService.authentication(this.authLoginForm.value).subscribe(
-      response => this.checkResponseAuthentication(response)
+      response => this.checkResponseAuthentication(response),
+      (error: HttpErrorResponse) => this.errorAuthenticationService = error
     );
   }
 
   private checkResponseAuthentication(response: HttpResponse<UserDto>): void {
-    (response.status === HttpStatusCode.NoContent) ?
-      this.errorMessage = true :
-      this.redirectAndStoreSession(response);
+    (response.status === HttpStatusCode.NoContent) ? this.errorAuthentication = true : this.redirectAndStoreSession(response);
+    this.isLoading = StatusLogin.notLoading;
   }
 
   private redirectAndStoreSession(response: HttpResponse<UserDto>): void {

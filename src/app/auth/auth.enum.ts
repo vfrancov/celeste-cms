@@ -9,3 +9,8 @@ export const AuthenticationFormFields: IAuthenticationFields = {
   username: ['deivisvb', Validators.required],
   password: ['davb2882D&%', Validators.required]
 }
+
+export const StatusLogin = {
+  isLoading: true,
+  notLoading: false
+}
