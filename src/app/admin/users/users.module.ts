@@ -1,3 +1,4 @@
+import { PrimeNgModule } from './../../shared/primeng/primeng.module';
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "@shared/shared.module";

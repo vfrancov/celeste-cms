@@ -1,38 +1,24 @@
 <content-component [title]="'Usuarios'">
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus usuarios</p>
-    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Registrar Empresa</button>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">Mis Usuarios</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <th>Usuario</th>
-                <th>Correo</th>
-                <th>Telefono</th>
-                <th>Acciones</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>
-                    <div class="btn-group">
-											<button class="btn btn-info btn-small">Editar</button>
-											<button class="btn btn-danger btn-small">Eliminar</button>
-										</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Registrar Usuario</button>
   </div>
 </content-component>
+<!-- <p-table [value]="users">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Quantity</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+      <tr>
+          <td>{{product.code}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.category}}</td>
+          <td>{{product.quantity}}</td>
+      </tr>
+  </ng-template>
+</p-table> -->

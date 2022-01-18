@@ -4,4 +4,6 @@ import { Component } from "@angular/core";
   selector: 'usuarios-component',
   templateUrl: './users.component.html'
 })
-export class UsersPageComponent { }
+export class UsersPageComponent {
+  users: any[] = [];
+}
