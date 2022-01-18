@@ -1,5 +1,5 @@
 import { Provider } from "@angular/core";
-import { RepositoryProvider } from "@core/constants/Repository.enum";
+import { RepositoryProvider } from "@core/constants/repository.enum";
 import { LocalStorageService } from "@core/services/localstorage.service";
 
 export const LocalStorageProvider: Provider = {

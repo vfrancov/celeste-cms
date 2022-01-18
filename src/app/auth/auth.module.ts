@@ -1,4 +1,4 @@
-import { AuthProvider } from './service/auth.provider';
+import { AuthProvider } from '../domain/providers/auth.provider';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";

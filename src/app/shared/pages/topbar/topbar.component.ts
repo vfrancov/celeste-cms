@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Navigation } from '@core/constants/Navigation';
-import { RepositoryProvider } from '@core/constants/Repository.enum';
-import { UserDto } from '@domain/auth/UserDto';
-import { ILocalStorageRepository } from '@domain/localstorage/ILocalStorageRepository';
+import { Navigation } from '@core/constants/navigataion.enum';
+import { RepositoryProvider } from '@core/constants/repository.enum';
+import { UserDto } from '@domain/dto/user.dto';
+import { ILocalStorageRepository } from '@domain/repository/localstorage.repository';
 
 @Component({
   selector: 'topbar-component',

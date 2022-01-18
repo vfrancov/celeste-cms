@@ -1,14 +1,16 @@
-import { HttpStatusCode } from '@core/constants/HttpStatusCode';
-import { IAuthRepository } from '@domain/auth/IAuthRepository';
+import { HttpStatusCode } from '@core/constants/httpstatuscode.enum';
+import { IAuthRepository } from '@domain/repository/authentication.repository';
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { UserDto } from '@domain/auth/UserDto';
+import { UserDto } from '@domain/dto/user.dto';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Navigation } from '@core/constants/Navigation';
-import { RepositoryProvider } from '@core/constants/Repository.enum';
-import { ILocalStorageRepository } from '@domain/localstorage/ILocalStorageRepository';
-import { AuthenticationFormFields, AuthProviderEnum, StatusLogin } from './../auth.enum';
+import { Navigation } from '@core/constants/navigataion.enum';
+import { RepositoryProvider } from '@core/constants/repository.enum';
+import { ILocalStorageRepository } from '@domain/repository/localstorage.repository';
+import { Status } from '@core/constants/status.enum';
+import { AuthenticationFormFields } from '@core/constants/authentication.fields';
+
 
 @Component({
   selector: 'auth-login',
@@ -20,10 +22,10 @@ export class AuthLoginComponent implements OnInit {
   authLoginForm: FormGroup;
   errorAuthentication: boolean = false;
   errorAuthenticationService: HttpErrorResponse;
-  isLoading: boolean = StatusLogin.notLoading;
+  isLoading: boolean = Status.notLoading;
 
   constructor(
-    @Inject(AuthProviderEnum.AuthRespository) private authService: IAuthRepository,
+    @Inject(RepositoryProvider.AuthRespository) private authService: IAuthRepository,
     @Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository,
     private router: Router,
     private formBuilder: FormBuilder) { }
@@ -37,7 +39,7 @@ export class AuthLoginComponent implements OnInit {
   }
 
   initSession(): void {
-    this.isLoading = StatusLogin.isLoading;
+    this.isLoading = Status.isLoading;
     this.authService.authentication(this.authLoginForm.value).subscribe(
       response => this.checkResponseAuthentication(response),
       (error: HttpErrorResponse) => this.errorAuthenticationService = error
@@ -45,8 +47,9 @@ export class AuthLoginComponent implements OnInit {
   }
 
   private checkResponseAuthentication(response: HttpResponse<UserDto>): void {
-    (response.status === HttpStatusCode.NoContent) ? this.errorAuthentication = true : this.redirectAndStoreSession(response);
-    this.isLoading = StatusLogin.notLoading;
+    (response.status === HttpStatusCode.NoContent) ?
+      this.errorAuthentication = true : this.redirectAndStoreSession(response);
+    this.isLoading = Status.notLoading;
   }
 
   private redirectAndStoreSession(response: HttpResponse<UserDto>): void {

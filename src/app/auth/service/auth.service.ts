@@ -1,9 +1,10 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IAuthRepository } from "@domain/auth/IAuthRepository";
-import { IAuthenticationFields, UserDto } from "@domain/auth/UserDto";
+import { IAuthRepository } from "@domain/repository/authentication.repository";
+import { UserDto } from "@domain/dto/user.dto";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
+import { IAuthenticationFields } from "@core/validators/authform.validator";
 
 @Injectable()
 export class AuthService implements IAuthRepository {
