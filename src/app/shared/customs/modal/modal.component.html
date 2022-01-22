@@ -1,0 +1,19 @@
+<div class="modal fade" id="{{idModal}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" [class.modal-lg]="modalLarge" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="{{idModal}}">{{modalTitle}}</h5>
+        <button class="btn btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+        <ng-content select=".btn-modal-create"></ng-content>
+        <ng-content select=".btn-modal-edit"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>
