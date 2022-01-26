@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { CompaniesField } from "@core/constants/companies.field";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
@@ -30,6 +30,10 @@ export class CompaniesPageComponent implements OnInit {
     @Inject(RepositoryProvider.companieRepository) private companieService: ICompaniesRepository,
     private formBuilder: FormBuilder
   ) { }
+
+  get checkEmail(): AbstractControl {
+    return this.formCompanie.get('email');
+  }
 
   ngOnInit(): void {
     this.initializeCompanieForm();

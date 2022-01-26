@@ -5,7 +5,7 @@ export const CompaniesField: CreateCompanieForm = {
   id: [0],
   name: ['', Validators.required],
   nit: ['', Validators.required],
-  email: ['', Validators.required],
+  email: ['', [Validators.required, Validators.email]],
   address: ['', Validators.required],
   phoneNumber: ['', Validators.required],
   statusId: [0]
