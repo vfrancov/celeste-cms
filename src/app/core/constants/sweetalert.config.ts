@@ -10,3 +10,13 @@ export const userWarning: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const companieWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar la empresa?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

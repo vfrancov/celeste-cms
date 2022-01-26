@@ -1,5 +1,6 @@
 export enum RepositoryProvider {
-  AuthRespository = 'AuthRepository',
+  AuthRepository = 'AuthRepository',
   localStorageProvider = 'LocalStorageProvider',
-  usersRepository = 'UserRepository'
+  usersRepository = 'UserRepository',
+  companieRepository = 'CompanieRepository'
 }

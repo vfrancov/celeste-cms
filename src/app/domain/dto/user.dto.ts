@@ -14,3 +14,4 @@ export interface UserDto {
   rolId: number,
   expirationToken?: string
 }
+

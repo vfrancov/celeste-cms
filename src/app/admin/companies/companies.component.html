@@ -1,38 +1,77 @@
 <content-component [title]="'Empresas'">
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus empresas</p>
-    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Registrar Empresa</button>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
+      data-bs-target="#modalCreateAndEditCompanie" (click)="showFormToCreate()">Registrar Empresa</button>
   </div>
   <div class="row">
     <div class="col">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">Mis Empresas</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <th>Empresa</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Acciones</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>
-                    <div class="btn-group">
-                      <button class="btn btn-info btn-small">Editar</button>
-                      <button class="btn btn-danger btn-small">Eliminar</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <data-table [title]="'Empresas'">
+        <thead>
+          <ng-container *ngFor="let thead of dataTableHead">
+            <th>{{thead}}</th>
+          </ng-container>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let companie of companieData">
+            <tr>
+              <td>{{companie.name}}</td>
+              <td>{{companie.nit}}</td>
+              <td>{{companie.address}}</td>
+              <td>{{companie.phoneNumber}}</td>
+              <td>{{companie.email}}</td>
+              <td>{{companie.statusName}}</td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-info btn-sm" (click)="showModalWithCompanieData(companie)" data-bs-toggle="modal"
+                    data-bs-target="#modalCreateAndEditCompanie"><i class="fa fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteCompanie(companie)"><i
+                      class="fa fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </data-table>
     </div>
   </div>
+  <modal-component [idModal]="'modalCreateAndEditCompanie'" [modalTitle]="'Registrar Empresa'" [modalLarge]="true">
+    <div class="row">
+      <div class="col">
+        <h5 class="no-margin">Registra tu empresa</h5>
+        <small>Registra las empresas</small>
+        <div class="alert alert-danger text-center mt-3" *ngIf="showErrorCompanieService">
+          {{companieErrorService?.error.message}}</div>
+        <form class="mt-3" [formGroup]="formCompanie">
+          <div class="form-group">
+            <label for="name">Nombre Empresa</label>
+            <input type="text" class="form-control" formControlName="name" autofocus>
+          </div>
+          <div class="form-group">
+            <label for="firstname">Nit</label>
+            <input type="text" class="form-control" formControlName="nit">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Correo Empresa</label>
+            <input type="text" class="form-control" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Dirección</label>
+            <input type="text" class="form-control" formControlName="address">
+          </div>
+          <div class="form-group">
+            <label for="username">Telefono</label>
+            <input type="text" class="form-control" formControlName="phoneNumber">
+          </div>
+        </form>
+      </div>
+    </div>
+    <ng-template *ngIf="isEditCompanie then edit else create"></ng-template>
+    <ng-template #edit>
+      <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editCompanie()">Actualizar Empresa</button>
+    </ng-template>
+    <ng-template #create>
+      <button type="submit" class="btn btn-primary btn-modal-create" (click)="createCompanie()">Guardar Empresa</button>
+    </ng-template>
+  </modal-component>
 </content-component>

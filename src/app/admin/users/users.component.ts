@@ -12,7 +12,6 @@ import { IResponseBody } from "@domain/dto/response.body.dto";
 import { UserDto } from "@domain/dto/user.dto";
 import { IUserRepository } from "@domain/repository/users.repository";
 import swal, { SweetAlertResult } from 'sweetalert2';
-
 @Component({
   selector: 'usuarios-component',
   templateUrl: './users.component.html'

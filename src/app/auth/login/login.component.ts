@@ -25,7 +25,7 @@ export class AuthLoginComponent implements OnInit {
   isLoading: boolean = Status.notLoading;
 
   constructor(
-    @Inject(RepositoryProvider.AuthRespository) private authService: IAuthRepository,
+    @Inject(RepositoryProvider.AuthRepository) private authService: IAuthRepository,
     @Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository,
     private router: Router,
     private formBuilder: FormBuilder) { }
