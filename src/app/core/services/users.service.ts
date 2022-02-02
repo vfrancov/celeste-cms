@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { IUsersField } from "@core/validators/usersform.validator";
 import { IFilterRequestBody } from "@domain/dto/request.body.dto";
 import { IResponseBody } from "@domain/dto/response.body.dto";
-import { UserDto } from "@domain/dto/user.dto";
+import { ChangePassword, UserDto } from "@domain/dto/user.dto";
 import { IUserRepository } from "@domain/repository/users.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
@@ -31,5 +31,9 @@ export class UsersServices implements IUserRepository {
 
   deleteUser(id: number, status: number): Observable<HttpResponse<any>> {
     return this.http.delete(`${environment.baseUrl}/api/Users/${id}`, { observe: 'response' });
+  }
+
+  changePassword(id: number, payload: ChangePassword): Observable<HttpResponse<any>> {
+    return this.http.put(`${environment.baseUrl}/api/Users/ChangePassword/${id}`, payload, { observe: 'response' });
   }
 }

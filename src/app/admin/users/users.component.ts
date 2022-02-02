@@ -1,16 +1,17 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
-import { userWarning } from "@core/constants/sweetalert.config";
+import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadUsers } from "@core/constants/table.headers";
-import { UsersField } from "@core/constants/users.field";
+import { ChangePasswordField, UsersField } from "@core/constants/users.field";
 import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
 import { IResponseBody } from "@domain/dto/response.body.dto";
 import { UserDto } from "@domain/dto/user.dto";
 import { IUserRepository } from "@domain/repository/users.repository";
+import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 @Component({
   selector: 'usuarios-component',
@@ -18,13 +19,18 @@ import swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class UsersPageComponent implements OnInit {
 
+  @ViewChild('modalChageUserPassword') modalChangePassword: ModalComponent;
+  @ViewChild('modalCreateAndEditUsers') modalCreateAndEditUsers: ModalComponent;
+
   dataTableHead: string[] = dataTableHeadUsers;
   userData: UserDto[];
   userRequest: IFilterRequestBody = new RequestBody;
   formCreateUserData: FormGroup;
+  formChangeUserPassword: FormGroup;
   isEditUser: boolean = false;
   userErrorService: HttpErrorResponse;
   showErrorUserService: boolean;
+  userDtoData: UserDto;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -34,10 +40,7 @@ export class UsersPageComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUserData();
     this.initializeFormCreateUser();
-  }
-
-  initializeFormCreateUser(): void {
-    this.formCreateUserData = this.formBuilder.group(UsersField);
+    this.initilizeFormChangePasswordUser();
   }
 
   fetchUserData(): void {
@@ -46,10 +49,21 @@ export class UsersPageComponent implements OnInit {
     );
   }
 
+  initializeFormCreateUser(): void {
+    this.formCreateUserData = this.formBuilder.group(UsersField);
+  }
+
+  initilizeFormChangePasswordUser(): void {
+    this.formChangeUserPassword = this.formBuilder.group(ChangePasswordField);
+  }
+
   createUserData(): void {
     this.userService.createUser(this.formCreateUserData.value).subscribe((response: HttpResponse<any>) => {
-      if (response.status === HttpStatusCode.Created)
+      if (response.status === HttpStatusCode.Created) {
+        this.modalCreateAndEditUsers.closeModal();
+        swal.fire(userCreatedUser);
         this.fetchUserData();
+      }
     }, (error: HttpErrorResponse) => {
       this.userErrorService = error;
       this.showErrorUserService = !error.ok;
@@ -59,9 +73,15 @@ export class UsersPageComponent implements OnInit {
   editUserData(): void {
     this.formCreateUserData.get('statusId').setValue(RequestAction.update);
     this.userService.updateUser(this.formCreateUserData.value).subscribe((response: HttpResponse<any>) => {
-      if (response.status === HttpStatusCode.NoContent)
+      if (response.status === HttpStatusCode.NoContent) {
+        this.modalCreateAndEditUsers.closeModal();
+        swal.fire(userEdit);
         this.fetchUserData();
-    })
+      }
+    }, (error: HttpErrorResponse) => {
+      this.userErrorService = error;
+      this.showErrorUserService = !error.ok;
+    });
   }
 
   showModalWithUserData(user: UserDto): void {
@@ -79,6 +99,21 @@ export class UsersPageComponent implements OnInit {
           if (response.status === HttpStatusCode.Ok)
             this.fetchUserData();
         });
+    });
+  }
+
+  setUserData(user: UserDto): void {
+    this.userDtoData = user;
+    this.formChangeUserPassword.patchValue(user);
+  }
+
+  changeUserPassword(): void {
+    this.userService.changePassword(this.userDtoData.id, this.formChangeUserPassword.value).subscribe(response => {
+      if (response.status === HttpStatusCode.NoContent) {
+        this.modalChangePassword.closeModal();
+        swal.fire(userChangePasswordSuccess);
+        this.formChangeUserPassword.reset();
+      }
     });
   }
 

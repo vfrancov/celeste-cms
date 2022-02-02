@@ -13,10 +13,7 @@ const appRoute: Routes = [
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute, {
-      enableTracing: false,
-      preloadingStrategy: PreloadAllModules
-    })],
+    RouterModule.forRoot(appRoute)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

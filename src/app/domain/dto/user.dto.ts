@@ -3,6 +3,7 @@ export interface UserDto {
   firstName: string
   lastName: string,
   username?: string,
+  password?: string,
   phoneNumber?: string,
   statusName?: string,
   statusId?: number,
@@ -14,4 +15,6 @@ export interface UserDto {
   rolId: number,
   expirationToken?: string
 }
+
+export type ChangePassword = Pick<UserDto, 'password'>;
 
