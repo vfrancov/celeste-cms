@@ -47,3 +47,30 @@ export const companieWarning: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const companieCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Empresa creada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const companieUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Empresa actualizada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const companieDeleted: SweetAlertOptions = {
+  title: 'Eliminacion Exitosa',
+  text: "Empresa eliminada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

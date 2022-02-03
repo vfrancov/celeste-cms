@@ -13,6 +13,7 @@ import { UserDto } from "@domain/dto/user.dto";
 import { IUserRepository } from "@domain/repository/users.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
+
 @Component({
   selector: 'usuarios-component',
   templateUrl: './users.component.html'
@@ -40,7 +41,7 @@ export class UsersPageComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUserData();
     this.initializeFormCreateUser();
-    this.initilizeFormChangePasswordUser();
+    this.initializeFormChangePasswordUser();
   }
 
   fetchUserData(): void {
@@ -53,7 +54,7 @@ export class UsersPageComponent implements OnInit {
     this.formCreateUserData = this.formBuilder.group(UsersField);
   }
 
-  initilizeFormChangePasswordUser(): void {
+  initializeFormChangePasswordUser(): void {
     this.formChangeUserPassword = this.formBuilder.group(ChangePasswordField);
   }
 
