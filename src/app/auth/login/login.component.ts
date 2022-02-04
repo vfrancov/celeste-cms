@@ -11,7 +11,6 @@ import { ILocalStorageRepository } from '@domain/repository/localstorage.reposit
 import { Status } from '@core/constants/status.enum';
 import { AuthenticationFormFields } from '@core/constants/authentication.fields';
 
-
 @Component({
   selector: 'auth-login',
   templateUrl: './login.component.html',

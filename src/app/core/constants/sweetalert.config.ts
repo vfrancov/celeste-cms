@@ -74,3 +74,40 @@ export const companieDeleted: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const zoneCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Zona creada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const zoneUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Zona actualizada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const zoneDeleted: SweetAlertOptions = {
+  title: 'Eliminación Exitosa',
+  text: "Zona eliminada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const zoneWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar la Zona?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
