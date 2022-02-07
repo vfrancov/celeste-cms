@@ -22,6 +22,7 @@ export class AuthLoginComponent implements OnInit {
   errorAuthentication: boolean = false;
   errorAuthenticationService: HttpErrorResponse;
   isLoading: boolean = Status.notLoading;
+  authResponse: HttpResponse<any>;
 
   constructor(
     @Inject(RepositoryProvider.AuthRepository) private authService: IAuthRepository,
@@ -40,8 +41,15 @@ export class AuthLoginComponent implements OnInit {
   initSession(): void {
     this.isLoading = Status.isLoading;
     this.authService.authentication(this.authLoginForm.value).subscribe(
-      response => this.checkResponseAuthentication(response),
-      (error: HttpErrorResponse) => this.errorAuthenticationService = error
+      response => {
+        this.checkResponseAuthentication(response);
+        this.authResponse = response
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        this.errorAuthenticationService = error;
+        this.isLoading = Status.notLoading;
+      }
     );
   }
 

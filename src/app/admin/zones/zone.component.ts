@@ -71,6 +71,11 @@ export class ZonePageComponent implements OnInit {
     })
   }
 
+  showModalCreateZone(): void {
+    this.isEditZone = false;
+    this.formZone.reset();
+  }
+
   updateZone(): void {
     this.zoneService.updateZone(this.zone.id, this.formZone.value).subscribe(response => {
       if (response.status === HttpStatusCode.NoContent) {
