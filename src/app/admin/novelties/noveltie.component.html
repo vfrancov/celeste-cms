@@ -1,38 +1,71 @@
 <content-component [title]="'Novedades'">
-    <div class="d-flex justify-content-between mb-2">
-        <p>Gestiona tus novedades</p>
-        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Crear Novedad</button>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">Mis Novedades</div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <th>Novedad</th>
-                    <th>Tipo</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Mi Empresa</td>
-                      <td>Mi Empresa</td>
-                      <td>Mi Empresa</td>
-                      <td>
-                        <div class="btn-group">
-                            <button class="btn btn-info btn-small">Editar</button>
-                            <button class="btn btn-danger btn-small">Eliminar</button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+  <div class="d-flex justify-content-between mb-2">
+    <p>Gestiona tus novedades</p>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
+      data-bs-target="#modalCreateOrEditNoveltie">Crear Novedad</button>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">Mis Novedades</div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngFor="let noveltie of novelties">
+              <div class="col-3 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="text-center mb-3">
+                      {{noveltie.title}}
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <img [src]="noveltie.image" class="image image-square" width="100">
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                      <button class="btn btn-danger btn-sm cursor-pointer"><i class="fa fa-trash"></i></button>
+                      <button class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modalCreateOrEditNoveltie">Actualizar Novedad</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <modal-component #modalCreateOrEditNoveltie [idModal]="'modalCreateOrEditNoveltie'"
+    [modalTitle]="'Registrar Novedad'">
+    <div class="row">
+      <div class="col">
+        <form>
+          <div class="form-group">
+            <label for="">Nombre de la novedad</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="">Tipo de Novedad</label>
+            <select class="form-control">
+              <option value=""></option>
+              <option value="">Novedad</option>
+            </select>
+          </div>
+          <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
+          </combobox>
+          <div class="form-group">
+            <label class="btn btn-secondary btn-icon-split">
+              <span for="uploadNoveltieImage" class="icon text-white-50">
+                <i class="fas fa-file"></i>
+              </span>
+              <span class="text">Subir imagen</span>
+              <input id="uploadNoveltieImage" type="file" name="imageNoveltie" [hidden]="true" accept=".jpg,.png">
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </modal-component>
 </content-component>

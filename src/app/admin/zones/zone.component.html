@@ -49,13 +49,9 @@
         <div class="alert alert-danger text-center mt-3" *ngIf="showErrorZoneService">
           {{zoneErrorService?.error.message}}</div>
         <form class="mt-3" [formGroup]="formZone">
-          <div class="form-group">
-            <label for="firstname">Empresa</label>
-            <select class="form-control" formControlName="companyId">
-              <option value="0">Seleccionar Empresa</option>
-              <option value="1">Empresa Dummy</option>
-            </select>
-          </div>
+          <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
+          </combobox>
           <div class="form-group">
             <label for="firstname">Nombre de la Zona</label>
             <input type="text" class="form-control" formControlName="name">
