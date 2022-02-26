@@ -111,3 +111,12 @@ export const zoneWarning: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const noveltieSuccess: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Novedad creada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

@@ -1,5 +1,6 @@
 <div class="alert text-center" [ngClass]="{'alert-danger' : !error?.ok}" *ngIf="error?.ok !== null">
-  {{error?.message}}
+  <div>{{error | showErrors}}</div>
+  <small>{{error?.message}}</small>
 </div>
 <div class="alert alert-danger text-center" *ngIf="noContentResponse">
   Usuario y/o contraseña incorrectas

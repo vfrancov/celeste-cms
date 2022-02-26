@@ -1,4 +1,5 @@
 export const Status = {
   isLoading: true,
-  notLoading: false
+  notLoading: false,
+  defaultTextUploadImage: 'Subir Imagen'
 }

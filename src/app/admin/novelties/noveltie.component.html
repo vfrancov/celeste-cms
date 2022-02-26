@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus novedades</p>
     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
-      data-bs-target="#modalCreateOrEditNoveltie">Crear Novedad</button>
+      data-bs-target="#modalCreateOrEditNoveltie" (click)="prepareForm()">Crear Novedad</button>
   </div>
   <div class="row">
     <div class="col">
@@ -15,17 +15,17 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="text-center mb-3">
-                      {{noveltie.title}}
+                      {{noveltie.name}}
                     </div>
                     <div class="d-flex justify-content-center">
-                      <img [src]="noveltie.image" class="image image-square" width="100">
+                      <img [src]="noveltie.nameImage" class="image image-square" width="100">
                     </div>
                   </div>
                   <div class="card-footer">
                     <div class="d-flex justify-content-between">
                       <button class="btn btn-danger btn-sm cursor-pointer"><i class="fa fa-trash"></i></button>
-                      <button class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalCreateOrEditNoveltie">Actualizar Novedad</button>
+                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateOrEditNoveltie"
+                        (click)="getNoveltyById(noveltie)">Actualizar Novedad</button>
                     </div>
                   </div>
                 </div>
@@ -40,18 +40,15 @@
     [modalTitle]="'Registrar Novedad'">
     <div class="row">
       <div class="col">
-        <form>
+        <alert-message [error]="errorNoveltieService" [response]="showErrorService"></alert-message>
+        <form [formGroup]="formNoveltie">
           <div class="form-group">
             <label for="">Nombre de la novedad</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="name">
           </div>
-          <div class="form-group">
-            <label for="">Tipo de Novedad</label>
-            <select class="form-control">
-              <option value=""></option>
-              <option value="">Novedad</option>
-            </select>
-          </div>
+          <combobox formControlName="typeNoveltyId" [label]="'Tipo de Novedad'" [name]="'typeNoveltyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetTypeNovelty'">
+          </combobox>
           <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
             [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
           </combobox>
@@ -60,9 +57,21 @@
               <span for="uploadNoveltieImage" class="icon text-white-50">
                 <i class="fas fa-file"></i>
               </span>
-              <span class="text">Subir imagen</span>
-              <input id="uploadNoveltieImage" type="file" name="imageNoveltie" [hidden]="true" accept=".jpg,.png">
+              <span class="text">{{imageName}}</span>
+              <input id="uploadNoveltieImage" type="file" formControlName="fileName" (change)="onFileSelect($event)"
+                [hidden]="true" accept=".jpg,.png">
             </label>
+          </div>
+          <div class="form-group d-flex justify-content-end">
+            <ng-container *ngIf="isEditNovelty then edit else create"></ng-container>
+            <ng-template #edit>
+              <button class="btn btn-primary" (click)="updateNoveltie()" [disabled]="!formNoveltie.valid"
+                *ngIf="create">Actualizar Novedad</button>
+            </ng-template>
+            <ng-template #create>
+              <button class="btn btn-primary" (click)="createNoveltie()" [disabled]="!formNoveltie.valid"
+                *ngIf="create">Guardar Novedad</button>
+            </ng-template>
           </div>
         </form>
       </div>

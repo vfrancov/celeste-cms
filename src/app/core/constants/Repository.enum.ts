@@ -3,5 +3,6 @@ export enum RepositoryProvider {
   localStorageProvider = 'LocalStorageProvider',
   usersRepository = 'UserRepository',
   companieRepository = 'CompanieRepository',
-  zoneRepository = 'ZoneRepository'
+  zoneRepository = 'ZoneRepository',
+  noveltieProperty = 'noveltieProvider'
 }
