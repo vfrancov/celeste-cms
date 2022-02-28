@@ -65,7 +65,7 @@
           <div class="form-group d-flex justify-content-end">
             <ng-container *ngIf="isEditNovelty then edit else create"></ng-container>
             <ng-template #edit>
-              <button class="btn btn-primary" (click)="updateNoveltie()" [disabled]="!formNoveltie.valid"
+              <button class="btn btn-primary" (click)="updateNoveltie()" [disabled]="formNoveltie.valid"
                 *ngIf="create">Actualizar Novedad</button>
             </ng-template>
             <ng-template #create>

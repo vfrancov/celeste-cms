@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col">
       <data-table [title]="'Zonas'">
+        <data-filter [filterFields]="dataTableHead"></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead">
             <th>{{thead}}</th>
@@ -22,6 +23,7 @@
             <ng-container *ngFor="let zone of zoneData">
               <tr>
                 <td>{{zone.name}}</td>
+                <td>{{zone.companyName}}</td>
                 <td>{{zone.statusName}}</td>
                 <td>
                   <div class="btn-group">

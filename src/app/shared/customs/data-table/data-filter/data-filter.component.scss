@@ -1,0 +1,41 @@
+.data-filter {
+  &__container,
+  &__option-fields {
+    display: flex;
+  }
+
+  &__option-fields {
+    margin: 4px 0px;
+    flex-flow: row wrap;
+
+    & .option-container {
+      display: flex;
+      margin-bottom: 6px;
+    }
+
+    select {
+      width: unset !important;
+    }
+
+    input {
+      width: unset;
+    }
+  }
+
+  &__sub-container {
+    display: flex;
+    padding: 7px;
+    background-color: #333;
+
+    button {
+      display: flex;
+      align-items: center;
+      i {
+        margin-right: 3px;
+      }
+      small {
+        color: #fff;
+      }
+    }
+  }
+}

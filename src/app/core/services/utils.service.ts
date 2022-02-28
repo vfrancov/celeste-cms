@@ -26,7 +26,7 @@ export class UtilsService {
     return formData;
   }
 
-  setFileValue(event: Event): FileList {
+  private setFileValue(event: Event): FileList {
     const element = event.currentTarget as HTMLInputElement;
     let file: FileList | null = element.files;
 
