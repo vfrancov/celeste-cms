@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'data-filter',
@@ -9,8 +9,8 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 export class DataFilterComponent implements OnInit {
 
   @Input() filterFields: string[];
-  placeHolderInput: string;
 
+  placeHolderInput: string;
   showFilterButton: boolean = true;
   showCriteriaCombo: boolean;
   inputTextSearch: boolean;
@@ -26,18 +26,18 @@ export class DataFilterComponent implements OnInit {
 
   amountOfCriteria: any[] = [1];
   amountCriteriaAdded: number = 1;
-  filters: FormArray;
 
   formField: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.initializateForm();
   }
 
   add(): void {
     this.showFilterButton = false;
+    if (this.formArry.length == 0) this.addCriteriaForm();
   }
 
   remove(): void {
@@ -45,6 +45,7 @@ export class DataFilterComponent implements OnInit {
     this.showCriteriaCombo = false;
     this.inputTextSearch = false;
     this.amountOfCriteria = [1];
+    this.formArry.clear();
   }
 
   columnSelected(event: Event): void {
@@ -60,14 +61,42 @@ export class DataFilterComponent implements OnInit {
   addCriteria(): void {
     this.amountCriteriaAdded++;
     this.amountOfCriteria.push(this.amountCriteriaAdded);
+    this.addCriteriaForm();
   }
 
-  removeCriteria(criteria: number): void {
+  removeCriteria(criteria: number, i: number): void {
     let index = this.amountOfCriteria.findIndex((value) => value === criteria);
     this.amountOfCriteria.splice(index, 1);
+    this.removeCriteriaForm(i);
   }
 
   applyFilter(): void {
+    console.log(this.formField.value);
+  }
 
+  private initializateForm(): void {
+    this.formField = this.formBuilder.group({
+      filters: this.formBuilder.array([this.itemsFilters])
+    });
+  }
+
+  private addCriteriaForm(): void {
+    this.formArry.push(this.itemsFilters);
+  }
+
+  private removeCriteriaForm(index: number): void {
+    this.formArry.removeAt(index);
+  }
+
+  private get formArry(): FormArray {
+    return <FormArray>this.formField.controls['filters'];
+  }
+
+  private get itemsFilters(): FormGroup {
+    return this.formBuilder.group({
+      value: [null, Validators.required],
+      logic: ['Criterio', Validators.required],
+      field: ['Columna', Validators.required]
+    })
   }
 }

@@ -1,29 +1,35 @@
 <div class="data-filter__container" [class.mb-2]="showFilterButton">
   <div class="data-filter__action-filter" *ngIf="showFilterButton">
-    <button class="btn btn-outline-primary" (click)="add()">
+    <button class="btn btn-sm btn-outline-primary" (click)="add()">
       <small>+ FILTRO ...</small>
     </button>
   </div>
   <div class="data-filter__option-fields" *ngIf="!showFilterButton">
-    <form class="option-container">
-      <select class="form-control" (change)="columnSelected($event)">
-        <option value="" selected>Columna</option>
-        <ng-container *ngFor="let field of filterFields">
-          <option value="{{field}}">{{field}}</option>
-        </ng-container>
-      </select>
-      <select class="form-control ml-1" *ngIf="showCriteriaCombo" (change)="criteriaSelected()" formControlName="logic">
-        <option value="" selected>Criterio</option>
-        <ng-container *ngFor="let criteria of criterias | keyvalue">
-          <option [value]="criteria.value">{{criteria.key}}</option>
-        </ng-container>
-      </select>
-      <input type="text" class="form-control ml-1" placeholder="Ingresa el valor" *ngIf="inputTextSearch"
-        formControlName="value">
-      <button class="btn btn-outline-danger ml-1 mr-1" *ngIf="moreThanOneCriteria || amountOfCriteria.length > 1"
-        (click)="removeCriteria(index)"><i class="fa fa-minus-circle"></i></button>
-      <button class="btn btn-sm btn-outline-primary" [class.ml-1]="!moreThanOneCriteria"
-        [class.mr-1]="amountOfCriteria.length > 1" (click)="addCriteria()"><i class="fa fa-plus fa-xs"></i></button>
+    <form [formGroup]="formField">
+      <div formArrayName="filters">
+        <div *ngFor="let item of formField['controls'].filters['controls']; let i=index">
+          <div [formGroupName]="i" class="option-container">
+            <select formControlName="field" class="form-control" (change)="columnSelected($event)">
+              <option selected>Columna</option>
+              <ng-container *ngFor="let field of filterFields">
+                <option value="{{field}}">{{field}}</option>
+              </ng-container>
+            </select>
+            <select formControlName="logic" class="form-control ml-1" (change)="criteriaSelected()">
+              <option selected>Criterio</option>
+              <ng-container *ngFor="let criteria of criterias | keyvalue">
+                <option [value]="criteria.value">{{criteria.key}}</option>
+              </ng-container>
+            </select>
+            <input formControlName="value" type="text" class="form-control ml-1" placeholder="Ingresa el valor">
+            <button class="btn btn-outline-danger ml-1 mr-1" *ngIf="moreThanOneCriteria || amountOfCriteria.length > 1"
+              (click)="removeCriteria(index, i)"><i class="fa fa-minus-circle"></i></button>
+            <button class="btn btn-sm btn-outline-primary" [class.ml-1]="!moreThanOneCriteria"
+              [class.mr-1]="amountOfCriteria.length > 1" (click)="addCriteria()"><i
+                class="fa fa-plus fa-xs"></i></button>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>
@@ -32,7 +38,7 @@
     <i class="fa fa-undo-alt fa-sm"></i>
     <small>RESTAURAR</small>
   </button>
-  <button class="btn btn-sm btn-outline-success ml-2" (click)="applyFilter()">
+  <button [disabled]="formField.invalid" class="btn btn-sm btn-outline-success ml-2" (click)="applyFilter()">
     <i class="fa fa-check fa-sm"></i>
     <small>APLICAR FILTRO</small>
   </button>
