@@ -120,3 +120,40 @@ export const noveltieSuccess: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const floorSuccess: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Piso creado exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const floorUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Piso actualizado exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const floorWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar el Piso?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const floorDeleted: SweetAlertOptions = {
+  title: 'Eliminación Exitosa',
+  text: "Zona eliminada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

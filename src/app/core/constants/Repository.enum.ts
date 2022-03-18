@@ -4,5 +4,6 @@ export enum RepositoryProvider {
   usersRepository = 'UserRepository',
   companieRepository = 'CompanieRepository',
   zoneRepository = 'ZoneRepository',
-  noveltieProperty = 'noveltieProvider'
+  noveltieProperty = 'noveltieProvider',
+  floorRepository = 'floorRepository'
 }

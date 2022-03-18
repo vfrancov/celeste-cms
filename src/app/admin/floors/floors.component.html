@@ -1,38 +1,73 @@
 <content-component [title]="'Pisos'">
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus pisos</p>
-    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Crear Piso</button>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
+      data-bs-target="#modalCreateAndEditFloor">Crear Piso</button>
   </div>
   <div class="row">
     <div class="col">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">Mis Pisos</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <th>Piso</th>
-                <th>Tipo</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>Mi Empresa</td>
-                  <td>
-                    <div class="btn-group">
-                      <button class="btn btn-info btn-small">Editar</button>
-                      <button class="btn btn-danger btn-small">Eliminar</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <data-table [title]="'Pisos'">
+        <thead>
+          <ng-container *ngFor="let thead of dataTableHead">
+            <th>{{thead}}</th>
+          </ng-container>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="floorData.length === 0; else showFloorRecords">
+            <tr>
+              <td [attr.colspan]="dataTableHead.length" class="text-center">No hay zonas registradas</td>
+            </tr>
+          </ng-container>
+          <ng-template #showFloorRecords>
+            <ng-container *ngFor="let floor of floorData">
+              <tr>
+                <td>{{floor.name}}</td>
+                <td>{{floor.appZoneName}}</td>
+                <td>{{floor.statusName}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreateAndEditFloor"
+                      (click)="showModalFloorWithData(floor)">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteFloor(floor)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+        </tbody>
+      </data-table>
     </div>
   </div>
+  <modal-component #modalCreateAndEditFloor [idModal]="'modalCreateAndEditFloor'" [modalTitle]="'Registrar Pisos'"
+    [modalLarge]="true">
+    <div class="row">
+      <div class="col">
+        <h5 class="no-margin">Registra tus pisos</h5>
+        <small>Registra los pisos que necesitas</small>
+        <alert-message [error]="floorErrorService" [response]="showErrorFloorService"></alert-message>
+        <form class="mt-3" [formGroup]="formFloor">
+          <combobox formControlName="appZoneId" [label]="'Nombre de Zona'" [name]="'appZoneId'"
+            [endpoint]="'api/ComboBoxGeneral/GetZones/1'">
+          </combobox>
+          <div class="form-group">
+            <label for="firstname">Nombre del Piso</label>
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+          <ng-container *ngIf="isEditFloor then edit else create"></ng-container>
+          <ng-template #edit>
+            <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formFloor.invalid"
+              (click)="updateFloor()">Actualizar Piso</button>
+          </ng-template>
+          <ng-template #create>
+            <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formFloor.invalid"
+              (click)="createFloor()">Guardar Piso</button>
+          </ng-template>
+        </form>
+      </div>
+    </div>
+  </modal-component>
 </content-component>
