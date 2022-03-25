@@ -8,3 +8,5 @@ export const dataTableHeadCompanies: string[] = ['Nombre Empresa', 'NIT', 'Direc
 export const dataTableHeadZones: string[] = ['Nombre Zona', 'Nombre Empresa', 'Estado Zona', 'Acciones'];
 
 export const dataTableHeadFloors: string[] = ['Nombre Zona', 'Nombre Piso', 'Estado', 'Acciones'];
+
+export const dataTableHeadSubNovelties: string[] = ['Nombre', 'Estado', 'Asociar'];

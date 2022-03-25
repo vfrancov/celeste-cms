@@ -5,13 +5,17 @@ import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { NoveltieFields } from "@core/constants/novelties.field";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { Status } from "@core/constants/status.enum";
+import { subNoveltieFields } from "@core/constants/subnovelties.field";
 import { noveltieSuccess } from "@core/constants/sweetalert.config";
+import { dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
 import { CreateNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/dto/novelty.dto";
 import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
+import { SubNolvetieDto } from "@domain/dto/subnoveltie.dto";
 import { INoveltyRepository } from "@domain/repository/noveltie.repository";
+import { ISubNoveltyRepository } from "@domain/repository/subnoveltie.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
-import swal, { SweetAlertResult } from 'sweetalert2';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'noveltie-component',
@@ -22,34 +26,51 @@ export class NoveltiePageComponent implements OnInit {
   @ViewChild('modalCreateOrEditNoveltie') modalCreateOrEditNoveltie: ModalComponent;
 
   novelties: NoveltyDTO[] = [];
+  subNovelties: SubNolvetieDto[] = [];
   filterRequestBody: IFilterRequestBody = new RequestBody;
+  dataTableHead: string[] = dataTableHeadSubNovelties;
   formNoveltie: FormGroup;
+  formSubNoveltie: FormGroup;
   formDataNoveltie: CreateNovelty;
   formDataUpdateNoveltie: UpdateNovelty;
   errorNoveltieService: HttpErrorResponse;
+  errorSubNoveltieService: HttpErrorResponse;
   showErrorService: HttpResponse<any>;
   imageName: string = Status.defaultTextUploadImage;
   isEditNovelty: boolean;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
+    @Inject(RepositoryProvider.subnoveltieRepository) private subNoveltieService: ISubNoveltyRepository,
     private formBuilder: FormBuilder,
     private utils: UtilsService
   ) { }
 
   ngOnInit(): void {
     this.initializeFormCreateNoveltie();
+    this.initializeFormCreateSubNoveltie();
     this.readAllNoveltie();
+    this.readAllSubNovelties();
   }
 
   initializeFormCreateNoveltie(): void {
     this.formNoveltie = this.formBuilder.group(NoveltieFields);
   }
 
+  initializeFormCreateSubNoveltie(): void {
+    this.formSubNoveltie = this.formBuilder.group(subNoveltieFields);
+  }
+
   readAllNoveltie(): void {
     this.noveltieService.readAll(this.filterRequestBody).subscribe(
       response => this.novelties = response.body.list
     );
+  }
+
+  readAllSubNovelties(): void {
+    this.subNoveltieService.readAll(this.filterRequestBody).subscribe(
+      response => this.subNovelties = response.body.list
+    )
   }
 
   onFileSelect(event: Event): void {
@@ -68,6 +89,17 @@ export class NoveltiePageComponent implements OnInit {
       }
     }, (error: HttpErrorResponse) => {
       this.errorNoveltieService = error;
+    });
+  }
+
+  createSubNoveltie(): void {
+    this.subNoveltieService.createSubNoveltie(this.formSubNoveltie.value).subscribe(response => {
+      if(response.status === HttpStatusCode.Created) {
+        this.readAllSubNovelties();
+        this.formSubNoveltie.reset();
+      }
+    }, (error: HttpErrorResponse) => {
+      this.errorSubNoveltieService = error;
     });
   }
 
@@ -90,10 +122,6 @@ export class NoveltiePageComponent implements OnInit {
           this.readAllNoveltie();
         }
       }, (error: HttpErrorResponse) => this.errorNoveltieService = error)
-  }
-
-  deleteNoveltie(): void {
-
   }
 
   prepareForm(): void {
