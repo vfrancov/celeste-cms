@@ -121,6 +121,25 @@ export const noveltieSuccess: SweetAlertOptions = {
   confirmButtonText: 'OK'
 }
 
+export const noveltieWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar la novedad?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const noveltieDeleted: SweetAlertOptions = {
+  title: 'Eliminación Exitosa',
+  text: "Novedad eliminada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
 export const floorSuccess: SweetAlertOptions = {
   title: 'Registro Exitoso',
   text: "Piso creado exitosamente",

@@ -4,18 +4,19 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { NoveltieFields } from "@core/constants/novelties.field";
 import { RepositoryProvider } from "@core/constants/repository.enum";
+import { RequestAction } from "@core/constants/requestactions.enum";
 import { Status } from "@core/constants/status.enum";
 import { subNoveltieFields } from "@core/constants/subnovelties.field";
-import { noveltieSuccess } from "@core/constants/sweetalert.config";
+import { noveltieDeleted, noveltieSuccess, noveltieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
-import { CreateNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/dto/novelty.dto";
+import { CreateNovelty, DeleteNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/dto/novelty.dto";
 import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { SubNolvetieDto } from "@domain/dto/subnoveltie.dto";
+import { CreateAssociation, SubNolvetieDto } from "@domain/dto/subnoveltie.dto";
 import { INoveltyRepository } from "@domain/repository/noveltie.repository";
 import { ISubNoveltyRepository } from "@domain/repository/subnoveltie.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
-import swal from 'sweetalert2';
+import swal, { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'noveltie-component',
@@ -38,6 +39,8 @@ export class NoveltiePageComponent implements OnInit {
   showErrorService: HttpResponse<any>;
   imageName: string = Status.defaultTextUploadImage;
   isEditNovelty: boolean;
+  noveltieData: NoveltyDTO;
+  noveltiesAndSubNovelties: any[] = [];
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -94,7 +97,7 @@ export class NoveltiePageComponent implements OnInit {
 
   createSubNoveltie(): void {
     this.subNoveltieService.createSubNoveltie(this.formSubNoveltie.value).subscribe(response => {
-      if(response.status === HttpStatusCode.Created) {
+      if (response.status === HttpStatusCode.Created) {
         this.readAllSubNovelties();
         this.formSubNoveltie.reset();
       }
@@ -107,6 +110,8 @@ export class NoveltiePageComponent implements OnInit {
     this.noveltieService.getNoveltieById(novelty.id).subscribe(response => {
       this.formNoveltie.patchValue(response.body);
       this.isEditNovelty = true;
+      this.noveltieData = response.body;
+      this.getListRelNoveltySubNovelty(this.noveltieData.id);
     }, (error: HttpErrorResponse) => {
       this.errorNoveltieService = error;
     });
@@ -122,6 +127,34 @@ export class NoveltiePageComponent implements OnInit {
           this.readAllNoveltie();
         }
       }, (error: HttpErrorResponse) => this.errorNoveltieService = error)
+  }
+
+  deleteNoveltie(noveltie: any): void {
+    swal.fire(noveltieWarning).then((action: SweetAlertResult) => {
+      if (action.isConfirmed) {
+        this.noveltieService.deleteNoveltie(noveltie.id, RequestAction.delete).subscribe(response => {
+          if (response.status === HttpStatusCode.Ok) {
+            swal.fire(noveltieDeleted);
+            this.readAllNoveltie();
+          }
+        });
+      }
+    });
+  }
+
+  associateNoveltieWithSubNoveltie(subnoveltie: SubNolvetieDto): void {
+    let association: CreateAssociation = {
+      appNoveltysId: this.noveltieData.id,
+      appSubNoveltysId: subnoveltie.id
+    }
+    this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
+      if (response.status === HttpStatusCode.Created)
+        this.getListRelNoveltySubNovelty(this.noveltieData.id);
+    });
+  }
+
+  getListRelNoveltySubNovelty(id: any): void {
+    this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(response => this.noveltiesAndSubNovelties = response.body.list);
   }
 
   prepareForm(): void {

@@ -6,7 +6,7 @@ export interface SubNolvetieDto {
     statusId: string,
     statusName: string,
     companyId?: (number | ((control: AbstractControl) => ValidationErrors)[])[]
-    appNoveltysId?: number,
+    appNoveltysId?: (number | ((control: AbstractControl) => ValidationErrors)[])[],
     appSubNoveltysId?: number
 }
 
