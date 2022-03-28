@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/dto/novelty.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { INoveltyRepository } from "@domain/repository/noveltie.repository";
+import { CreateNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/noveltie/novelty.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { INoveltyRepository } from "@domain/noveltie/noveltie.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

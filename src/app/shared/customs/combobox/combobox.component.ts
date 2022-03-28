@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, forwardRef, Input, OnInit } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { ComboDTO } from "@domain/dto/combo.dto";
+import { ComboDTO } from "@domain/shared/combo.dto";
 import { environment } from "@environment/environment";
 
 @Component({

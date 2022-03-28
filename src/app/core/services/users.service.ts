@@ -1,10 +1,10 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUsersField } from "@core/validators/usersform.validator";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { ChangePassword, UserDto } from "@domain/dto/user.dto";
-import { IUserRepository } from "@domain/repository/users.repository";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { ChangePassword, UserDto } from "@domain/user/user.dto";
+import { IUserRepository } from "@domain/user/users.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

@@ -1,4 +1,4 @@
-import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
+import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 
 export class LocalStorageService implements ILocalStorageRepository {
 

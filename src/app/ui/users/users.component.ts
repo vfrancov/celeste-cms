@@ -7,10 +7,10 @@ import { RequestAction } from "@core/constants/requestactions.enum";
 import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadUsers } from "@core/constants/table.headers";
 import { ChangePasswordField, UsersField } from "@core/constants/users.field";
-import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { UserDto } from "@domain/dto/user.dto";
-import { IUserRepository } from "@domain/repository/users.repository";
+import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { UserDto } from "@domain/user/user.dto";
+import { IUserRepository } from "@domain/user/users.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 

@@ -5,7 +5,7 @@ import { floorsRoute } from './floors.routing';
 import { FloorsPageComponent } from './floors.component';
 import { DataTableModule } from '@shared/customs/data-table/datatable.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FloorProvider } from '@domain/providers/floor.provider';
+import { FloorProvider } from '@domain/floor/floor.provider';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { HttpResponse } from "@angular/common/http";
-import { CreateNovelty, GetNovelty, UpdateNovelty } from "@domain/dto/novelty.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
+import { CreateNovelty, GetNovelty, UpdateNovelty } from "@domain/noveltie/novelty.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
 import { Observable } from "rxjs";
 
 export interface INoveltyRepository {

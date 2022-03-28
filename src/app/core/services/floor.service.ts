@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateFloor, FloorDto, UpdateFloor } from "@domain/dto/floor.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { IFloorRepository } from "@domain/repository/floor.repository";
+import { CreateFloor, FloorDto, UpdateFloor } from "@domain/floor/floor.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { IFloorRepository } from "@domain/floor/floor.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

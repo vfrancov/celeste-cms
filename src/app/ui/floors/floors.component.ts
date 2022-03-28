@@ -7,9 +7,9 @@ import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { floorDeleted, floorSuccess, floorUpdated, floorWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadFloors } from "@core/constants/table.headers";
-import { DeleteFloor, FloorDto, GetFloor } from "@domain/dto/floor.dto";
-import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { IFloorRepository } from "@domain/repository/floor.repository";
+import { DeleteFloor, FloorDto, GetFloor } from "@domain/floor/floor.dto";
+import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { IFloorRepository } from "@domain/floor/floor.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 

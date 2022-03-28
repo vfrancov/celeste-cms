@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { CreateZone, GetZone, UpdateZone, ZoneDto } from "@domain/dto/zone.dto";
-import { IZoneRepository } from "@domain/repository/zone.repository";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { CreateZone, GetZone, UpdateZone, ZoneDto } from "@domain/zone/zone.dto";
+import { IZoneRepository } from "@domain/zone/zone.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

@@ -1,8 +1,8 @@
 import { HttpResponse } from "@angular/common/http";
 import { IUsersField } from "@core/validators/usersform.validator";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { ChangePassword, UserDto } from "@domain/dto/user.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { ChangePassword, UserDto } from "@domain/user/user.dto";
 import { Observable } from "rxjs";
 
 export interface IUserRepository {

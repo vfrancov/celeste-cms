@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { CompaniesPageComponent } from './companies.component';
+import { CompaniesPageComponent } from './view/companies.component';
 
 export const empresasRoute: Routes = [
   { path: 'empresas', component: CompaniesPageComponent }

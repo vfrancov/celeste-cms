@@ -2,8 +2,8 @@ import { Injectable, Inject } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { Navigation } from "@core/constants/navigataion.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
-import { UserDto } from "@domain/dto/user.dto";
-import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
+import { UserDto } from "@domain/user/user.dto";
+import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {

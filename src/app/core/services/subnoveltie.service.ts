@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { CreateAssociation, CreateSubNoveltie } from "@domain/dto/subnoveltie.dto";
-import { ISubNoveltyRepository } from "@domain/repository/subnoveltie.repository";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { CreateAssociation, CreateSubNoveltie } from "@domain/subnoveltie/subnoveltie.dto";
+import { ISubNoveltyRepository } from "@domain/subnoveltie/subnoveltie.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

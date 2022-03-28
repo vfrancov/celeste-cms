@@ -1,13 +1,13 @@
-import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from "@angular/core";
 import { RouterModule } from '@angular/router';
 import { NoveltiePageComponent } from './noveltie.component';
 import { noveltieRoutes } from './noveltie.routing';
 import { CommonModule } from '@angular/common';
-import { NoveltieProvider } from '@domain/providers/noveltie.provider';
+import { NoveltieProvider } from '@domain/noveltie/noveltie.provider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from '@shared/customs/data-table/datatable.module';
-import { SubNoveltieProvider } from '@domain/providers/subnoveltie.provider';
+import { SubNoveltieProvider } from '@domain/subnoveltie/subnoveltie.provider';
+import { SharedModule } from "@shared/shared.module";
 
 @NgModule({
     declarations: [NoveltiePageComponent],

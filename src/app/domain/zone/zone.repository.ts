@@ -1,7 +1,7 @@
 import { HttpResponse } from "@angular/common/http";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { CreateZone, UpdateZone, ZoneDto } from "@domain/dto/zone.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { CreateZone, UpdateZone, ZoneDto } from "@domain/zone/zone.dto";
 import { Observable } from "rxjs";
 
 export interface IZoneRepository {

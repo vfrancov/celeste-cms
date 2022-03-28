@@ -1,7 +1,7 @@
 import { HttpResponse } from "@angular/common/http"
-import { CreateFloor, FloorDto, UpdateFloor } from "@domain/dto/floor.dto"
-import { IFilterRequestBody } from "@domain/dto/request.body.dto"
-import { IResponseBody } from "@domain/dto/response.body.dto"
+import { CreateFloor, FloorDto, UpdateFloor } from "@domain/floor/floor.dto"
+import { IFilterRequestBody } from "@domain/http/request.body.dto"
+import { IResponseBody } from "@domain/http/response.body.dto"
 import { Observable } from "rxjs"
 
 export interface IFloorRepository {

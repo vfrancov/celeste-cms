@@ -1,5 +1,5 @@
 import { Validators } from "@angular/forms";
-import { NoveltiesFormFields } from "@domain/dto/novelty.dto";
+import { NoveltiesFormFields } from "@domain/noveltie/novelty.dto";
 
 
 export const NoveltieFields: NoveltiesFormFields = {

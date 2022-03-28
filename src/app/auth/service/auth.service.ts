@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IAuthRepository } from "@domain/repository/authentication.repository";
-import { UserDto } from "@domain/dto/user.dto";
+import { IAuthRepository } from "@domain/auth/authentication.repository";
+import { UserDto } from "@domain/user/user.dto";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 import { IAuthenticationFields } from "@core/validators/authform.validator";

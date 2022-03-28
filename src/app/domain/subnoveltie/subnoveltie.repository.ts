@@ -1,8 +1,7 @@
 import { HttpResponse } from "@angular/common/http";
-import { GetNovelty, UpdateNovelty } from "@domain/dto/novelty.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { CreateAssociation, CreateSubNoveltie } from "@domain/dto/subnoveltie.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { CreateAssociation, CreateSubNoveltie } from "@domain/subnoveltie/subnoveltie.dto";
 import { Observable } from "rxjs";
 
 export interface ISubNoveltyRepository {

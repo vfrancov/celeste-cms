@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/dto/companies.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { ICompaniesRepository } from "@domain/repository/companies.repository";
+import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
+import { IFilterRequestBody } from "@domain/http/request.body.dto";
+import { IResponseBody } from "@domain/http/response.body.dto";
+import { ICompaniesRepository } from "@domain/companies/companies.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 

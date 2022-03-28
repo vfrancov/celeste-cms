@@ -10,11 +10,11 @@ import { subNoveltieFields } from "@core/constants/subnovelties.field";
 import { noveltieDeleted, noveltieSuccess, noveltieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
-import { CreateNovelty, DeleteNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/dto/novelty.dto";
-import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { CreateAssociation, SubNolvetieDto } from "@domain/dto/subnoveltie.dto";
-import { INoveltyRepository } from "@domain/repository/noveltie.repository";
-import { ISubNoveltyRepository } from "@domain/repository/subnoveltie.repository";
+import { CreateNovelty, DeleteNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/noveltie/novelty.dto";
+import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { CreateAssociation, SubNolvetieDto } from "@domain/subnoveltie/subnoveltie.dto";
+import { INoveltyRepository } from "@domain/noveltie/noveltie.repository";
+import { ISubNoveltyRepository } from "@domain/subnoveltie/subnoveltie.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 

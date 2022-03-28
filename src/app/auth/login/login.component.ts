@@ -1,13 +1,13 @@
 import { HttpStatusCode } from '@core/constants/httpstatuscode.enum';
-import { IAuthRepository } from '@domain/repository/authentication.repository';
+import { IAuthRepository } from '@domain/auth/authentication.repository';
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { UserDto } from '@domain/dto/user.dto';
+import { UserDto } from '@domain/user/user.dto';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Navigation } from '@core/constants/navigataion.enum';
 import { RepositoryProvider } from '@core/constants/repository.enum';
-import { ILocalStorageRepository } from '@domain/repository/localstorage.repository';
+import { ILocalStorageRepository } from '@domain/localstorage/localstorage.repository';
 import { Status } from '@core/constants/status.enum';
 import { AuthenticationFormFields } from '@core/constants/authentication.fields';
 
@@ -46,7 +46,6 @@ export class AuthLoginComponent implements OnInit {
         this.authResponse = response
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
         this.errorAuthenticationService = error;
         this.isLoading = Status.notLoading;
       }

@@ -7,9 +7,9 @@ import { RequestAction } from "@core/constants/requestactions.enum";
 import { zoneCreated, zoneDeleted, zoneUpdated, zoneWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadZones } from "@core/constants/table.headers";
 import { zoneFields } from "@core/constants/zones.field";
-import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { ZoneDto } from "@domain/dto/zone.dto";
-import { IZoneRepository } from "@domain/repository/zone.repository";
+import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { ZoneDto } from "@domain/zone/zone.dto";
+import { IZoneRepository } from "@domain/zone/zone.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 
