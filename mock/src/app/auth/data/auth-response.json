@@ -18,6 +18,106 @@
                     "update": true,
                     "delete": true
                 }
+            },
+            {
+                "menuId": 2,
+                "menuName": "Zonas",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 3,
+                "menuName": "Novedades",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 4,
+                "menuName": "Tarifas",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 5,
+                "menuName": "Parqueaderos",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 6,
+                "menuName": "Usuarios",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 7,
+                "menuName": "Dispositivos",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 8,
+                "menuName": "Pisos",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 9,
+                "menuName": "Graficas",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 10,
+                "menuName": "Reportes",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            },
+            {
+                "menuId": 11,
+                "menuName": "Configuración",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
             }
         ]
     }
