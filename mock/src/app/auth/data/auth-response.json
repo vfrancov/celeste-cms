@@ -1,0 +1,24 @@
+{
+    "headers": {},
+    "status": 200,
+    "statusText": "OK",
+    "body": {
+        "firstName": "Dairo",
+        "lastName": "Aguas",
+        "token": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
+        "rolId": 0,
+        "expirationToken": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
+        "listMenu": [
+            {
+                "menuId": 1,
+                "menuName": "Empresas",
+                "actionMenu": {
+                    "create": true,
+                    "read": true,
+                    "update": true,
+                    "delete": true
+                }
+            }
+        ]
+    }
+}

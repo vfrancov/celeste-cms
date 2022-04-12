@@ -2,19 +2,21 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { CompaniesField } from "@core/constants/companies.field";
-import { companieCreated, companieDeleted, companieUpdated, companieWarning } from "@core/constants/sweetalert.config";
+import { RequestAction } from "@core/constants/requestactions.enum";
+import { companieCreated, companieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadCompanies } from "@core/constants/table.headers";
-import { DeleteCompanie, GetCompanie } from "@domain/companies/companies.dto";
+import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/companies.dto";
+import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
+import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
-import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
 
 @Component({
   selector: 'empresas-component',
   templateUrl: './companies.component.html'
 })
-export class CompaniesPageComponent implements OnInit {
+export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit {
 
   @ViewChild('modalCreateAndEditCompanie') modalCompanie: ModalComponent;
 
@@ -48,7 +50,7 @@ export class CompaniesPageComponent implements OnInit {
   }
 
   getAllCompanies(): void {
-    this.companieData = this._presenter.fetchCompanieData(this.requestBody);
+    this._presenter.fetchCompanieData(this.requestBody);
   }
 
   createCompanie(): void {
@@ -56,38 +58,21 @@ export class CompaniesPageComponent implements OnInit {
   }
 
   editCompanie(): void {
-    /* this.formCompanie.get('statusId').setValue(RequestAction.update);
-    this.companieService.updateCompanie(this.formCompanie.value).subscribe(response => {
-      if (response.status === HttpStatusCode.NoContent) {
-        this.modalCompanie.closeModal();
-        swal.fire(companieUpdated);
-        this.fetchData();
-      }
-    }, (error: HttpErrorResponse) => {
-      this.companieErrorService = error;
-      this.showErrorCompanieService = !error.ok;
-    }) */
+    this.formCompanie.get('statusId').setValue(RequestAction.update);
+    this._presenter.editCompanie(this.formCompanie.value);
   }
 
   showModalWithCompanieData(companie: GetCompanie): void {
-    /* this.showErrorCompanieService = false;
+    this.showErrorCompanieService = false;
     this.isEditCompanie = true;
-    this.companieService.getCompanieById(companie.id).subscribe(
-      response => this.formCompanie.patchValue(response.body)
-    ); */
+    this._presenter.fetchDataInModal(companie.id);
   }
 
   deleteCompanie(companie: DeleteCompanie): void {
-    /* swal.fire(companieWarning).then((action: SweetAlertResult) => {
-      if (action.isConfirmed) {
-        this.companieService.deleteCompanie(companie.id, RequestAction.delete).subscribe(response => {
-          if (response.status === HttpStatusCode.Ok) {
-            swal.fire(companieDeleted);
-            this.fetchData();
-          }
-        });
-      }
-    }); */
+    swal.fire(companieWarning).then((action: SweetAlertResult) => {
+      if(action.isConfirmed)
+        this._presenter.deleteCompanie(companie.id);
+    });
   }
 
   showFormToCreate(): void {
@@ -99,5 +84,13 @@ export class CompaniesPageComponent implements OnInit {
   isCompanieCreated(status: boolean, error?: HttpErrorResponse): void {
     (status) ? swal.fire(companieCreated) : this.showErrorCompanieService = error.ok;
     this.getAllCompanies();
+  }
+
+  showCompanieRecords(records: CompaniesDto[]): void {
+    this.companieData = records;
+  }
+
+  setDataInModal(companie: GetCompanie): void {
+    this.formCompanie.patchValue(companie);
   }
 }

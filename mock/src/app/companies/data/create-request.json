@@ -1,0 +1,14 @@
+{
+    "method": "post",
+    "headers": {
+        "Authorization": "Bearer 1f6d83dd-6090-4d0c-8856-2c5bc4cf7317"
+    },
+    "body": {
+        "name": "micompania",
+        "nit": "830123456",
+        "email": "micompanie@gmail.com",
+        "address": "Calle 25D # 12 - 54",
+        "phoneNumber": "3001234567"
+    },
+    "url": "/api/Companies"
+}

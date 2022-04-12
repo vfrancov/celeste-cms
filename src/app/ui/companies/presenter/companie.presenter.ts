@@ -1,28 +1,26 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
-import { AbstractControl } from "@angular/forms";
-import { RepositoryProvider } from "@core/constants/repository.enum";
-import { CompaniesDto, CreateCompanie, GetCompanie } from "@domain/companies/companies.dto";
+import { Injectable } from "@angular/core";
+import { CompaniesDto, CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
+import { CompaniesInteractorOutput } from "@domain/companies/companies.interactor.output";
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
-import { ICompaniesRepository } from "@domain/companies/companies.repository";
+import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { CompanieInteractor } from "../interactor/companie.interactor";
-import { CompaniesPageComponent } from "../view/companies.component";
 
 @Injectable()
-export class CompaniePresenter implements CompaniesPresenterInput {
-    private _view: CompaniesPageComponent;
+export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInteractorOutput {
+    private _view: CompaniesPresenterOutput;
 
     constructor(private _interactor: CompanieInteractor) {
         _interactor.setPresenter(this);
     }
 
-    setView(component: CompaniesPageComponent) {
+    setView(component: CompaniesPresenterOutput) {
         this._view = component;
     }
 
-    fetchCompanieData(request: IFilterRequestBody): CompaniesDto[] {
-        return this._interactor.getAllCompanieData(request);
+    fetchCompanieData(request: IFilterRequestBody): void {
+        this._interactor.getAllCompanieData(request);
     }
 
     registerCompanie(payload: CreateCompanie): void {
@@ -31,6 +29,25 @@ export class CompaniePresenter implements CompaniesPresenterInput {
 
     isRegister(created: boolean, error?: HttpErrorResponse): void {
         this._view.isCompanieCreated(created, error);
-        this._view.modalCompanie.closeModal();
+    }
+
+    companyList(records: CompaniesDto[]): void {
+        this._view.showCompanieRecords(records);
+    }
+
+    fetchDataInModal(id: number): void {
+        this._interactor.getCompanie(id);
+    }
+
+    setDataModal(companie: GetCompanie): void {
+        this._view.setDataInModal(companie);
+    }
+
+    deleteCompanie(id: number): void {
+        this._interactor.deleteCompanie(id);
+    }
+
+    editCompanie(payload: UpdateCompanie): void {
+        
     }
 }

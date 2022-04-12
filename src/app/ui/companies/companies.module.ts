@@ -23,7 +23,8 @@ import { CompanieInteractor } from "./interactor/companie.interactor";
   providers: [
     CompanieProvider,
     CompanieInteractor,
-    { provide: 'CompaniePresenterInput', useClass: CompaniePresenter }
+    { provide: 'CompaniePresenterInput', useClass: CompaniePresenter },
+    { provide: 'CompanieInteractorInput', useClass: CompanieInteractor}
   ]
 })
 export class EmpresasModule { }

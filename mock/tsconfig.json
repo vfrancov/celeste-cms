@@ -1,0 +1,10 @@
+// tsconfig.json
+{
+    "ts-node": {
+      "transpileOnly": true
+    },
+    "compilerOptions": {
+      "resolveJsonModule": true,
+      "esModuleInterop": true
+    }
+  }
