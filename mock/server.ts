@@ -1,5 +1,6 @@
 import { AuthRouter } from "./src/app/auth";
 import { CompanieRouter } from "./src/app/companies";
+import { DashboardRouter } from "./src/app/dashboard";
 import { serverConfig } from "./src/config/server.enum";
 
 const jsonServer = require('json-server');
@@ -13,6 +14,7 @@ class ApplicationStart {
         server.use(middlewares);
 
         AuthRouter.init(server);
+        DashboardRouter.init(server);
         CompanieRouter.init(server);
 
         this.launchServer();

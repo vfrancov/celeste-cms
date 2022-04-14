@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from '@environment/environment';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Navigation } from '@core/constants/navigataion.enum';
+import { RepositoryProvider } from '@core/constants/repository.enum';
+import { ILocalStorageRepository } from '@domain/localstorage/localstorage.repository';
+import { MenuUserDto } from '@domain/shared/menu.dto';
+import { UserDto } from '@domain/user/user.dto';
 
 @Component({
   selector: 'sidebar-component',
@@ -8,11 +12,15 @@ import { environment } from '@environment/environment';
 })
 export class SidebarComponent implements OnInit {
 
-  environment: string = environment.type;
+  public userMenu: Array<MenuUserDto> = [];
 
-  constructor() { }
+  constructor(@Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository) { }
 
   ngOnInit(): void {
+    this.fetchUserMenu();
   }
 
+  fetchUserMenu(): void {
+    this.userMenu = this.localStorage.getItem(Navigation.userSession).listMenu;
+  }
 }
