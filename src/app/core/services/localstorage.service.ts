@@ -1,4 +1,6 @@
+import { Navigation } from "@core/constants/navigataion.enum";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
+import { UserDto } from "@domain/user/user.dto";
 
 export class LocalStorageService implements ILocalStorageRepository {
 
@@ -11,6 +13,10 @@ export class LocalStorageService implements ILocalStorageRepository {
   }
 
   removeItem(): void {
-      return window.localStorage.clear();
+    return window.localStorage.clear();
   }
-}
+
+  getPermissions(): UserDto {
+    return this.getItem(Navigation.userSession);
+  }
+}      

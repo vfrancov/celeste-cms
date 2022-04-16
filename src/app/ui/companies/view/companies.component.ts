@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { CompaniesField } from "@core/constants/companies.field";
+import { Permissions } from "@core/constants/permissions.enum";
+import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { companieCreated, companieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadCompanies } from "@core/constants/table.headers";
@@ -9,6 +12,8 @@ import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/com
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
+import { UserPermissions } from "@domain/shared/menu.dto";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 
@@ -28,9 +33,12 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   public companieErrorService: HttpErrorResponse;
   public showErrorCompanieService: boolean;
   public statusCreatedCompanie: boolean;
+  public userPermissions: UserPermissions;
 
   constructor(
     @Inject('CompaniePresenterInput') private _presenter: CompaniesPresenterInput,
+    @Inject(RepositoryProvider.localStorageProvider) private _userStorage: ILocalStorageRepository,
+    private _router: Router,
     private formBuilder: FormBuilder
   ) {
     this._presenter.setView(this);
@@ -43,6 +51,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   ngOnInit(): void {
     this.getAllCompanies();
     this.initializeCompanieForm();
+    this.getPermissions();
   }
 
   initializeCompanieForm(): void {
@@ -51,6 +60,14 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   getAllCompanies(): void {
     this._presenter.fetchCompanieData(this.requestBody);
+  }
+
+  getPermissions(): void {
+    this._userStorage.getPermissions().listMenu.every(
+      (menu, index) => {
+        this.userPermissions = (index === Permissions.companies) ? menu.actionMenu : null;
+      }
+    );
   }
 
   createCompanie(): void {
@@ -70,7 +87,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   deleteCompanie(companie: DeleteCompanie): void {
     swal.fire(companieWarning).then((action: SweetAlertResult) => {
-      if(action.isConfirmed)
+      if (action.isConfirmed)
         this._presenter.deleteCompanie(companie.id);
     });
   }

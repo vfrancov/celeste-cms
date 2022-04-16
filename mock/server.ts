@@ -16,6 +16,7 @@ class ApplicationStart {
         AuthRouter.init(server);
         DashboardRouter.init(server);
         CompanieRouter.init(server);
+        CompanieRouter.companiesAll(server);
 
         this.launchServer();
     }

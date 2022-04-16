@@ -13,6 +13,6 @@ interface Novelties {
 }
 
 interface NoveltieGraphic {
-    lables: Array<string>,
+    labels: Array<string>,
     data: Array<number>
 }

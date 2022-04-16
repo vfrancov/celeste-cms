@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 
 @Component({

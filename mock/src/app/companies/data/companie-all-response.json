@@ -1,0 +1,21 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "list": [
+      {
+        "id": 1,
+        "name": "Company Mock",
+        "nit": "830123456",
+        "email": "company@gmail.com",
+        "address": "Company Address Mock",
+        "phoneNumber": "3001234567",
+        "statusName": "Active"
+      }
+    ],
+    "records": "1",
+    "pages": "1",
+    "fileName": ""
+  }
+}

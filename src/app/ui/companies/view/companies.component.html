@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus empresas</p>
     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
-      data-bs-target="#modalCreateAndEditCompanie" (click)="showFormToCreate()">Registrar Empresa</button>
+      data-bs-target="#modalCreateAndEditCompanie" (click)="showFormToCreate()" [disabled]="!userPermissions.create">Registrar Empresa</button>
   </div>
   <div class="row">
     <div class="col">
@@ -23,9 +23,9 @@
               <td>{{companie.statusName}}</td>
               <td>
                 <div class="btn-group">
-                  <button class="btn btn-info btn-sm" (click)="showModalWithCompanieData(companie)" data-bs-toggle="modal"
+                  <button *ngIf="!userPermissions.edit" class="btn btn-info btn-sm" (click)="showModalWithCompanieData(companie)" data-bs-toggle="modal"
                     data-bs-target="#modalCreateAndEditCompanie"><i class="fa fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm" (click)="deleteCompanie(companie)"><i
+                  <button *ngIf="userPermissions.delete" class="btn btn-danger btn-sm" (click)="deleteCompanie(companie)"><i
                       class="fa fa-trash"></i></button>
                 </div>
               </td>

@@ -1,157 +1,157 @@
 {
-    "headers": {},
-    "status": 200,
-    "statusText": "OK",
-    "body": {
-        "firstName": "Dairo",
-        "lastName": "Aguas",
-        "token": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
-        "rolId": 0,
-        "expirationToken": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
-        "listMenu": [
-            {
-                "menuId": 1,
-                "route": "companies",
-                "icon": "fas fa-fw fa-building",
-                "isEnable": true,
-                "menuName": "Empresas",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 2,
-                "route": "zones",
-                "icon": "fas fa-fw fa-grip-horizontal",
-                "isEnable": true,
-                "menuName": "Zonas",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 3,
-                "route": "novelties",
-                "icon": "fas fa-fw fa-newspaper",
-                "isEnable": true,
-                "menuName": "Novedades",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 4,
-                "route": "rate",
-                "icon": "fas fa-fw fa-money-bill",
-                "isEnable": true,
-                "menuName": "Tarifas",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 5,
-                "route": "parkings",
-                "icon": "fas fa-fw fa-parking",
-                "isEnable": true,
-                "menuName": "Parqueaderos",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 6,
-                "menuName": "Usuarios",
-                "route": "users",
-                "icon": "fas fa-fw fa-users",
-                "isEnable": true,
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 7,
-                "route": "devices",
-                "icon": "fas fa-fw fa-mobile",
-                "isEnable": true,
-                "menuName": "Dispositivos",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 8,
-                "route": "floors",
-                "icon": "fas fa-fw fa-circle",
-                "isEnable": true,
-                "menuName": "Pisos",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 9,
-                "route": "graphics",
-                "icon": "fas fa-fw fa-chart-area",
-                "isEnable": true,
-                "menuName": "Graficas",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 10,
-                "route": "reports",
-                "icon": "fas fa-fw fa-file",
-                "isEnable": true,
-                "menuName": "Reportes",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            },
-            {
-                "menuId": 11,
-                "route": "configuration",
-                "icon": "fas fa-fw fa-cogs",
-                "isEnable": true,
-                "menuName": "Configuración",
-                "actionMenu": {
-                    "create": true,
-                    "read": true,
-                    "update": true,
-                    "delete": true
-                }
-            }
-        ]
-    }
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "firstName": "Dairo",
+    "lastName": "Aguas",
+    "token": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
+    "rolId": 0,
+    "expirationToken": "1f6d83dd-6090-4d0c-8856-2c5bc4cf7317",
+    "listMenu": [
+      {
+        "menuId": 1,
+        "route": "companies",
+        "icon": "fas fa-fw fa-building",
+        "isEnable": true,
+        "menuName": "Empresas",
+        "actionMenu": {
+          "create": false,
+          "read": true,
+          "update": true,
+          "delete": false
+        }
+      },
+      {
+        "menuId": 2,
+        "route": "zones",
+        "icon": "fas fa-fw fa-grip-horizontal",
+        "isEnable": true,
+        "menuName": "Zonas",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 3,
+        "route": "novelties",
+        "icon": "fas fa-fw fa-newspaper",
+        "isEnable": true,
+        "menuName": "Novedades",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 4,
+        "route": "rate",
+        "icon": "fas fa-fw fa-money-bill",
+        "isEnable": true,
+        "menuName": "Tarifas",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 5,
+        "route": "parkings",
+        "icon": "fas fa-fw fa-parking",
+        "isEnable": true,
+        "menuName": "Parqueaderos",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 6,
+        "menuName": "Usuarios",
+        "route": "users",
+        "icon": "fas fa-fw fa-users",
+        "isEnable": true,
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 7,
+        "route": "devices",
+        "icon": "fas fa-fw fa-mobile",
+        "isEnable": true,
+        "menuName": "Dispositivos",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 8,
+        "route": "floors",
+        "icon": "fas fa-fw fa-circle",
+        "isEnable": true,
+        "menuName": "Pisos",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 9,
+        "route": "graphics",
+        "icon": "fas fa-fw fa-chart-area",
+        "isEnable": true,
+        "menuName": "Graficas",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 10,
+        "route": "reports",
+        "icon": "fas fa-fw fa-file",
+        "isEnable": true,
+        "menuName": "Reportes",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      },
+      {
+        "menuId": 11,
+        "route": "configuration",
+        "icon": "fas fa-fw fa-cogs",
+        "isEnable": true,
+        "menuName": "Configuración",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
+      }
+    ]
+  }
 }
