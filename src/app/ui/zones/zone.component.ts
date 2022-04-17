@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
@@ -8,6 +9,8 @@ import { zoneCreated, zoneDeleted, zoneUpdated, zoneWarning } from "@core/consta
 import { dataTableHeadZones } from "@core/constants/table.headers";
 import { zoneFields } from "@core/constants/zones.field";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
+import { UserPermissions } from "@domain/shared/menu.dto";
+import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ZoneDto } from "@domain/zone/zone.dto";
 import { IZoneRepository } from "@domain/zone/zone.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
@@ -29,11 +32,16 @@ export class ZonePageComponent implements OnInit {
   zoneErrorService: HttpErrorResponse;
   showErrorZoneService: boolean;
   zone: ZoneDto;
+  public userPermissions: UserPermissions;
 
   constructor(
     @Inject(RepositoryProvider.zoneRepository) private zoneService: IZoneRepository,
+    @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
+    private _router: Router,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.userPermissions = this._permissions.getPermissions(this._router.url);
+  }
 
   ngOnInit(): void {
     this.readAll();

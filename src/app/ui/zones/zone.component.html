@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus Zonas</p>
     <button data-bs-toggle="modal" data-bs-target="#modalCreateAndEditZone"
-      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" (click)="showModalCreateZone()">Registrar Zona</button>
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" (click)="showModalCreateZone()" *ngIf="userPermissions.create">Registrar Zona</button>
   </div>
   <div class="row">
     <div class="col">
@@ -27,10 +27,10 @@
                 <td>{{zone.statusName}}</td>
                 <td>
                   <div class="btn-group">
-                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreateAndEditZone" (click)="showModalZonaWithData(zone)">
+                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreateAndEditZone" (click)="showModalZonaWithData(zone)" *ngIf="userPermissions.update">
                       <i class="fa fa-edit"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteZone(zone)">
+                    <button class="btn btn-danger btn-sm" (click)="deleteZone(zone)" *ngIf="userPermissions.delete">
                       <i class="fa fa-trash"></i>
                     </button>
                   </div>

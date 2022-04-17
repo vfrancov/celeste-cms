@@ -12,6 +12,9 @@ import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { IFloorRepository } from "@domain/floor/floor.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
+import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
+import { UserPermissions } from "@domain/shared/menu.dto";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'floors-component',
@@ -29,11 +32,16 @@ export class FloorsPageComponent implements OnInit {
   showErrorFloorService: boolean;
   isEditFloor: boolean = false;
   floor: FloorDto;
+  userPermissions: UserPermissions;
 
   constructor(
     @Inject(RepositoryProvider.floorRepository) private floorService: IFloorRepository,
+    @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
+    private _router: Router,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.userPermissions = this._permissions.getPermissions(this._router.url);
+  }
 
   ngOnInit(): void {
     this.readAll();

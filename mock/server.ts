@@ -1,6 +1,7 @@
 import { AuthRouter } from "./src/app/auth";
 import { CompanieRouter } from "./src/app/companies";
 import { DashboardRouter } from "./src/app/dashboard";
+import { ZoneRouter } from "./src/app/zones";
 import { serverConfig } from "./src/config/server.enum";
 
 const jsonServer = require('json-server');
@@ -17,6 +18,7 @@ class ApplicationStart {
         DashboardRouter.init(server);
         CompanieRouter.init(server);
         CompanieRouter.companiesAll(server);
+        ZoneRouter.zoneAll(server);
 
         this.launchServer();
     }

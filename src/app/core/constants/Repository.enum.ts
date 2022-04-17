@@ -7,5 +7,6 @@ export enum RepositoryProvider {
   noveltieProperty = 'noveltieProvider',
   floorRepository = 'floorRepository',
   subnoveltieRepository = 'subNoveltieProvider',
-  dashboardProvider = 'dashboardProvider'
+  dashboardProvider = 'dashboardProvider',
+  userPermissions = 'userPermissions'
 }

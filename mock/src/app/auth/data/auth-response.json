@@ -16,10 +16,10 @@
         "isEnable": true,
         "menuName": "Empresas",
         "actionMenu": {
-          "create": false,
+          "create": true,
           "read": true,
           "update": true,
-          "delete": false
+          "delete": true
         }
       },
       {
@@ -31,7 +31,7 @@
         "actionMenu": {
           "create": true,
           "read": true,
-          "update": true,
+          "update": false,
           "delete": true
         }
       },

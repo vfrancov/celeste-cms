@@ -14,6 +14,7 @@ import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 import { UserPermissions } from "@domain/shared/menu.dto";
+import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 
@@ -37,11 +38,12 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   constructor(
     @Inject('CompaniePresenterInput') private _presenter: CompaniesPresenterInput,
-    @Inject(RepositoryProvider.localStorageProvider) private _userStorage: ILocalStorageRepository,
+    @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
     private _router: Router,
     private formBuilder: FormBuilder
   ) {
     this._presenter.setView(this);
+    this.userPermissions = this._permissions.getPermissions(this._router.url);
   }
 
   get checkEmail(): AbstractControl {
@@ -51,7 +53,6 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   ngOnInit(): void {
     this.getAllCompanies();
     this.initializeCompanieForm();
-    this.getPermissions();
   }
 
   initializeCompanieForm(): void {
@@ -60,14 +61,6 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   getAllCompanies(): void {
     this._presenter.fetchCompanieData(this.requestBody);
-  }
-
-  getPermissions(): void {
-    this._userStorage.getPermissions().listMenu.every(
-      (menu, index) => {
-        this.userPermissions = (index === Permissions.companies) ? menu.actionMenu : null;
-      }
-    );
   }
 
   createCompanie(): void {

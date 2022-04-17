@@ -6,7 +6,7 @@ import createCompanieResponse from "../data/create-response.json";
 
 export class CompanieController extends BaseController {
     constructor() {
-        super()
+        super();
     }
 
     static happyPath(request: Request, response: Response): void {

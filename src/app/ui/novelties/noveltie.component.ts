@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { NoveltieFields } from "@core/constants/novelties.field";
 import { RepositoryProvider } from "@core/constants/repository.enum";
@@ -10,11 +11,13 @@ import { subNoveltieFields } from "@core/constants/subnovelties.field";
 import { noveltieDeleted, noveltieSuccess, noveltieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
-import { CreateNovelty, DeleteNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/noveltie/novelty.dto";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
-import { CreateAssociation, SubNolvetieDto } from "@domain/subnoveltie/subnoveltie.dto";
 import { INoveltyRepository } from "@domain/noveltie/noveltie.repository";
+import { CreateNovelty, GetNovelty, NoveltyDTO, UpdateNovelty } from "@domain/noveltie/novelty.dto";
+import { UserPermissions } from "@domain/shared/menu.dto";
+import { CreateAssociation, SubNolvetieDto } from "@domain/subnoveltie/subnoveltie.dto";
 import { ISubNoveltyRepository } from "@domain/subnoveltie/subnoveltie.repository";
+import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
 
@@ -41,13 +44,18 @@ export class NoveltiePageComponent implements OnInit {
   isEditNovelty: boolean;
   noveltieData: NoveltyDTO;
   noveltiesAndSubNovelties: any[] = [];
+  userPermissions: UserPermissions;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
     @Inject(RepositoryProvider.subnoveltieRepository) private subNoveltieService: ISubNoveltyRepository,
+    @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
+    private _router: Router,
     private formBuilder: FormBuilder,
     private utils: UtilsService
-  ) { }
+  ) {
+    this.userPermissions = this._permissions.getPermissions(this._router.url);
+  }
 
   ngOnInit(): void {
     this.initializeFormCreateNoveltie();

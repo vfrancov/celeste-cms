@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
@@ -9,7 +10,9 @@ import { dataTableHeadUsers } from "@core/constants/table.headers";
 import { ChangePasswordField, UsersField } from "@core/constants/users.field";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
+import { UserPermissions } from "@domain/shared/menu.dto";
 import { UserDto } from "@domain/user/user.dto";
+import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { IUserRepository } from "@domain/user/users.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
@@ -32,11 +35,16 @@ export class UsersPageComponent implements OnInit {
   userErrorService: HttpErrorResponse;
   showErrorUserService: boolean;
   userDtoData: UserDto;
+  userPermissions: UserPermissions;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
+    @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
+    private _router: Router,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.userPermissions = this._permissions.getPermissions(this._router.url);
+  }
 
   ngOnInit(): void {
     this.fetchUserData();

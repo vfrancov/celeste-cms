@@ -1,0 +1,20 @@
+{
+    "headers": {},
+    "status": 200,
+    "statusText": "OK",
+    "body": {
+        "list": [
+            {
+                "id": 1,
+                "name": "Zona Mock",
+                "statusId": "2",
+                "statusName": "Active",
+                "companyId": 1,
+                "companyName": "Mock Companie"
+            }
+        ],
+        "records": "1",
+        "pages": "1",
+        "fileName": ""
+    }
+}

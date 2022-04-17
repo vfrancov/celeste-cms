@@ -1,3 +1,13 @@
 export enum Permissions {
-    companies
+    companies,
+    zones,
+    novelties,
+    rate,
+    parkings,
+    users,
+    devices,
+    floors,
+    graphics,
+    reports,
+    configuration
 }
