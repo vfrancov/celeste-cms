@@ -22,8 +22,8 @@
     </div>
     <p class="text-center mb-2">No existe un menu configurado para este usuario</p>
   </div>
-  <ng-template #showMenu ngFor let-option [ngForOf]="userMenu">
-    <li class="nav-item" *ngIf="option.isEnable">
+  <ng-template #showMenu>
+    <li class="nav-item" *ngFor="let option of userMenu">
       <a class="nav-link" [routerLink]="option.route">
         <i class="{{option.icon}}"></i>
         <span>{{option.menuName}}</span></a>

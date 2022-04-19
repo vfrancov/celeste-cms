@@ -5,6 +5,9 @@ import { LocalStorageProvider } from '@domain/localstorage/localstorage.provider
 import { UserPermissionsProvider } from '@domain/user/userpermissions.provider';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { NvD3Module } from 'ng2-nvd3';
+import 'd3';
+import 'nvd3';
 
 @NgModule({
   declarations: [
@@ -12,7 +15,8 @@ import { AppRoutingModule } from './app.routing';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NvD3Module
   ],
   providers: [
     LocalStorageProvider,

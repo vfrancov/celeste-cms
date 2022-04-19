@@ -28,7 +28,8 @@
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                 Novedades Ayer</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData?.dashboard.novelties[0].yesterday}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData?.dashboard.novelties[0].yesterday}}
+              </div>
             </div>
             <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -72,8 +73,9 @@
                 <div class=""></div>
               </div>
             </div>
-            <canvas id="myAreaChart" width="1039" height="320" style="display: block; width: 1039px; height: 320px;"
-              class="chartjs-render-monitor"></canvas>
+            <div id="chart">
+              <canvas id="myChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
