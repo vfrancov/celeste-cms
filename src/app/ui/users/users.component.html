@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col">
       <data-table [title]="'Usuarios'">
+        <data-filter [filterFields]="dataTableHead"></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead">
             <th>{{thead}}</th>
@@ -26,10 +27,10 @@
                 <div class="btn-group">
                   <button class="btn btn-info btn-sm" (click)="showModalWithUserData(user)" data-bs-toggle="modal"
                     data-bs-target="#modalCreateAndEditUsers" *ngIf="userPermissions.update"><i class="fa fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)"><i
+                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)" *ngIf="userPermissions.delete"><i
                       class="fa fa-trash"></i></button>
                   <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)" *ngif="userPermissions.delete"><i
+                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)"><i
                       class="fa fa-key"></i></button>
                 </div>
               </td>
