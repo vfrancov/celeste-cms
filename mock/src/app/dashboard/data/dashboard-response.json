@@ -10,24 +10,40 @@
                     "yesterday": 10
                 }
             ],
-            "graphic": {
-                "labels": [
-                    {
-                        "Jan": 0,
-                        "Feb": 1,
-                        "Mar": 2,
-                        "Apr": 3,
-                        "May": 4,
-                        "Jun": 5,
-                        "Jul": 6,
-                        "Aug": 7,
-                        "Sep": 8,
-                        "Oct": 9,
-                        "Nov": 10,
-                        "Dec": 11
-                    }
-                ]
-            }
+            "graphic": [
+                {
+                    "label": "Enero",
+                    "value": 10
+                },
+                {
+                    "label": "Febrero",
+                    "value": 20
+                },
+                {
+                    "label": "Marzo",
+                    "value": 27
+                },
+                {
+                    "label": "Abril",
+                    "value": 18
+                },
+                {
+                    "label": "Mayo",
+                    "value": 13
+                },
+                {
+                    "label": "Junio",
+                    "value": 45
+                },
+                {
+                    "label": "Julio",
+                    "value": 2
+                },
+                {
+                    "label": "Agosto",
+                    "value": 3
+                }
+            ]
         }
     }
 }

@@ -1,10 +1,10 @@
 export interface DashboardDTO {
-    dashboard: DashboardData
+    dashboard: DashboardData,
 }
 
 interface DashboardData {
     novelties: Array<Novelties>,
-    graphic: NoveltieGraphic
+    graphic: Array<NoveltiesGraphicData>
 }
 
 interface Novelties {
@@ -12,7 +12,7 @@ interface Novelties {
     yesterday: number
 }
 
-interface NoveltieGraphic {
-    labels: Array<string>,
-    data: Array<number>
+export interface NoveltiesGraphicData {
+    label: string,
+    value: number
 }
