@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { Strings } from "@core/constants/strings";
 import { DashboardDTO, NoveltiesGraphicData } from "@domain/dashboard/dashboard.dto";
@@ -7,7 +7,8 @@ declare let d3: any;
 
 @Component({
   selector: 'dashboard-component',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 

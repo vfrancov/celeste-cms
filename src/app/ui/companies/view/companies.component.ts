@@ -3,7 +3,6 @@ import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CompaniesField } from "@core/constants/companies.field";
-import { Permissions } from "@core/constants/permissions.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { companieCreated, companieWarning } from "@core/constants/sweetalert.config";
@@ -12,7 +11,6 @@ import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/com
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
-import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 import { UserPermissions } from "@domain/shared/menu.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
