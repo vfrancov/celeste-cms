@@ -1,0 +1,122 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "list": [
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      },
+      {
+        "id": 0,
+        "noveltieId": 1,
+        "noveltieName": "Mock Data",
+        "statusName": "Active",
+        "companieName": "Mock Companie",
+        "zoneName": "Mock Zone",
+        "rate": 20000,
+        "parkingName": "Mock Parking",
+        "floorName": "Mock Floor"
+      }
+    ],
+    "records": "10",
+    "pages": "2",
+    "fileName": "null"
+  }
+}

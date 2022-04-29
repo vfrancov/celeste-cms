@@ -1,3 +1,29 @@
 <content-component [title]="'Graficas'">
-
+  <div class="d-flex justify-content-between mb-2">
+    <p>Gestiona tus Graficas</p>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <span>Incidentes</span>
+        </div>
+        <div class="card-body">
+          <nvd3 [options]="options" [data]="data"></nvd3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <span>Novedades</span>
+        </div>
+        <div class="card-body">
+          <nvd3 [options]="optionsTwo" [data]="dataTwo"></nvd3>
+        </div>
+      </div>
+    </div>
+  </div>
 </content-component>

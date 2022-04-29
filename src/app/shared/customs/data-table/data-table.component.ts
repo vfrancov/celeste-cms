@@ -6,4 +6,5 @@ import { Component, Input } from "@angular/core";
 })
 export class DataTableComponent {
   @Input() title: string;
+  @Input() export: boolean;
 }

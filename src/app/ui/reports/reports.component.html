@@ -1,37 +1,26 @@
 <content-component [title]="'Reportes'">
   <div class="d-flex justify-content-between mb-2">
-      <p>Gestiona tus Reportes</p>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">Reportes</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <th>Novedad</th>
-                  <th>Tipo</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Mi Empresa</td>
-                    <td>Mi Empresa</td>
-                    <td>Mi Empresa</td>
-                    <td>
-                      <div class="btn-group">
-                          <button class="btn btn-info btn-small">Editar</button>
-                          <button class="btn btn-danger btn-small">Eliminar</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <p>Gestiona tus Reportes</p>
+  </div>
+  <data-table [title]="'Reportes'" [export]="true">
+    <data-filter [filterFields]="['Empresa', 'Novedad', 'Tarifa', 'Estado', 'Zona', 'Parqueadero' ,'Piso']"></data-filter>
+    <thead>
+      <ng-container *ngFor="let thead of ['Empresa', 'Novedad', 'Tarifa', 'Estado', 'Zona', 'Parqueadero', 'Piso']">
+        <th>{{thead}}</th>
+      </ng-container>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let report of reportsData">
+        <tr>
+          <td>{{report.companieName}}</td>
+          <td>{{report.noveltieName}}</td>
+          <td>{{report.rate | currency}}</td>
+          <td>{{report.statusName}}</td>
+          <td>{{report.zoneName}}</td>
+          <td>{{report.parkingName}}</td>
+          <td>{{report.floorName}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </data-table>
 </content-component>
