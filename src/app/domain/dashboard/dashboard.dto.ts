@@ -2,7 +2,7 @@ export interface DashboardDTO {
     dashboard: DashboardData,
 }
 
-interface DashboardData {
+export interface DashboardData {
     novelties: Array<Novelties>,
     graphic: Array<NoveltiesGraphicData>
 }

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { Strings } from "@core/constants/strings";
-import { DashboardDTO, NoveltiesGraphicData } from "@domain/dashboard/dashboard.dto";
+import { DashboardData, DashboardDTO, NoveltiesGraphicData } from "@domain/dashboard/dashboard.dto";
 import { IDashboardRespository } from "@domain/dashboard/dashboard.repository";
 declare let d3: any;
 
@@ -12,7 +12,7 @@ declare let d3: any;
 })
 export class DashboardComponent implements OnInit {
 
-  public dashboardData: DashboardDTO;
+  public dashboardData: DashboardData;
   public graphicData: Array<NoveltiesGraphicData>;
   public options: any;
   public data: any;
@@ -26,11 +26,11 @@ export class DashboardComponent implements OnInit {
   fetchDashboardResume(): void {
     this.dashboardService.getDashoardResume().subscribe(response => {
       this.dashboardData = response.body;
-      this.showDashboardGraphic(response.body.dashboard.graphic);
+      this.showDashboardGraphic(response.body);
     });
   }
 
-  showDashboardGraphic(graphicData: Array<NoveltiesGraphicData>): void {
+  showDashboardGraphic(graphicData: DashboardData): void {
     this.options = {
       chart: {
         type: Strings.graphicBarChart,
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     this.data = [
       {
         key: Strings.graphicTitle,
-        values: graphicData
+        values: graphicData.graphic
       }
     ];
   }

@@ -77,7 +77,6 @@ export class ConfigurationPageComponent implements OnInit {
       userId: 0,
       actionMenu: this.setActionItems(this.uPermissions)
     }));
-    console.log(menuSystem);
   }
 
   private setActionItems(permissions: Array<MenuPermissions>): any {

@@ -6,5 +6,5 @@
     "body": {
         "uid" : 1
     },
-    "url": "/api/Dashboard/getResume"
+    "url": "/api/Dashboard"
 }

@@ -31,4 +31,8 @@ export class CompaniesService implements ICompaniesRepository {
   deleteCompanie(id: number, status: number): Observable<HttpResponse<any>> {
     return this.http.delete(`${environment.baseUrl}/api/Companies/${id}`, { observe: 'response' });
   }
+
+  otroMetodo(): void {
+
+  }
 }

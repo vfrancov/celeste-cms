@@ -9,45 +9,45 @@ import { CompanieInteractor } from "../interactor/companie.interactor";
 
 @Injectable()
 export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInteractorOutput {
-    private _view: CompaniesPresenterOutput;
+  private _view: CompaniesPresenterOutput;
 
-    constructor(private _interactor: CompanieInteractor) {
-        _interactor.setPresenter(this);
-    }
+  constructor(private _interactor: CompanieInteractor) {
+    _interactor.setPresenter(this);
+  }
 
-    setView(component: CompaniesPresenterOutput) {
-        this._view = component;
-    }
+  setView(component: CompaniesPresenterOutput) {
+    this._view = component;
+  }
 
-    fetchCompanieData(request: IFilterRequestBody): void {
-        this._interactor.getAllCompanieData(request);
-    }
+  fetchCompanieData(request: IFilterRequestBody): void {
+    this._interactor.getAllCompanieData(request);
+  }
 
-    registerCompanie(payload: CreateCompanie): void {
-        this._interactor.createCompanie(payload);
-    }
+  registerCompanie(payload: CreateCompanie): void {
+    this._interactor.createCompanie(payload);
+  }
 
-    isRegister(created: boolean, error?: HttpErrorResponse): void {
-        this._view.isCompanieCreated(created, error);
-    }
+  isRegister(created: boolean, error?: HttpErrorResponse): void {
+    this._view.isCompanieCreated(created, error);
+  }
 
-    companyList(records: CompaniesDto[]): void {
-        this._view.showCompanieRecords(records);
-    }
+  companyList(records: CompaniesDto[]): void {
+    this._view.showCompanieRecords(records);
+  }
 
-    fetchDataInModal(id: number): void {
-        this._interactor.getCompanie(id);
-    }
+  fetchDataInModal(id: number): void {
+    this._interactor.getCompanie(id);
+  }
 
-    setDataModal(companie: GetCompanie): void {
-        this._view.setDataInModal(companie);
-    }
+  setDataModal(companie: GetCompanie): void {
+    this._view.setDataInModal(companie);
+  }
 
-    deleteCompanie(id: number): void {
-        this._interactor.deleteCompanie(id);
-    }
+  deleteCompanie(id: number): void {
+    this._interactor.deleteCompanie(id);
+  }
 
-    editCompanie(payload: UpdateCompanie): void {
-        
-    }
+  editCompanie(payload: UpdateCompanie): void {
+
+  }
 }

@@ -1,49 +1,47 @@
 {
-    "headers": {},
-    "status": 200,
-    "statusText": "OK",
-    "body": {
-        "dashboard": {
-            "novelties": [
-                {
-                    "today": 20,
-                    "yesterday": 10
-                }
-            ],
-            "graphic": [
-                {
-                    "label": "Enero",
-                    "value": 10
-                },
-                {
-                    "label": "Febrero",
-                    "value": 20
-                },
-                {
-                    "label": "Marzo",
-                    "value": 27
-                },
-                {
-                    "label": "Abril",
-                    "value": 18
-                },
-                {
-                    "label": "Mayo",
-                    "value": 13
-                },
-                {
-                    "label": "Junio",
-                    "value": 45
-                },
-                {
-                    "label": "Julio",
-                    "value": 2
-                },
-                {
-                    "label": "Agosto",
-                    "value": 3
-                }
-            ]
-        }
-    }
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "novelties": [
+      {
+        "today": 20,
+        "yesterday": 10
+      }
+    ],
+    "graphic": [
+      {
+        "label": "Enero",
+        "value": 10
+      },
+      {
+        "label": "Febrero",
+        "value": 20
+      },
+      {
+        "label": "Marzo",
+        "value": 27
+      },
+      {
+        "label": "Abril",
+        "value": 18
+      },
+      {
+        "label": "Mayo",
+        "value": 13
+      },
+      {
+        "label": "Junio",
+        "value": 45
+      },
+      {
+        "label": "Julio",
+        "value": 2
+      },
+      {
+        "label": "Agosto",
+        "value": 3
+      }
+    ]
+  }
 }

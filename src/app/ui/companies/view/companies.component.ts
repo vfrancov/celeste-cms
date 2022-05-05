@@ -10,6 +10,7 @@ import { dataTableHeadCompanies } from "@core/constants/table.headers";
 import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/companies.dto";
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
+import { IModalComponent } from "@domain/companies/IModalComponent";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { UserPermissions } from "@domain/shared/menu.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
@@ -22,7 +23,7 @@ import swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit {
 
-  @ViewChild('modalCreateAndEditCompanie') modalCompanie: ModalComponent;
+  @ViewChild(ModalComponent) modalCompanie: IModalComponent;
 
   public dataTableHead: string[] = dataTableHeadCompanies;
   public formCompanie: FormGroup;
@@ -100,5 +101,9 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   setDataInModal(companie: GetCompanie): void {
     this.formCompanie.patchValue(companie);
+  }
+
+  closeModal(): void {
+
   }
 }
