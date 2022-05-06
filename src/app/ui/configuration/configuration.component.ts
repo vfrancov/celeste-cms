@@ -1,10 +1,13 @@
-import { HttpResponse } from "@angular/common/http";
-import { Component, Inject, OnInit, Predicate } from "@angular/core";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
+import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { MenuPermissions, permissions } from "@core/constants/permissions.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
+import { configurationCreated } from "@core/constants/sweetalert.config";
 import { ConfigurationService } from "@core/services/configuration.service";
+import { IModalComponent } from "@domain/companies/IModalComponent";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
 import { ComboDTO } from "@domain/shared/combo.dto";
@@ -12,12 +15,16 @@ import { UserPermissions } from "@domain/shared/menu.dto";
 import { UserDto } from "@domain/user/user.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { IUserRepository } from "@domain/user/users.repository";
+import { ModalComponent } from "@shared/customs/modal/modal.component";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'configuration-component',
   templateUrl: './configuration.component.html'
 })
 export class ConfigurationPageComponent implements OnInit {
+
+  @ViewChild(ModalComponent) modalConfiguration: IModalComponent;
 
   userData: UserDto[];
   userRequest: IFilterRequestBody = new RequestBody;
@@ -26,6 +33,8 @@ export class ConfigurationPageComponent implements OnInit {
   permissions: MenuPermissions[] = permissions;
   userModules: Array<ComboDTO> = [];
   uPermissions: Array<MenuPermissions> = [];
+  userId: number;
+  errorConfiguration: HttpErrorResponse;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -52,6 +61,10 @@ export class ConfigurationPageComponent implements OnInit {
     this._configurationService.getModules().subscribe(response => this.modules = response.body);
   }
 
+  showUpConfigModal(user: UserDto): void {
+    this.userId = user.id;
+  }
+
   setUserModule(module: ComboDTO): void {
     if (this.userModules.some(menu => menu.id === module.id)) {
       let getIndex = this.userModules.findIndex(menu => menu.id === module.id);
@@ -74,9 +87,15 @@ export class ConfigurationPageComponent implements OnInit {
     let menuSystem: any = [];
     this.userModules.forEach(menu => menuSystem.push({
       menuItemsId: menu.id,
-      userId: 0,
-      actionMenu: this.setActionItems(this.uPermissions)
+      userId: this.userId,
+      ...this.setActionItems(this.uPermissions)
     }));
+
+    this.userService.saveConfiguration(menuSystem).subscribe(response => {
+      this.modalConfiguration.closeModal();
+      if (response.status === HttpStatusCode.Created)
+        swal.fire(configurationCreated);
+    }, (error: HttpErrorResponse) => this.errorConfiguration = error);
   }
 
   private setActionItems(permissions: Array<MenuPermissions>): any {

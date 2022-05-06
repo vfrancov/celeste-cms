@@ -1,5 +1,6 @@
 import { HttpResponse } from "@angular/common/http";
 import { IUsersField } from "@core/validators/usersform.validator";
+import { MenuDTO } from "@domain/configuration/menu.dto";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
 import { ChangePassword, UserDto } from "@domain/user/user.dto";
@@ -12,4 +13,5 @@ export interface IUserRepository {
   getUserById(id: number): Observable<HttpResponse<UserDto>>
   deleteUser(id: number, status: number): Observable<HttpResponse<any>>
   changePassword(id: number, payload: ChangePassword): Observable<HttpResponse<any>>
+  saveConfiguration(configuration: Array<MenuDTO>): Observable<HttpResponse<any>>
 }

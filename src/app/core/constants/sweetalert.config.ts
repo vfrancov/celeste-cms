@@ -176,3 +176,12 @@ export const floorDeleted: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const configurationCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Configuración guardada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

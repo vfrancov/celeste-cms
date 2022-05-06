@@ -12,7 +12,7 @@ interface sort {
 
 export class RequestBody implements IFilterRequestBody {
   offset: number = 0;
-  limit: number = 10;
+  limit: number = 100;
   sort: sort[] = [{ field: 'id', dir: 'desc' }];
   filter: any;
 }

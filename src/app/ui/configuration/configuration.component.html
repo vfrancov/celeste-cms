@@ -27,7 +27,7 @@
                   <td>
                     <div class="btn-group">
                       <button *ngIf="userPermissions.update" class="btn btn-info btn-sm btn-small" data-bs-toggle="modal"
-                        data-bs-target="#modalDefineConfig"><i class="fa fa-edit"></i></button>
+                        data-bs-target="#modalDefineConfig" (click)="showUpConfigModal(user)"><i class="fa fa-edit"></i></button>
                       <button class="btn btn-primary btn-sm btn-small"><i class="fa fa-cog"></i></button>
                     </div>
                   </td>
@@ -39,11 +39,12 @@
       </div>
     </div>
   </div>
-  <modal-component [idModal]="'modalDefineConfig'" [modalTitle]="'Configuración de Permisos'" [modalLarge]="true">
+  <modal-component #modalConfiguration [idModal]="'modalDefineConfig'" [modalTitle]="'Configuración de Permisos'" [modalLarge]="true">
     <div class="row">
       <div class="col">
         <h5 class="no-margin">Registra tus permisos</h5>
         <small>Define la configuracion de los servicios por cada usuario</small>
+        <alert-message [error]="errorConfiguration"></alert-message>
       </div>
     </div>
     <div class="row mt-3">

@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUsersField } from "@core/validators/usersform.validator";
+import { MenuDTO } from "@domain/configuration/menu.dto";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
 import { ChangePassword, UserDto } from "@domain/user/user.dto";
@@ -35,5 +36,9 @@ export class UsersServices implements IUserRepository {
 
   changePassword(id: number, payload: ChangePassword): Observable<HttpResponse<any>> {
     return this.http.put(`${environment.baseUrl}/api/Users/ChangePassword/${id}`, payload, { observe: 'response' });
+  }
+
+  saveConfiguration(configuration: Array<MenuDTO>): Observable<HttpResponse<any>> {
+    return this.http.post(`${environment.baseUrl}/api/Menu`, configuration, { observe: 'response' });
   }
 }
