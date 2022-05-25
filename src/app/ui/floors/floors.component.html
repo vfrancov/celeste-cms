@@ -6,16 +6,21 @@
   </div>
   <div class="row">
     <div class="col">
-      <data-table [title]="'Pisos'">
+      <data-table [title]="'Pisos'" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
+        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)" (emitRestore)="restoreFilter($event)"></data-filter>
         <thead>
-          <ng-container *ngFor="let thead of dataTableHead">
-            <th>{{thead}}</th>
+          <ng-container *ngFor="let thead of dataTableHead | keyvalue">
+            <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
+              {{thead.value.title}}
+              <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
+              <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}"></i>
+            </th>
           </ng-container>
         </thead>
         <tbody>
-          <ng-container *ngIf="floorData.length === 0; else showFloorRecords">
+          <ng-container *ngIf="floorData?.length === 0; else showFloorRecords">
             <tr>
-              <td [attr.colspan]="dataTableHead.length" class="text-center">No hay zonas registradas</td>
+              <td [attr.colspan]="dataTableHead.length" class="text-center">No hay registros</td>
             </tr>
           </ng-container>
           <ng-template #showFloorRecords>

@@ -6,8 +6,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <data-table [title]="'Usuarios'">
-        <data-filter [filterFields]="dataTableHead"></data-filter>
+      <data-table [title]="'Usuarios'" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
+        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)" (emitRestore)="restoreFilter($event)"></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead | keyvalue">
             <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
@@ -18,6 +18,11 @@
           </ng-container>
         </thead>
         <tbody>
+          <ng-container *ngIf="userData?.length === 0">
+            <tr>
+              <td [attr.colspan]="dataTableHead.length" class="text-center">No hay registros</td>
+            </tr>
+          </ng-container>
           <ng-container *ngFor="let user of userData">
             <tr>
               <td>{{user.firstName}}</td>

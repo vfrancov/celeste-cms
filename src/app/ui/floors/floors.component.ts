@@ -33,6 +33,9 @@ export class FloorsPageComponent implements OnInit {
   isEditFloor: boolean = false;
   floor: FloorDto;
   userPermissions: UserPermissions;
+  isDescOrAsc: boolean = false;
+  amountOfPages: number;
+  amountOfRows: number;
 
   constructor(
     @Inject(RepositoryProvider.floorRepository) private floorService: IFloorRepository,
@@ -50,7 +53,11 @@ export class FloorsPageComponent implements OnInit {
 
   readAll(): void {
     this.floorService.readAll(this.requestBody).subscribe(
-      response => this.floorData = response.body.list
+      response => {
+        this.floorData = response.body.list;
+        this.amountOfPages = response.body.pages;
+        this.amountOfRows = response.body.records;
+      }
     );
   }
 
@@ -109,5 +116,28 @@ export class FloorsPageComponent implements OnInit {
         });
       }
     });
+  }
+
+  sort(fieldToSort: string): void {
+    this.isDescOrAsc = !this.isDescOrAsc;
+    this.requestBody.sort[0].field = fieldToSort;
+    this.requestBody.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
+
+    this.readAll();
+  }
+
+  applyFilter(filter: any): void {
+    this.requestBody.filter = filter.filter;
+    this.readAll();
+  }
+
+  restoreFilter(page: number): void {
+    this.requestBody = new RequestBody;
+    this.readAll();
+  }
+
+  selectedPage(page: number): void {
+    this.requestBody.offset = page;
+    this.readAll();
   }
 }

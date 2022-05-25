@@ -37,6 +37,8 @@ export class UsersPageComponent implements OnInit {
   userDtoData: UserDto;
   userPermissions: UserPermissions;
   isDescOrAsc: boolean = false;
+  amountOfPages: number;
+  amountOfRows: number;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -55,7 +57,11 @@ export class UsersPageComponent implements OnInit {
 
   fetchUserData(): void {
     this.userService.readAll(this.userRequest).subscribe(
-      (response: HttpResponse<IResponseBody>) => this.userData = response.body.list
+      (response: HttpResponse<IResponseBody>) => {
+        this.userData = response.body.list;
+        this.amountOfPages = response.body.pages;
+        this.amountOfRows = response.body.records;
+      }
     );
   }
 
@@ -138,6 +144,21 @@ export class UsersPageComponent implements OnInit {
     this.userRequest.sort[0].field = fieldToSort;
     this.userRequest.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
 
+    this.fetchUserData();
+  }
+
+  applyFilter(filter: any): void {
+    this.userRequest.filter = filter.filter;
+    this.fetchUserData();
+  }
+
+  restoreFilter(event: any): void {
+    this.userRequest = new RequestBody;
+    this.fetchUserData();
+  }
+
+  selectedPage(page: number): void {
+    this.userRequest.offset = page;
     this.fetchUserData();
   }
 }

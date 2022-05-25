@@ -31,8 +31,8 @@ export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInte
     this._view.isCompanieCreated(created, error);
   }
 
-  companyList(records: CompaniesDto[]): void {
-    this._view.showCompanieRecords(records);
+  companyList(records: CompaniesDto[], pages: number, rows: number): void {
+    this._view.showCompanieRecords(records, pages, rows);
   }
 
   fetchDataInModal(id: number): void {

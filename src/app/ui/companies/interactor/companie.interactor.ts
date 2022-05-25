@@ -20,7 +20,7 @@ export class CompanieInteractor {
 
   getAllCompanieData(request: IFilterRequestBody): void {
     this.companieService.readAll(request).subscribe(
-      response => this._presenter.companyList(response.body.list)
+      response => this._presenter.companyList(response.body.list, response.body.pages, response.body.records)
     );
   }
 

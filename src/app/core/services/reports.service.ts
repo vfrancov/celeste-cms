@@ -9,6 +9,6 @@ export class ReportServices {
   constructor(private http: HttpClient) { }
 
   getResume(payload: IFilterRequestBody): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.baseUrl}/api/Reports/getResume`, payload, { observe: 'response' });
+    return this.http.post(`${environment.baseUrl}/api/Report/Novelty`, payload, { observe: 'response' });
   }
 }

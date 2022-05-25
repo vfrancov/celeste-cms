@@ -25,7 +25,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   @ViewChild(ModalComponent) modalCompanie: IModalComponent;
 
-  public dataTableHead: string[] = dataTableHeadCompanies;
+  public dataTableHead: any[] = dataTableHeadCompanies;
   public formCompanie: FormGroup;
   private requestBody: IFilterRequestBody = new RequestBody;
   public companieData: GetCompanie[];
@@ -35,6 +35,8 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   public statusCreatedCompanie: boolean;
   public userPermissions: UserPermissions;
   public isDescOrAsc: boolean = true;
+  public amountOfPages: number;
+  public amountOfRows: number;
 
   constructor(
     @Inject('CompaniePresenterInput') private _presenter: CompaniesPresenterInput,
@@ -96,8 +98,10 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
     this.getAllCompanies();
   }
 
-  showCompanieRecords(records: CompaniesDto[]): void {
+  showCompanieRecords(records: CompaniesDto[], pages: number, rows: number): void {
     this.companieData = records;
+    this.amountOfPages = pages;
+    this.amountOfRows = rows;
   }
 
   setDataInModal(companie: GetCompanie): void {
@@ -119,6 +123,11 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   restoreFilter(event: any): void {
     this.requestBody = new RequestBody;
+    this._presenter.fetchCompanieData(this.requestBody);
+  }
+
+  selectedPage(page: number): void {
+    this.requestBody.offset = page;
     this._presenter.fetchCompanieData(this.requestBody);
   }
 }

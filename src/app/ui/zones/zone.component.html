@@ -6,8 +6,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <data-table [title]="'Zonas'">
-        <data-filter [filterFields]="dataTableHead"></data-filter>
+      <data-table [title]="'Zonas'" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
+        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)" (emitRestore)="restoreFilter($event)"></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead | keyvalue">
             <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">

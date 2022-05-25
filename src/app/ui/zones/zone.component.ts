@@ -34,6 +34,8 @@ export class ZonePageComponent implements OnInit {
   zone: ZoneDto;
   public userPermissions: UserPermissions;
   public isDescOrAsc: boolean = false;
+  amountOfPages: number;
+  amountOfRows: number;
 
   constructor(
     @Inject(RepositoryProvider.zoneRepository) private zoneService: IZoneRepository,
@@ -51,7 +53,11 @@ export class ZonePageComponent implements OnInit {
 
   readAll(): void {
     this.zoneService.readAll(this.requestBody).subscribe(
-      response => this.zoneData = response.body.list
+      response => {
+        this.zoneData = response.body.list;
+        this.amountOfPages = response.body.pages;
+        this.amountOfRows = response.body.records;
+      }
     );
   }
 
@@ -117,6 +123,21 @@ export class ZonePageComponent implements OnInit {
     this.requestBody.sort[0].field = fieldToSort;
     this.requestBody.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
 
+    this.readAll();
+  }
+
+  applyFilter(filter: any): void {
+    this.requestBody.filter = filter.filter;
+    this.readAll();
+  }
+
+  restoreFilter(event: any): void {
+    this.requestBody = new RequestBody;
+    this.readAll();
+  }
+
+  selectedPage(page: number): void {
+    this.requestBody.offset = page;
     this.readAll();
   }
 }

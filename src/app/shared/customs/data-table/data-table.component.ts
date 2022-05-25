@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: 'data-table',
@@ -7,4 +7,11 @@ import { Component, Input } from "@angular/core";
 export class DataTableComponent {
   @Input() title: string;
   @Input() export: boolean;
+  @Input() pages: number;
+  @Input() rows: number;
+  @Output() emitPage = new EventEmitter<number>();
+
+  setPage(page: number): void {
+    this.emitPage.emit(page);
+  }
 }
