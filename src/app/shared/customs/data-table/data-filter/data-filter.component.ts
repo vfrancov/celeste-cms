@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -9,6 +9,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class DataFilterComponent implements OnInit {
 
   @Input() filterFields: string[];
+  @Output() emitFilter = new EventEmitter<any>();
+  @Output() emitRestore = new EventEmitter<any>();
 
   placeHolderInput: string;
   showFilterButton: boolean = true;
@@ -17,11 +19,12 @@ export class DataFilterComponent implements OnInit {
   moreThanOneCriteria: boolean;
   addOtherCriteria: boolean;
   criterias: any = {
-    'contiene': 'containe',
     'igual a': 'eq',
-    'es': 'is',
-    'mayor a': 'gt',
-    'menor a': 'lt'
+    'diferente de': 'neq',
+    'menor que': 'lt',
+    'menor igual': 'lte',
+    'mayor que': 'gt',
+    'mayor igual': 'gte'
   }
 
   amountOfCriteria: any[] = [1];
@@ -46,6 +49,7 @@ export class DataFilterComponent implements OnInit {
     this.inputTextSearch = false;
     this.amountOfCriteria = [1];
     this.formArry.clear();
+    this.emitRestore.emit();
   }
 
   columnSelected(event: Event): void {
@@ -71,12 +75,12 @@ export class DataFilterComponent implements OnInit {
   }
 
   applyFilter(): void {
-    console.log(this.formField.value);
+    this.emitFilter.emit(this.formField.value);
   }
 
   private initializateForm(): void {
     this.formField = this.formBuilder.group({
-      filters: this.formBuilder.array([this.itemsFilters])
+      filter: this.formBuilder.array([this.itemsFilters])
     });
   }
 
@@ -89,7 +93,7 @@ export class DataFilterComponent implements OnInit {
   }
 
   private get formArry(): FormArray {
-    return <FormArray>this.formField.controls['filters'];
+    return <FormArray>this.formField.controls['filter'];
   }
 
   private get itemsFilters(): FormGroup {

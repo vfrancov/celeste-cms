@@ -9,8 +9,12 @@
       <data-table [title]="'Usuarios'">
         <data-filter [filterFields]="dataTableHead"></data-filter>
         <thead>
-          <ng-container *ngFor="let thead of dataTableHead">
-            <th>{{thead}}</th>
+          <ng-container *ngFor="let thead of dataTableHead | keyvalue">
+            <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
+              {{thead.value.title}}
+              <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
+              <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}"></i>
+            </th>
           </ng-container>
         </thead>
         <tbody>

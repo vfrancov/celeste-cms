@@ -34,6 +34,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   public showErrorCompanieService: boolean;
   public statusCreatedCompanie: boolean;
   public userPermissions: UserPermissions;
+  public isDescOrAsc: boolean = true;
 
   constructor(
     @Inject('CompaniePresenterInput') private _presenter: CompaniesPresenterInput,
@@ -103,7 +104,21 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
     this.formCompanie.patchValue(companie);
   }
 
-  closeModal(): void {
+  sort(fieldToSort: string): void {
+    this.isDescOrAsc = !this.isDescOrAsc;
+    this.requestBody.sort[0].field = fieldToSort;
+    this.requestBody.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
 
+    this._presenter.fetchCompanieData(this.requestBody);
+  }
+
+  applyFilter(filter: any): void {
+    this.requestBody.filter = filter.filter;
+    this._presenter.fetchCompanieData(this.requestBody);
+  }
+
+  restoreFilter(event: any): void {
+    this.requestBody = new RequestBody;
+    this._presenter.fetchCompanieData(this.requestBody);
   }
 }

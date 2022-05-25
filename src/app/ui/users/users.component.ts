@@ -36,6 +36,7 @@ export class UsersPageComponent implements OnInit {
   showErrorUserService: boolean;
   userDtoData: UserDto;
   userPermissions: UserPermissions;
+  isDescOrAsc: boolean = false;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -130,5 +131,13 @@ export class UsersPageComponent implements OnInit {
     this.formCreateUserData.reset();
     this.showErrorUserService = false;
     this.isEditUser = false;
+  }
+
+  sort(fieldToSort: string): void {
+    this.isDescOrAsc = !this.isDescOrAsc;
+    this.userRequest.sort[0].field = fieldToSort;
+    this.userRequest.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
+
+    this.fetchUserData();
   }
 }

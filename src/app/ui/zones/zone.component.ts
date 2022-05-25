@@ -33,6 +33,7 @@ export class ZonePageComponent implements OnInit {
   showErrorZoneService: boolean;
   zone: ZoneDto;
   public userPermissions: UserPermissions;
+  public isDescOrAsc: boolean = false;
 
   constructor(
     @Inject(RepositoryProvider.zoneRepository) private zoneService: IZoneRepository,
@@ -109,5 +110,13 @@ export class ZonePageComponent implements OnInit {
         });
       }
     });
+  }
+
+  sort(fieldToSort: string): void {
+    this.isDescOrAsc = !this.isDescOrAsc;
+    this.requestBody.sort[0].field = fieldToSort;
+    this.requestBody.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
+
+    this.readAll();
   }
 }

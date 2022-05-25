@@ -1,11 +1,113 @@
 /**
  * Head Users
  */
-export const dataTableHeadUsers: string[] = ['Nombres', 'Apellidos', 'Telefono', 'Estado', 'Rol', 'Usuario', 'Empresas', 'Acciones'];
+// 'Nombres', 'Apellidos', 'Telefono', 'Estado', 'Rol', 'Usuario', 'Empresas', 'Acciones'
+export const dataTableHeadUsers: any[] = [
+  {
+    title : 'Nombres',
+    field : 'firstName',
+    isSort: true
+  },
+  {
+    title : 'Apellidos',
+    field: 'lastName',
+    isSort: true
+  },
+  {
+    title: 'Telefono',
+    field: 'phoneNumber',
+    isSort: true
+  },
+  {
+    title: 'Estado',
+    field: 'phoneNumber',
+    isSort: true
+  },
+  {
+    title: 'Rol',
+    field: 'email',
+    isSort: true
+  },
+  {
+    title: 'Usuario',
+    field: 'statusName',
+    isSort: true
+  },
+  {
+    title: 'Empresa',
+    field: 'companyName',
+    isSort: false
+  },
+  {
+    title: 'Acciones',
+    field: 'action',
+    isSort: false
+  }
+];
 
-export const dataTableHeadCompanies: string[] = ['Nombre Empresa', 'NIT', 'Direccion', 'Telefono', 'Correo', 'Estado', 'Acciones'];
+export const dataTableHeadCompanies: any[] = [
+  {
+    title : 'Nombre Empresa',
+    field : 'name',
+    isSort: true
+  },
+  {
+    title : 'NIT',
+    field: 'nit',
+    isSort: true
+  },
+  {
+    title: 'Direccion',
+    field: 'address',
+    isSort: true
+  },
+  {
+    title: 'Telefono',
+    field: 'phoneNumber',
+    isSort: true
+  },
+  {
+    title: 'Correo',
+    field: 'email',
+    isSort: true
+  },
+  {
+    title: 'Estado',
+    field: 'statusName',
+    isSort: true
+  },
+  {
+    title: 'Acciones',
+    field: 'action',
+    isSort: false
+  }
+];
 
-export const dataTableHeadZones: string[] = ['Nombre Zona', 'Nombre Empresa', 'Estado Zona', 'Acciones'];
+// 'Nombre Empresa', 'NIT', 'Direccion', 'Telefono', 'Correo', 'Estado', 'Acciones'
+// 'Nombre Zona', 'Nombre Empresa', 'Estado Zona', 'Acciones'
+
+export const dataTableHeadZones: any[] = [
+  {
+    title : 'Nombre Zona',
+    field : 'name',
+    isSort: true
+  },
+  {
+    title : 'Nombre Empresa',
+    field: 'companyName',
+    isSort: true
+  },
+  {
+    title: 'Estado Zona',
+    field: 'statusName',
+    isSort: true
+  },
+  {
+    title: 'Acciones',
+    field: 'action',
+    isSort: false
+  }
+];
 
 export const dataTableHeadFloors: string[] = ['Nombre Zona', 'Nombre Piso', 'Estado', 'Acciones'];
 
