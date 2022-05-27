@@ -2,7 +2,8 @@ export interface IFilterRequestBody {
   offset: number,
   limit: number,
   sort: Array<sort>,
-  filter: any
+  filter: any,
+  download: boolean
 }
 
 interface sort {
@@ -15,5 +16,6 @@ export class RequestBody implements IFilterRequestBody {
   limit: number = 10;
   sort: sort[] = [{ field: 'Id', dir: 'desc' }];
   filter: any;
+  download: boolean = false;
 }
 

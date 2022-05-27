@@ -6,6 +6,7 @@ import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { MenuPermissions, permissions } from "@core/constants/permissions.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { configurationCreated } from "@core/constants/sweetalert.config";
+import { dataTableHeadConfiguration } from "@core/constants/table.headers";
 import { ConfigurationService } from "@core/services/configuration.service";
 import { IModalComponent } from "@domain/companies/IModalComponent";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
@@ -27,6 +28,7 @@ export class ConfigurationPageComponent implements OnInit {
   @ViewChild(ModalComponent) modalConfiguration: IModalComponent;
 
   userData: UserDto[];
+  dataTableHead: any[] = dataTableHeadConfiguration;
   userRequest: IFilterRequestBody = new RequestBody;
   userPermissions: UserPermissions;
   modules: ComboDTO;
@@ -35,6 +37,9 @@ export class ConfigurationPageComponent implements OnInit {
   uPermissions: Array<MenuPermissions> = [];
   userId: number;
   errorConfiguration: HttpErrorResponse;
+  amountOfPages: number;
+  amountOfRows: number;
+  isDescOrAsc: boolean = false;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -63,6 +68,7 @@ export class ConfigurationPageComponent implements OnInit {
 
   showUpConfigModal(user: UserDto): void {
     this.userId = user.id;
+    this.userService.getConfiguration(user.id).subscribe(response => console.log(response));
   }
 
   setUserModule(module: ComboDTO): void {
@@ -106,5 +112,28 @@ export class ConfigurationPageComponent implements OnInit {
     });
 
     return perms;
+  }
+
+  sort(fieldToSort: string): void {
+    this.isDescOrAsc = !this.isDescOrAsc;
+    this.userRequest.sort[0].field = fieldToSort;
+    this.userRequest.sort[0].dir = (this.isDescOrAsc) ? 'desc' : 'asc';
+
+    this.fetchUserData();
+  }
+
+  restoreFilter(event: any): void {
+    this.userRequest = new RequestBody;
+    this.fetchUserData();
+  }
+
+  selectedPage(page: number): void {
+    this.userRequest.offset = page;
+    this.fetchUserData();
+  }
+
+  applyFilter(filter: any): void {
+    this.userRequest.filter = filter.filter;
+    this.fetchUserData();
   }
 }

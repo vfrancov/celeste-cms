@@ -41,4 +41,8 @@ export class UsersServices implements IUserRepository {
   saveConfiguration(configuration: Array<MenuDTO>): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.baseUrl}/api/Menu`, configuration, { observe: 'response' });
   }
+
+  getConfiguration(id: number): Observable<HttpResponse<any>> {
+    return this.http.get(`${environment.baseUrl}/api/Menu/${id}`, {observe : 'response'});
+  }
 }

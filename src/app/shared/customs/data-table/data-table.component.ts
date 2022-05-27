@@ -10,8 +10,13 @@ export class DataTableComponent {
   @Input() pages: number;
   @Input() rows: number;
   @Output() emitPage = new EventEmitter<number>();
+  @Output() exportExcel = new EventEmitter<any>();
 
   setPage(page: number): void {
     this.emitPage.emit(page);
+  }
+
+  exportToExcel(): void {
+    this.exportExcel.emit();
   }
 }

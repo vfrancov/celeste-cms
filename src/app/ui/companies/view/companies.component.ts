@@ -67,6 +67,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   createCompanie(): void {
     this._presenter.registerCompanie(this.formCompanie.value);
+    this.modalCompanie.closeModal();
   }
 
   editCompanie(): void {

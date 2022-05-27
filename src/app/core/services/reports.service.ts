@@ -11,4 +11,8 @@ export class ReportServices {
   getResume(payload: IFilterRequestBody): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.baseUrl}/api/Report/Novelty`, payload, { observe: 'response' });
   }
+
+  getNoveltieById(id: number): Observable<HttpResponse<any>> {
+    return this.http.get(`${environment.baseUrl}/api/Report/Novelty/${id}`, { observe: 'response' });
+  }
 }

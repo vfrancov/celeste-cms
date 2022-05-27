@@ -2,8 +2,10 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus Reportes</p>
   </div>
-  <data-table [title]="'Reportes'" [export]="true" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
-    <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)" (emitRestore)="restoreFilter($event)"></data-filter>
+  <data-table [title]="'Reportes'" [export]="true" [pages]="amountOfPages" [rows]="amountOfRows"
+    (emitPage)="selectedPage($event)" (exportExcel)="exportExcel($event)">
+    <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)"
+      (emitRestore)="restoreFilter($event)"></data-filter>
     <thead>
       <ng-container *ngFor="let thead of dataTableHead | keyvalue">
         <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
@@ -29,11 +31,94 @@
           <td>{{report.zoneName}}</td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-sm btn-primary"><i class="fa fa-list"></i></button>
+              <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalNoveltieDetails"
+                (click)="getDetailsNoveltieById(report)"><i class="fa fa-list"></i></button>
             </div>
           </td>
         </tr>
       </ng-container>
     </tbody>
   </data-table>
+  <modal-component #modalNoveltieDetails [idModal]="'modalNoveltieDetails'" [modalTitle]="'Detalles de Novedad'"
+    [modalLarge]="true">
+    <div class="row">
+      <div class="col-6">
+        Novedad
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.appNoveltyName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Empresa
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.companyName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Comentario
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.comment}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Fecha Inicial
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.dateInit}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Fecha Final
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.dateFinish}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Identificación
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.identify}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Usuario
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.userName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Ubicación
+      </div>
+      <div class="col-6">
+        {{detailsNoveltie?.zoneName}}
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <img [src]="detailsNoveltie?.imagenUrl" width="100%">
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <p>Sub Novedades</p>
+        <ul>
+          <li *ngFor="let noveltie of detailsNoveltie?.data">{{noveltie.name}}</li>
+        </ul>
+      </div>
+    </div>
+  </modal-component>
 </content-component>

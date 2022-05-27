@@ -11,10 +11,11 @@ export class ReportsPageComponent implements OnInit {
 
   public dataTableHead: any[] = dataTableHeadReports;
   private requestBody: IFilterRequestBody = new RequestBody;
-  reportsData: any[] = [];
+  public reportsData: any[] = [];
   public isDescOrAsc: boolean = true;
   public amountOfPages: number;
   public amountOfRows: number;
+  public detailsNoveltie: any;
 
   constructor(private _reports: ReportServices) { }
 
@@ -28,6 +29,15 @@ export class ReportsPageComponent implements OnInit {
       this.amountOfPages = response.body.pages;
       this.amountOfRows = response.body.records;
     });
+  }
+
+  getDetailsNoveltieById(report: any): void {
+    this._reports.getNoveltieById(report.subNoveltiesUser).subscribe(response => this.detailsNoveltie = response.body);
+  }
+
+  exportExcel(event: any): void {
+    this.requestBody.download = true;
+    this.fetchDataReport();
   }
 
   sort(fieldToSort: string): void {

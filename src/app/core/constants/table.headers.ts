@@ -173,3 +173,26 @@ export const dataTableHeadReports: any[] = [
     isSort: false
   }
 ]
+
+export const dataTableHeadConfiguration: any[] = [
+  {
+    title: 'Usuario',
+    field: 'userName',
+    isSort: true
+  },
+  {
+    title: 'Rol',
+    field: 'roleName',
+    isSort: true
+  },
+  {
+    title: 'Permisos',
+    field: 'permissions',
+    isSort: false
+  },
+  {
+    title: 'Acciones',
+    field: 'actions',
+    isSort: false
+  }
+]
