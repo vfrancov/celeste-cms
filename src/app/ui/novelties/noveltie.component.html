@@ -2,14 +2,18 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus novedades</p>
     <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
-      data-bs-target="#modalCreateOrEditNoveltie" (click)="prepareForm()" *ngIf="userPermissions.create">Crear Novedad</button>
+      data-bs-target="#modalCreateOrEditNoveltie" (click)="prepareForm()" *ngIf="userPermissions.create">Crear
+      Novedad</button>
   </div>
   <div class="row">
     <div class="col">
       <div class="card shadow mb-4">
-        <div class="card-header py-3">Mis Novedades X</div>
+        <div class="card-header py-3">Mis Novedades</div>
         <div class="card-body">
           <div class="row">
+            <div class="col-12 text-center" *ngIf="novelties.length === 0">
+              No hay novedades
+            </div>
             <ng-container *ngFor="let noveltie of novelties">
               <div class="col-3 mb-3">
                 <div class="card">
@@ -24,11 +28,11 @@
                   <div class="card-footer">
                     <div class="d-flex justify-content-between">
                       <div class="d-flex justify-content-around">
-                        <button class="btn btn-danger btn-sm cursor-pointer" (click)="deleteNoveltie(noveltie)" *ngIf="userPermissions.update"><i
-                            class="fa fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm cursor-pointer" (click)="deleteNoveltie(noveltie)"
+                          *ngIf="userPermissions.update"><i class="fa fa-trash"></i></button>
                         <button class="btn btn-warning btn-sm cursor-pointer ml-1" data-bs-toggle="modal"
-                          data-bs-target="#modalAssignSubNovelties" (click)="getNoveltyById(noveltie)" *ngIf="userPermissions.delete"><i
-                            class="fa fa-list"></i></button>
+                          data-bs-target="#modalAssignSubNovelties" (click)="getNoveltyById(noveltie)"
+                          *ngIf="userPermissions.delete"><i class="fa fa-list"></i></button>
                       </div>
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateOrEditNoveltie"
                         (click)="getNoveltyById(noveltie)">Actualizar Novedad</button>

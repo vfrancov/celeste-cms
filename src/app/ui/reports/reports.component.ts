@@ -16,6 +16,7 @@ export class ReportsPageComponent implements OnInit {
   public amountOfPages: number;
   public amountOfRows: number;
   public detailsNoveltie: any;
+  public imageModal: string;
 
   constructor(private _reports: ReportServices) { }
 
@@ -33,6 +34,10 @@ export class ReportsPageComponent implements OnInit {
 
   getDetailsNoveltieById(report: any): void {
     this._reports.getNoveltieById(report.subNoveltiesUser).subscribe(response => this.detailsNoveltie = response.body);
+  }
+
+  setImageModal(image: string): void {
+    this.imageModal = image;
   }
 
   exportExcel(event: any): void {

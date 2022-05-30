@@ -5,16 +5,12 @@ import { IModalComponent } from "@domain/companies/IModalComponent";
   selector: 'modal-component',
   templateUrl: './modal.component.html'
 })
-export class ModalComponent implements IModalComponent, OnInit {
+export class ModalComponent implements IModalComponent {
   @ViewChild('buttonCloseModal') buttonModal: ElementRef;
 
   @Input() idModal: string;
   @Input() modalTitle: string;
   @Input() modalLarge: boolean = false;
-
-  ngOnInit(): void {
-
-  }
 
   closeModal(): void {
     this.buttonModal.nativeElement.click();

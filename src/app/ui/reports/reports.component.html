@@ -11,7 +11,7 @@
         <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
           {{thead.value.title}}
           <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
-          <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}"></i>
+          <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}" *ngIf="thead.value.isSort"></i>
         </th>
       </ng-container>
     </thead>
@@ -25,7 +25,8 @@
           <td>{{report.identify}}</td>
           <td>{{report.appNoveltyName}}</td>
           <td class="text-center">
-            <img [src]="report.imagenUrl" width="40px">
+            <i class="fa fa-image cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalNoveltieImage"
+              (click)="setImageModal(report.imagenUrl)"></i>
           </td>
           <td>{{report.userName}}</td>
           <td>{{report.zoneName}}</td>
@@ -42,83 +43,72 @@
   <modal-component #modalNoveltieDetails [idModal]="'modalNoveltieDetails'" [modalTitle]="'Detalles de Novedad'"
     [modalLarge]="true">
     <div class="row">
-      <div class="col-6">
-        Novedad
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.appNoveltyName}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Empresa
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.companyName}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Comentario
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.comment}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Fecha Inicial
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.dateInit}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Fecha Final
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.dateFinish}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Identificación
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.identify}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Usuario
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.userName}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        Ubicación
-      </div>
-      <div class="col-6">
-        {{detailsNoveltie?.zoneName}}
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-6">
-        <div class="card">
+      <div class="col">
+        <div class="card" style="width: 100%;">
+          <img [src]="detailsNoveltie?.imagenUrl" class="card-img-top" style="height: 15vw; object-fit: cover;">
+          <div class="card-body d-flex justify-content-between">
+            <div class="card" style="width: 46%;">
+              <div class="card-header">
+                Detalle General
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <label class="badge badge-info">Novedad</label>
+                  {{detailsNoveltie?.appNoveltyName}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Empresa</label>
+                  {{detailsNoveltie?.companyName}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Comentario</label>
+                  {{detailsNoveltie?.comment}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Identificación</label>
+                  {{detailsNoveltie?.identify}}
+                </li>
+              </ul>
+            </div>
+            <div class="card" style="width: 46%;">
+              <div class="card-header">
+                Detalle General
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <label class="badge badge-info">Fecha Inicial</label>
+                  {{detailsNoveltie?.dateInit}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Fecha Final</label>
+                  {{detailsNoveltie?.dateFinish}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Usuario</label>
+                  {{detailsNoveltie?.userName}}
+                </li>
+                <li class="list-group-item">
+                  <label class="badge badge-info">Zona</label>
+                  {{detailsNoveltie?.zoneName}}
+                </li>
+              </ul>
+            </div>
+          </div>
           <div class="card-body">
-            <img [src]="detailsNoveltie?.imagenUrl" width="100%">
+            <div class="card" style="width: 100%;">
+              <div class="card-header">
+                Sub Novedades
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let noveltie of detailsNoveltie?.data">{{noveltie.name}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <p>Sub Novedades</p>
-        <ul>
-          <li *ngFor="let noveltie of detailsNoveltie?.data">{{noveltie.name}}</li>
-        </ul>
-      </div>
     </div>
+  </modal-component>
+  <modal-component [idModal]="'modalNoveltieImage'" [modalTitle]="'Imagen de la Novedad'">
+    <img [src]="imageModal" width="100%">
   </modal-component>
 </content-component>

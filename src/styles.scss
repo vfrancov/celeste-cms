@@ -21,7 +21,7 @@
 
 .bg-gradient-celeste {
   background-color: #4e73df;
-  background-image: linear-gradient(180deg,#d7e2ff 10%,#134fff 100%);
+  background-image: linear-gradient(180deg, #d7e2ff 10%, #134fff 100%);
   background-size: cover;
 }
 
@@ -36,4 +36,8 @@
 .pointer {
   cursor: pointer;
   background-color: #e8eefd;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
