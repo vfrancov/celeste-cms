@@ -13,7 +13,7 @@
             <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
               {{thead.value.title}}
               <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
-              <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}"></i>
+              <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}" *ngIf="thead.value.isSort"></i>
             </th>
           </ng-container>
         </thead>

@@ -67,7 +67,6 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   createCompanie(): void {
     this._presenter.registerCompanie(this.formCompanie.value);
-    this.modalCompanie.closeModal();
   }
 
   editCompanie(): void {
@@ -95,8 +94,13 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   }
 
   isCompanieCreated(status: boolean, error?: HttpErrorResponse): void {
-    (status) ? swal.fire(companieCreated) : this.showErrorCompanieService = error.ok;
-    this.getAllCompanies();
+    if (!status) {
+      this.showErrorCompanieService = !error.ok;
+      this.companieErrorService = error;
+    } else {
+      swal.fire(companieCreated)
+      this.getAllCompanies();
+    }
   }
 
   showCompanieRecords(records: CompaniesDto[], pages: number, rows: number): void {

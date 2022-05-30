@@ -7,7 +7,7 @@ import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadUsers } from "@core/constants/table.headers";
-import { ChangePasswordField, UsersField } from "@core/constants/users.field";
+import { ChangePasswordField, PasswordValidation, UsersField } from "@core/constants/users.field";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
 import { UserPermissions } from "@domain/shared/menu.dto";
@@ -39,6 +39,8 @@ export class UsersPageComponent implements OnInit {
   isDescOrAsc: boolean = false;
   amountOfPages: number;
   amountOfRows: number;
+  togglePassword: boolean = false;
+  toggleConfirmPassword: boolean = false;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -66,7 +68,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   initializeFormCreateUser(): void {
-    this.formCreateUserData = this.formBuilder.group(UsersField);
+    this.formCreateUserData = this.formBuilder.group(UsersField, { validators: PasswordValidation.matchPassword });
   }
 
   initializeFormChangePasswordUser(): void {
@@ -137,6 +139,14 @@ export class UsersPageComponent implements OnInit {
     this.formCreateUserData.reset();
     this.showErrorUserService = false;
     this.isEditUser = false;
+  }
+
+  showPassword(): void {
+    this.togglePassword = !this.togglePassword;
+  }
+
+  showConfirmPassword(): void {
+    this.toggleConfirmPassword = !this.toggleConfirmPassword;
   }
 
   sort(fieldToSort: string): void {

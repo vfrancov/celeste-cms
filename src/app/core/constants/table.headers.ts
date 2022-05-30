@@ -36,7 +36,7 @@ export const dataTableHeadUsers: any[] = [
   {
     title: 'Empresa',
     field: 'companyName',
-    isSort: false
+    isSort: true
   },
   {
     title: 'Acciones',
