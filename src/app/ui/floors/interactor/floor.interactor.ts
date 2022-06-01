@@ -29,7 +29,7 @@ export class FloorInteractor implements IFloorInteractorInput {
 
   readAll(requestBody: IFilterRequestBody): void {
     this.floorService.readAll(requestBody).subscribe(
-      response => {
+      (response) => {
         this._view.floorData = response.body.list;
         this._view.amountOfPages = response.body.pages;
         this._view.amountOfRows = response.body.records;

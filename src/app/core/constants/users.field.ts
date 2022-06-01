@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidationErrors, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { ChangeUserPasswordFields, IUsersField } from "@core/validators/usersform.validator";
 
 export class PasswordValidation {
@@ -17,7 +17,7 @@ export const UsersField: IUsersField = {
   lastName: ['', Validators.required],
   username: ['', Validators.required],
   password: ['', [Validators.required]],
-  confirm: ['', [Validators.required, PasswordValidation.matchPassword]],
+  confirm: ['asd', [Validators.required, PasswordValidation.matchPassword]],
   phoneNumber: [''],
   roleId: [0, Validators.required],
   companyId: ['', Validators.required],
@@ -28,7 +28,7 @@ export const ChangePasswordField: ChangeUserPasswordFields = {
   id: [0],
   username: [''],
   password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-  confirm: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]]
+  confirm: ['', [Validators.required, PasswordValidation.matchPassword, Validators.minLength(8), Validators.maxLength(8)]]
 }
 
 

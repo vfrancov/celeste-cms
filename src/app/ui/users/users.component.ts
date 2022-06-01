@@ -41,6 +41,10 @@ export class UsersPageComponent implements OnInit {
   amountOfRows: number;
   togglePassword: boolean = false;
   toggleConfirmPassword: boolean = false;
+  toggleChangePassword: boolean = false;
+  toggleConfirmChangePassword: boolean = false;
+  changePasswordService: HttpErrorResponse;
+  showErrorChangePassword: boolean;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -72,7 +76,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   initializeFormChangePasswordUser(): void {
-    this.formChangeUserPassword = this.formBuilder.group(ChangePasswordField);
+    this.formChangeUserPassword = this.formBuilder.group(ChangePasswordField, { validators: PasswordValidation.matchPassword });
   }
 
   createUserData(): void {
@@ -121,6 +125,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   setUserData(user: UserDto): void {
+    this.showErrorChangePassword = false;
     this.userDtoData = user;
     this.formChangeUserPassword.patchValue(user);
   }
@@ -132,6 +137,9 @@ export class UsersPageComponent implements OnInit {
         swal.fire(userChangePasswordSuccess);
         this.formChangeUserPassword.reset();
       }
+    }, (error: HttpErrorResponse) => {
+      this.changePasswordService = error;
+      this.showErrorChangePassword = !error.ok;
     });
   }
 
@@ -147,6 +155,14 @@ export class UsersPageComponent implements OnInit {
 
   showConfirmPassword(): void {
     this.toggleConfirmPassword = !this.toggleConfirmPassword;
+  }
+
+  showChangePassword(): void {
+    this.toggleChangePassword = !this.toggleChangePassword;
+  }
+
+  showChangeConfirmPassword(): void {
+    this.toggleConfirmChangePassword = !this.toggleConfirmChangePassword;
   }
 
   sort(fieldToSort: string): void {

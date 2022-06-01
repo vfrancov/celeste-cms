@@ -91,7 +91,7 @@
                         class="fa {{(togglePassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
                   </div>
                 </div>
-                <span [class.text-danger]="!formCreateUserData.errors?.match" *ngIf="!formCreateUserData?.errors.match">las contraseñas no coinciden</span>
+                <span [class.text-danger]="!formCreateUserData.errors?.match" *ngIf="!formCreateUserData.errors?.match">las contraseñas no coinciden</span>
               </div>
             </div>
             <div class="col-6">
@@ -126,6 +126,7 @@
       <div class="col">
         <div class="alert alert-info">Recuerda: la contraseña debe ser minimo de 8 caracteres, una vez definas tu
           contraseña debes confirmarla y deben coincidir</div>
+        <alert-message [error]="changePasswordService" [response]="showErrorFloorService" *ngIf="showErrorChangePassword"></alert-message>
         <form [formGroup]="formChangeUserPassword">
           <input type="hidden" formControlName="id" readonly>
           <div class="form-group">
@@ -134,16 +135,29 @@
           </div>
           <div class="form-group">
             <label for="">* Nueva Contraseña</label>
-            <input type="password" class="form-control" formControlName="password">
+            <div class="input-group mb-3">
+              <input type="{{(toggleChangePassword) ? 'text' : 'password'}}" class="form-control"
+                formControlName="password" aria-describedby="password" maxlength="8">
+              <div class="input-group-append pointer" (click)="showChangePassword()">
+                <span class="input-group-text" id="password"><i
+                    class="fa {{(toggleChangePassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">* Confirmar Contraseña</label>
-            <input type="password" class="form-control" formControlName="confirm">
+            <div class="input-group mb-3">
+              <input type="{{(toggleConfirmChangePassword) ? 'text' : 'password'}}" class="form-control"
+                formControlName="confirm" aria-describedby="confirm" maxlength="8">
+              <div class="input-group-append pointer" (click)="showChangeConfirmPassword()">
+                <span class="input-group-text" id="password"><i
+                    class="fa {{(toggleConfirmChangePassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
+              </div>
+            </div>
+            <span [class.text-danger]="!formChangeUserPassword.errors?.match" *ngIf="!formChangeUserPassword.errors?.match">las contraseñas no coinciden</span>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" (click)="changeUserPassword()"
-              [disabled]="
-            formChangeUserPassword.invalid || formChangeUserPassword.get('password').value !== formChangeUserPassword.get('confirm').value">Cambiar Contraseña</button>
+            <button class="btn btn-primary" (click)="changeUserPassword()" [disabled]="!formChangeUserPassword.errors?.match">Cambiar Contraseña</button>
           </div>
         </form>
       </div>
