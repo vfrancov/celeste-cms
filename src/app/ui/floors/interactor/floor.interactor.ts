@@ -1,11 +1,10 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { AbstractControl } from "@angular/forms";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { floorDeleted, floorSuccess, floorUpdated, floorWarning } from "@core/constants/sweetalert.config";
-import { GetFloor } from "@domain/floor/floor.dto";
+import { CreateFloor, GetFloor, UpdateFloor } from "@domain/floor/floor.dto";
 import { IFloorRepository } from "@domain/floor/floor.repository";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import swal, { SweetAlertResult } from 'sweetalert2';
@@ -38,8 +37,8 @@ export class FloorInteractor implements IFloorInteractorInput {
     );
   }
 
-  createFloor(formFloor: AbstractControl): void {
-    this.floorService.createFloor(formFloor.value).subscribe(response => {
+  createFloor(formFloor: CreateFloor): void {
+    this.floorService.createFloor(formFloor).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCreateAndEditFloor.closeModal();
         swal.fire(floorSuccess);
@@ -51,8 +50,8 @@ export class FloorInteractor implements IFloorInteractorInput {
     });
   }
 
-  updateFloor(id: number, formFloor: AbstractControl): void {
-    this.floorService.updateFloor(id, formFloor.value).subscribe(response => {
+  updateFloor(id: number, formFloor: UpdateFloor): void {
+    this.floorService.updateFloor(id, formFloor).subscribe(response => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalCreateAndEditFloor.closeModal();
         swal.fire(floorUpdated);
@@ -79,6 +78,7 @@ export class FloorInteractor implements IFloorInteractorInput {
   }
 
   showModalFloorWithData(floor: GetFloor): void {
+    this._view.showErrorFloorService = false;
     this.floorService.getFloorById(floor.id).subscribe(response => {
       this._view.formFloor.patchValue(response.body);
       this._view.isEditFloor = true;

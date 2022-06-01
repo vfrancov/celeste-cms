@@ -45,6 +45,7 @@ export class NoveltiePageComponent implements OnInit {
   noveltieData: NoveltyDTO;
   noveltiesAndSubNovelties: any[] = [];
   userPermissions: UserPermissions;
+  imageModal: string;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -162,12 +163,18 @@ export class NoveltiePageComponent implements OnInit {
   }
 
   getListRelNoveltySubNovelty(id: any): void {
-    this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(response => this.noveltiesAndSubNovelties = response.body.list);
+    this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(
+      response => this.noveltiesAndSubNovelties = response.body.list
+    );
   }
 
   prepareForm(): void {
     this.formNoveltie.reset();
     this.imageName = Status.defaultTextUploadImage;
     this.isEditNovelty = false;
+  }
+
+  setImageModal(image: string): void {
+    this.imageModal = image;
   }
 }

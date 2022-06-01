@@ -58,7 +58,7 @@ export class FloorsPageComponent implements OnInit, IFloorPresenterOutput {
   }
 
   createFloor(): void {
-    this._presenter.createFloor(this.formFloor);
+    this._presenter.createFloor(this.formFloor.value);
   }
 
   showModalFloorWithData(floor: GetFloor): void {
@@ -68,6 +68,7 @@ export class FloorsPageComponent implements OnInit, IFloorPresenterOutput {
   showModalCreateFloor(): void {
     this.isEditFloor = false;
     this.formFloor.reset();
+    this.showErrorFloorService = false;
   }
 
   updateFloor(): void {

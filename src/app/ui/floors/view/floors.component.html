@@ -53,7 +53,7 @@
       <div class="col">
         <h5 class="no-margin">Registra tus pisos</h5>
         <small>Registra los pisos que necesitas</small>
-        <alert-message [error]="floorErrorService" [response]="showErrorFloorService"></alert-message>
+        <alert-message [error]="floorErrorService" [response]="showErrorFloorService" *ngIf="showErrorFloorService"></alert-message>
         <form class="mt-3" [formGroup]="formFloor">
           <combobox formControlName="appZoneId" [label]="'Nombre de Zona'" [name]="'appZoneId'"
             [endpoint]="'api/ComboBoxGeneral/GetZones/1'">

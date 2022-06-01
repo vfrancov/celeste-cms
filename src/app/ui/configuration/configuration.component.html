@@ -4,8 +4,10 @@
   </div>
   <div class="row">
     <div class="col">
-      <data-table [title]="'Configuración de Usuarios'" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
-        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)" (emitRestore)="restoreFilter($event)"></data-filter>
+      <data-table [title]="'Configuración de Usuarios'" [pages]="amountOfPages" [rows]="amountOfRows"
+        (emitPage)="selectedPage($event)">
+        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)"
+          (emitRestore)="restoreFilter($event)"></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead | keyvalue">
             <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
@@ -17,7 +19,8 @@
         </thead>
         <tbody>
           <tr>
-            <td [attr.colspan]="dataTableHead.length" class="text-center" *ngIf="userData?.length === 0">No hay registros</td>
+            <td [attr.colspan]="dataTableHead.length" class="text-center" *ngIf="userData?.length === 0">No hay
+              registros</td>
           </tr>
           <ng-container *ngFor="let user of userData">
             <tr>
@@ -30,9 +33,12 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <button *ngIf="userPermissions.update" class="btn btn-info btn-sm btn-small" data-bs-toggle="modal"
-                    data-bs-target="#modalDefineConfig" (click)="showUpConfigModal(user)"><i class="fa fa-edit"></i></button>
-                  <button class="btn btn-primary btn-sm btn-small"><i class="fa fa-cog"></i></button>
+                  <button *ngIf="userPermissions.update" class="btn btn-primary btn-sm btn-small" data-bs-toggle="modal"
+                    data-bs-target="#modalDefineConfig" (click)="showUpConfigModal(user)"><i
+                      class="fa fa-cog"></i></button>
+                  <button class="btn btn-info btn-sm btn-small" data-bs-toggle="modal"
+                    data-bs-target="#modalEditConfiguration" (click)="showUpEditModal(user)"><i
+                      class="fa fa-edit"></i></button>
                 </div>
               </td>
           </ng-container>
@@ -40,7 +46,8 @@
       </data-table>
     </div>
   </div>
-  <modal-component #modalConfiguration [idModal]="'modalDefineConfig'" [modalTitle]="'Configuración de Permisos'" [modalLarge]="true">
+  <modal-component #modalConfiguration [idModal]="'modalDefineConfig'" [modalTitle]="'Configuración de Permisos'"
+    [modalLarge]="true">
     <div class="row">
       <div class="col">
         <h5 class="no-margin">Registra tus permisos</h5>
@@ -66,12 +73,45 @@
         <hr>
         <div class="form-group" *ngFor="let permission of permissions">
           <div class="custom-control custom-checkbox small">
-            <input type="checkbox" class="custom-control-input" id="{{permission.name}}" (click)="setUserPermissions(permission)">
+            <input type="checkbox" class="custom-control-input" id="{{permission.name}}"
+              (click)="setUserPermissions(permission)">
             <label class="custom-control-label" for="{{permission.name}}">{{permission.name}}</label>
           </div>
         </div>
         <button class="btn btn-primary" (click)="saveMenuAndUserPermissions()">Guardar Configuración</button>
       </div>
+    </div>
+  </modal-component>
+  <modal-component #modalEditConfiguration [idModal]="'modalEditConfiguration'" [modalTitle]="'Edición de Permisos'">
+    <div class="card" style="width: 100%;">
+      <div class="card-header">
+        Configuración de Usuario
+      </div>
+      <ul class="list-group list-group-flush">
+        <form>
+        <li class="list-group-item" *ngFor="let menu of userMenuPermissions; let i = index">
+          <div class="custom-control custom-checkbox small">
+            <input id="create-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.create">
+            <label class="custom-control-label" for="create-{{i}}">Crear</label>
+          </div>
+          <div class="custom-control custom-checkbox small">
+            <input id="read-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.read">
+            <label class="custom-control-label" for="read-{{i}}">Leer</label>
+          </div>
+          <div class="custom-control custom-checkbox small">
+            <input id="update-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.update">
+            <label class="custom-control-label" for="update-{{i}}">Actualizar</label>
+          </div>
+          <div class="custom-control custom-checkbox small">
+            <input id="delete-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.delete">
+            <label class="custom-control-label" for="delete-{{i}}">Eliminar</label>
+          </div>
+          <div class="form-group mt-2">
+            <button class="btn btn-sm btn-info" (click)="updateUserPermissions(menu)">Actualizar Permisos</button>
+          </div>
+        </li>
+        </form>
+      </ul>
     </div>
   </modal-component>
 </content-component>

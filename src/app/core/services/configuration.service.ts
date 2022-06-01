@@ -12,4 +12,8 @@ export class ConfigurationService {
   getModules(): Observable<HttpResponse<ComboDTO>> {
     return this.http.get<ComboDTO>(`${environment.baseUrl}/api/ComboBoxGeneral/Menu`, { observe: 'response' });
   }
+
+  getUserConfiguration(id: number): Observable<HttpResponse<any>> {
+    return this.http.get(`${environment.baseUrl}/api/Menu/${id}`, { observe: 'response' });
+  }
 }

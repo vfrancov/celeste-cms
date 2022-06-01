@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { MenuPermissions, permissions } from "@core/constants/permissions.enum";
@@ -40,6 +40,12 @@ export class ConfigurationPageComponent implements OnInit {
   amountOfPages: number;
   amountOfRows: number;
   isDescOrAsc: boolean = false;
+  userMenuPermissions: any[] = [];
+  create: boolean;
+  read: boolean;
+  update: boolean;
+  delete: boolean;
+  formUserPermissions: FormGroup;
 
   constructor(
     @Inject(RepositoryProvider.usersRepository) private userService: IUserRepository,
@@ -69,6 +75,16 @@ export class ConfigurationPageComponent implements OnInit {
   showUpConfigModal(user: UserDto): void {
     this.userId = user.id;
     this.userService.getConfiguration(user.id).subscribe(response => console.log(response));
+  }
+
+  showUpEditModal(user: UserDto): void {
+    this._configurationService.getUserConfiguration(user.id).subscribe(response => {
+      this.userMenuPermissions = response.body;
+    });
+  }
+
+  updateUserPermissions(menu: any): void {
+    console.log(menu);
   }
 
   setUserModule(module: ComboDTO): void {
@@ -135,5 +151,18 @@ export class ConfigurationPageComponent implements OnInit {
   applyFilter(filter: any): void {
     this.userRequest.filter = filter.filter;
     this.fetchUserData();
+  }
+
+  setPermissions(menu): void {
+    let menuConfiguration = [{
+      menuItemsId: menu.menuItemsId,
+      userId: menu.userId,
+      create: (menu.create) ? true : false,
+      read: (menu.read) ? true : false,
+      update: (menu.update) ? true : false,
+      delete: (menu.delete) ? true : false
+    }];
+
+    console.log(menuConfiguration);
   }
 }

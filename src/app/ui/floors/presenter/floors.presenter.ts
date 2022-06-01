@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { GetFloor } from "@domain/floor/floor.dto";
+import { CreateFloor, GetFloor, UpdateFloor } from "@domain/floor/floor.dto";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { FloorInteractor } from "../interactor/floor.interactor";
 import { IFloorInteractorOutput } from "../interactor/floor.interactor.output";
@@ -24,11 +23,11 @@ export class FloorPresenter implements IFloorPresenterInput, IFloorInteractorOut
     this._interactor.readAll(requestBody);
   }
 
-  createFloor(formFloor: FormGroup): void {
-    this._interactor.createFloor(formFloor.value);
+  createFloor(formFloor: CreateFloor): void {
+    this._interactor.createFloor(formFloor);
   }
 
-  updateFloor(id: number, formFloor: FormGroup): void {
+  updateFloor(id: number, formFloor: UpdateFloor): void {
     this._interactor.updateFloor(id, formFloor);
   }
 
