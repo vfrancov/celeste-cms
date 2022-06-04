@@ -33,8 +33,9 @@ export class FloorInteractor implements IFloorInteractorInput {
         this._view.floorData = response.body.list;
         this._view.amountOfPages = response.body.pages;
         this._view.amountOfRows = response.body.records;
-      }
-    );
+      }, (error: HttpErrorResponse) => {
+        swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
+      });
   }
 
   createFloor(formFloor: CreateFloor): void {
@@ -72,6 +73,8 @@ export class FloorInteractor implements IFloorInteractorInput {
             swal.fire(floorDeleted);
             this._view.readAll();
           }
+        }, (error: HttpErrorResponse) => {
+          swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
         });
       }
     });
@@ -86,5 +89,12 @@ export class FloorInteractor implements IFloorInteractorInput {
     }, (error: HttpErrorResponse) => {
       swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
     });
+  }
+
+  processSell(value: number): number {
+    const fixValue = 10;
+    let result = (value * fixValue);
+
+    return result;
   }
 }

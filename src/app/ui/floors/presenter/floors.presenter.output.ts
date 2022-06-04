@@ -4,7 +4,7 @@ import { CoreDataTable } from "@core/view/core.datatable";
 import { IModalComponent } from "@domain/companies/IModalComponent";
 import { FloorDto } from "@domain/floor/floor.dto";
 
-export interface IFloorPresenterOutput extends CoreDataTable {
+export interface IFloorPresenterOutput {
   floorData: FloorDto[];
   amountOfPages: number;
   amountOfRows: number;
@@ -14,5 +14,6 @@ export interface IFloorPresenterOutput extends CoreDataTable {
   formFloor: FormGroup;
   isEditFloor: boolean;
   floor: FloorDto;
+  myResultValue: number;
   readAll(): void;
 }

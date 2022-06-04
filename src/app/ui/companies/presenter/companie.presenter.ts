@@ -17,6 +17,7 @@ export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInte
 
   setView(component: CompaniesPresenterOutput) {
     this._view = component;
+    this._interactor.setView(component);
   }
 
   fetchCompanieData(request: IFilterRequestBody): void {

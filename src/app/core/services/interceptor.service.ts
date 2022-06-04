@@ -20,7 +20,7 @@ export class HttpConfigService implements HttpInterceptor {
         setHeaders: {
           authorization: `Bearer ${getToken.token}`
         }
-      })
+      });
     }
 
     return next.handle(request);

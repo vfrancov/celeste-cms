@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { floorFields } from "@core/constants/floor.field";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { dataTableHeadFloors } from "@core/constants/table.headers";
+import { CoreDataTable } from "@core/view/core.datatable";
 import { IModalComponent } from "@domain/companies/IModalComponent";
 import { DeleteFloor, FloorDto, GetFloor } from "@domain/floor/floor.dto";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
@@ -17,7 +18,7 @@ import { IFloorPresenterOutput } from "../presenter/floors.presenter.output";
   selector: 'floors-component',
   templateUrl: './floors.component.html'
 })
-export class FloorsPageComponent implements OnInit, IFloorPresenterOutput {
+export class FloorsPageComponent implements OnInit, IFloorPresenterOutput, CoreDataTable {
 
   @ViewChild('modalCreateAndEditFloor') modalCreateAndEditFloor: IModalComponent;
 
@@ -33,6 +34,7 @@ export class FloorsPageComponent implements OnInit, IFloorPresenterOutput {
   isDescOrAsc: boolean = false;
   amountOfPages: number;
   amountOfRows: number;
+  myResultValue: number;
 
   constructor(
     @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,

@@ -19,12 +19,7 @@ export class DataFilterComponent implements OnInit {
   moreThanOneCriteria: boolean;
   addOtherCriteria: boolean;
   criterias: any = {
-    'igual a': 'eq',
-    'diferente de': 'neq',
-    'menor que': 'lt',
-    'menor igual': 'lte',
-    'mayor que': 'gt',
-    'mayor igual': 'gte'
+    'contiene': 'eq'
   }
 
   amountOfCriteria: any[] = [1];

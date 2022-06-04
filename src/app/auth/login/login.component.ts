@@ -10,6 +10,7 @@ import { RepositoryProvider } from '@core/constants/repository.enum';
 import { ILocalStorageRepository } from '@domain/localstorage/localstorage.repository';
 import { Status } from '@core/constants/status.enum';
 import { AuthenticationFormFields } from '@core/constants/authentication.fields';
+import { environment } from '@environment/environment';
 
 @Component({
   selector: 'auth-login',
@@ -18,11 +19,13 @@ import { AuthenticationFormFields } from '@core/constants/authentication.fields'
 })
 export class AuthLoginComponent implements OnInit {
 
+  appVersion: string = environment.version;
   authLoginForm: FormGroup;
   errorAuthentication: boolean = false;
   errorAuthenticationService: HttpErrorResponse;
   isLoading: boolean = Status.notLoading;
   authResponse: HttpResponse<any>;
+  private readonly _IS_SUPER_ADMIN: number = 1;
 
   constructor(
     @Inject(RepositoryProvider.AuthRepository) private authService: IAuthRepository,
@@ -60,6 +63,8 @@ export class AuthLoginComponent implements OnInit {
 
   private redirectAndStoreSession(response: HttpResponse<UserDto>): void {
     this.localStorage.saveItem(Navigation.userSession, response.body);
+    (response.body.rolId === this._IS_SUPER_ADMIN) ?
+    this.router.navigate([Navigation.companies]) :
     this.router.navigate([Navigation.dashboard]);
   }
 }

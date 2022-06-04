@@ -1,9 +1,10 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { Strings } from "@core/constants/strings";
-import { DashboardData, DashboardDTO, NoveltiesGraphicData } from "@domain/dashboard/dashboard.dto";
+import { DashboardData, NoveltiesGraphicData } from "@domain/dashboard/dashboard.dto";
 import { IDashboardRespository } from "@domain/dashboard/dashboard.repository";
-declare let d3: any;
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'dashboard-component',
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getDashoardResume().subscribe(response => {
       this.dashboardData = response.body;
       this.showDashboardGraphic(response.body);
-    });
+    }, (error: HttpErrorResponse) => swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning'));
   }
 
   showDashboardGraphic(graphicData: DashboardData): void {
