@@ -18,6 +18,7 @@ export class DataFilterComponent implements OnInit {
   inputTextSearch: boolean;
   moreThanOneCriteria: boolean;
   addOtherCriteria: boolean;
+  isDate: boolean;
   criterias: any = {
     'contiene': 'eq'
   }
@@ -50,6 +51,7 @@ export class DataFilterComponent implements OnInit {
   columnSelected(event: Event): void {
     this.showCriteriaCombo = true;
     this.placeHolderInput = (event.target as HTMLInputElement).value;
+    this.isDate = (this.placeHolderInput.match('date')?.length > 0) ? true : false;
   }
 
   criteriaSelected(event: Event): void {

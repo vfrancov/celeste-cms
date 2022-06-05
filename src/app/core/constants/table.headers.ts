@@ -4,12 +4,12 @@
 // 'Nombres', 'Apellidos', 'Telefono', 'Estado', 'Rol', 'Usuario', 'Empresas', 'Acciones'
 export const dataTableHeadUsers: any[] = [
   {
-    title : 'Nombres',
-    field : 'firstName',
+    title: 'Nombres',
+    field: 'firstName',
     isSort: true
   },
   {
-    title : 'Apellidos',
+    title: 'Apellidos',
     field: 'lastName',
     isSort: true
   },
@@ -47,12 +47,12 @@ export const dataTableHeadUsers: any[] = [
 
 export const dataTableHeadCompanies: any[] = [
   {
-    title : 'Nombre Empresa',
-    field : 'name',
+    title: 'Nombre Empresa',
+    field: 'name',
     isSort: true
   },
   {
-    title : 'NIT',
+    title: 'NIT',
     field: 'nit',
     isSort: true
   },
@@ -88,12 +88,12 @@ export const dataTableHeadCompanies: any[] = [
 
 export const dataTableHeadZones: any[] = [
   {
-    title : 'Nombre Zona',
-    field : 'name',
+    title: 'Nombre Zona',
+    field: 'name',
     isSort: true
   },
   {
-    title : 'Nombre Empresa',
+    title: 'Nombre Empresa',
     field: 'companyName',
     isSort: true
   },
@@ -155,7 +155,7 @@ export const dataTableHeadReports: any[] = [
   {
     title: 'Foto',
     field: 'photo',
-    isSort: true
+    isSort: false
   },
   {
     title: 'Usuario',
@@ -166,6 +166,18 @@ export const dataTableHeadReports: any[] = [
     title: 'Ubicación',
     field: 'zoneName',
     isSort: true
+  },
+  {
+    title: 'Fecha Inicial',
+    field: 'dateInit',
+    isSort: true,
+    isDate: true
+  },
+  {
+    title: 'Fecha Final',
+    field: 'dateFinish',
+    isSort: true,
+    isDate: true
   },
   {
     title: 'Acciones',

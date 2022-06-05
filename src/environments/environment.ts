@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseUrl: 'https://api.appceleste.com',
   type: 'Dev',
-  version: '1.0.4'
+  version: '1.0.5'
 };
 
 /*

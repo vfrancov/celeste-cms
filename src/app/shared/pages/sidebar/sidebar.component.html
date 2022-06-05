@@ -5,13 +5,15 @@
     </div>
     <div class="sidebar-brand-text mx-3">Celeste</div>
   </a>
-  <hr class="sidebar-divider my-0" *ngIf="checkRole">
-  <li class="nav-item active" *ngIf="checkRole">
-    <a class="nav-link" href="/admin/home">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Administrador</span></a>
-  </li>
-  <hr class="sidebar-divider" *ngIf="checkRole">
+  <ng-container *ngIf="checkRole">
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item active">
+      <a class="nav-link" href="/admin/home">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+    <hr class="sidebar-divider">
+  </ng-container>
   <div class="sidebar-heading">
     Menu
   </div>

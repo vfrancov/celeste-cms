@@ -15,13 +15,13 @@
                 <option value="{{field.value.field}}" *ngIf="field.value.isSort">{{field.value.title}}</option>
               </ng-container>
             </select>
-            <select formControlName="logic" class="form-control ml-1" (change)="criteriaSelected()">
+            <select formControlName="logic" class="form-control ml-1" (change)="criteriaSelected($event)">
               <option selected>Criterio</option>
               <ng-container *ngFor="let criteria of criterias | keyvalue">
                 <option [value]="criteria.value">{{criteria.key}}</option>
               </ng-container>
             </select>
-            <input formControlName="value" type="text" class="form-control ml-1" placeholder="Ingresa el valor">
+            <input formControlName="value" type="{{(isDate) ? 'date' : 'text'}}" class="form-control ml-1" placeholder="Ingresa el valor">
             <button class="btn btn-outline-danger ml-1 mr-1" *ngIf="moreThanOneCriteria || amountOfCriteria.length > 1"
               (click)="removeCriteria(index, i)"><i class="fa fa-minus-circle"></i></button>
             <button class="btn btn-sm btn-outline-primary" [class.ml-1]="!moreThanOneCriteria"
