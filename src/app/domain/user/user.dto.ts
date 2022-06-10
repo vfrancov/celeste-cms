@@ -16,7 +16,8 @@ export interface UserDto {
   token?: string,
   rolId: number,
   expirationToken?: string,
-  listMenu: Array<MenuUserDto>
+  listMenu: Array<MenuUserDto>,
+  setConfiguration?: boolean
 }
 
 export type ChangePassword = Pick<UserDto, 'password'>;

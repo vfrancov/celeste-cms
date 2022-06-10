@@ -7,6 +7,7 @@ import { RepositoryProvider } from "@core/constants/repository.enum";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import swal, { SweetAlertResult } from 'sweetalert2';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -22,6 +23,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.localStorage.removeItem();
         this._router.navigate([Navigation.login]);
       }
+
+      if(error.status >= HttpStatusCode.InternalServerError || error.status >= HttpStatusCode.NotFound)
+        swal.fire('Error', error.message, 'warning');
 
       return throwError(error);
     }));

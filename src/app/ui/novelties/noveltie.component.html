@@ -17,8 +17,9 @@
             <ng-container *ngFor="let noveltie of novelties">
               <div class="col-3">
                 <div class="card" style="width: 100%;">
-                  <img class="card-img-top cursor-pointer" [src]="noveltie.imagenUrl" alt="{{noveltie.name}}"
-                    height="200px" data-bs-toggle="modal" data-bs-target="#modalShowImage" (click)="setImageModal(noveltie.imagenUrl)">
+                  <img class="card-img-top cursor-pointer img-cropped" [src]="noveltie.imagenUrl"
+                    alt="{{noveltie.name}}" height="200px" data-bs-toggle="modal" data-bs-target="#modalShowImage"
+                    (click)="setImageModal(noveltie.imagenUrl)">
                   <div class="card-body">
                     <h5 class="card-title">Novedad tipo ({{noveltie.typeNoveltyName}})</h5>
                     <h5 class="card-title">Empresa: {{noveltie.companyName}}</h5>
@@ -110,7 +111,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="association-tab" data-bs-toggle="tab" data-bs-target="#association"
-              type="button" role="tab" aria-controls="association" aria-selected="false">Asociaciones</button>
+              type="button" role="tab" aria-controls="association" aria-selected="false">Relacionadas</button>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -125,12 +126,7 @@
                 <ng-container *ngFor="let subnoveltie of subNovelties">
                   <tr>
                     <td>{{subnoveltie.name}}</td>
-                    <td>{{subnoveltie.statusName}}</td>
-                    <td>
-                      <button class="btn btn-info btn-sm btn-block"
-                        (click)="associateNoveltieWithSubNoveltie(subnoveltie)"><i class="fa fa-arrow"></i>
-                        Asociar</button>
-                    </td>
+                    <td>{{subnoveltie.statusName | status}}</td>
                   </tr>
                 </ng-container>
               </tbody>
@@ -139,7 +135,7 @@
           <div class="tab-pane fade" id="association" role="tabpanel" aria-labelledby="association-tab">
             <data-table [title]="'Asociaciones de Subnovedad'">
               <thead>
-                <ng-container *ngFor="let thead of dataTableHead">
+                <ng-container *ngFor="let thead of dataTableHeadRelated">
                   <th>{{thead}}</th>
                 </ng-container>
               </thead>
@@ -156,8 +152,12 @@
                       </ng-template>
                     </td>
                     <td class="text-center">
-                      <button class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow"></i>
+                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId != 0"
+                        class="btn btn-primary btn-sm btn-block" (click)="dissasociateSubNoveltie(noveltieandsubnoveltie)"><i class="fa fa-arrow"></i>
                         Desasociar</button>
+                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId === 0"
+                        class="btn btn-primary btn-sm btn-block" (click)="associateSubNoveltie(noveltieandsubnoveltie)"><i class="fa fa-arrow"></i>
+                        Asociar</button>
                     </td>
                   </tr>
                 </ng-container>

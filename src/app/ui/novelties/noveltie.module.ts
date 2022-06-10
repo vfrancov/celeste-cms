@@ -8,17 +8,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from '@shared/customs/data-table/datatable.module';
 import { SubNoveltieProvider } from '@domain/subnoveltie/subnoveltie.provider';
 import { SharedModule } from "@shared/shared.module";
+import { CustomsModule } from "@shared/customs/customs.module";
+import { PipesModule } from "@core/pipes/pipe.module";
 
 @NgModule({
-    declarations: [NoveltiePageComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        FormsModule,
-        ReactiveFormsModule,
-        DataTableModule,
-        RouterModule.forChild(noveltieRoutes)
-    ],
-    providers: [NoveltieProvider, SubNoveltieProvider]
+  declarations: [NoveltiePageComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DataTableModule,
+    PipesModule,
+    RouterModule.forChild(noveltieRoutes)
+  ],
+  providers: [NoveltieProvider, SubNoveltieProvider]
 })
 export class NoveltieModule { }

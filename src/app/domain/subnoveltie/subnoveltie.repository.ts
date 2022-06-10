@@ -9,4 +9,5 @@ export interface ISubNoveltyRepository {
     createSubNoveltie(payload: CreateSubNoveltie): Observable<HttpResponse<any>>
     associateNoveltieAndSubNoveltie(asociation: CreateAssociation): Observable<HttpResponse<any>>
     listRelNoveltySubNovelty(id: any): Observable<HttpResponse<IResponseBody>>
+    dissasociateNoveltieAndSubnoveltie(payload: CreateAssociation): Observable<HttpResponse<IResponseBody>>
 }

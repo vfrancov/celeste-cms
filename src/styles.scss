@@ -41,3 +41,18 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.img-to-crop {
+  max-width: 300px;
+  object-fit: cover;
+  max-height: 200px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.img-cropped {
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}

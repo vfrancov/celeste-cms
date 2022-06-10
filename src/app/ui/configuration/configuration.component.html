@@ -33,9 +33,9 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <button *ngIf="userPermissions.update" class="btn btn-primary btn-sm btn-small" data-bs-toggle="modal"
-                    data-bs-target="#modalDefineConfig" (click)="showUpConfigModal(user)"><i
-                      class="fa fa-cog"></i></button>
+                  <button *ngIf="!user.setConfiguration && userPermissions.update"
+                    class="btn btn-primary btn-sm btn-small" data-bs-toggle="modal" data-bs-target="#modalDefineConfig"
+                    (click)="showUpConfigModal(user)"><i class="fa fa-cog"></i></button>
                   <button class="btn btn-info btn-sm btn-small" data-bs-toggle="modal"
                     data-bs-target="#modalEditConfiguration" (click)="showUpEditModal(user)"><i
                       class="fa fa-edit"></i></button>
@@ -88,28 +88,33 @@
         Configuración de Usuario
       </div>
       <ul class="list-group list-group-flush">
-        <form>
-        <li class="list-group-item" *ngFor="let menu of userMenuPermissions; let i = index">
-          <div class="custom-control custom-checkbox small">
-            <input id="create-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.create">
-            <label class="custom-control-label" for="create-{{i}}">Crear</label>
+        <form [formGroup]="formUserPermissions">
+          <div formArrayName="permissions">
+            <li class="list-group-item"
+              *ngFor="let menu of formUserPermissions['controls'].permissions['controls']; let i = index">
+              <div [formGroupName]="i">
+                <div class="custom-control custom-checkbox small">
+                  <input id="create-{{i}}" type="checkbox" class="custom-control-input" formControlName="create">
+                  <label class="custom-control-label" for="create-{{i}}">Crear</label>
+                </div>
+                <div class="custom-control custom-checkbox small">
+                  <input id="read-{{i}}" type="checkbox" class="custom-control-input" formControlName="read">
+                  <label class="custom-control-label" for="read-{{i}}">Leer</label>
+                </div>
+                <div class="custom-control custom-checkbox small">
+                  <input id="update-{{i}}" type="checkbox" class="custom-control-input" formControlName="update">
+                  <label class="custom-control-label" for="update-{{i}}">Actualizar</label>
+                </div>
+                <div class="custom-control custom-checkbox small">
+                  <input id="delete-{{i}}" type="checkbox" class="custom-control-input" formControlName="delete">
+                  <label class="custom-control-label" for="delete-{{i}}">Eliminar</label>
+                </div>
+                <div class="form-group mt-2">
+                  <button class="btn btn-sm btn-info" (click)="updateUserPermissions(i)">Actualizar Permisos</button>
+                </div>
+              </div>
+            </li>
           </div>
-          <div class="custom-control custom-checkbox small">
-            <input id="read-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.read">
-            <label class="custom-control-label" for="read-{{i}}">Leer</label>
-          </div>
-          <div class="custom-control custom-checkbox small">
-            <input id="update-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.update">
-            <label class="custom-control-label" for="update-{{i}}">Actualizar</label>
-          </div>
-          <div class="custom-control custom-checkbox small">
-            <input id="delete-{{i}}" type="checkbox" class="custom-control-input" [checked]="menu.delete">
-            <label class="custom-control-label" for="delete-{{i}}">Eliminar</label>
-          </div>
-          <div class="form-group mt-2">
-            <button class="btn btn-sm btn-info" (click)="updateUserPermissions(menu)">Actualizar Permisos</button>
-          </div>
-        </li>
         </form>
       </ul>
     </div>

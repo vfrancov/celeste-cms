@@ -9,7 +9,7 @@ import { RequestAction } from "@core/constants/requestactions.enum";
 import { Status } from "@core/constants/status.enum";
 import { subNoveltieFields } from "@core/constants/subnovelties.field";
 import { noveltieDeleted, noveltieSuccess, noveltieWarning } from "@core/constants/sweetalert.config";
-import { dataTableHeadSubNovelties } from "@core/constants/table.headers";
+import { dataTableHeadRelated, dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { INoveltyRepository } from "@domain/noveltie/noveltie.repository";
@@ -33,6 +33,7 @@ export class NoveltiePageComponent implements OnInit {
   subNovelties: SubNolvetieDto[] = [];
   filterRequestBody: IFilterRequestBody = new RequestBody;
   dataTableHead: string[] = dataTableHeadSubNovelties;
+  dataTableHeadRelated: string[] = dataTableHeadRelated;
   formNoveltie: FormGroup;
   formSubNoveltie: FormGroup;
   formDataNoveltie: CreateNovelty;
@@ -46,6 +47,7 @@ export class NoveltiePageComponent implements OnInit {
   noveltiesAndSubNovelties: any[] = [];
   userPermissions: UserPermissions;
   imageModal: string;
+  imageResult: string | ArrayBuffer;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -89,6 +91,7 @@ export class NoveltiePageComponent implements OnInit {
     this.imageName = this.utils.setFileName(event);
     this.formDataNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
+    this.utils.getImageResult(event).then(result => this.imageResult = result);
   }
 
   createNoveltie(): void {
@@ -109,6 +112,7 @@ export class NoveltiePageComponent implements OnInit {
       if (response.status === HttpStatusCode.Created) {
         this.readAllSubNovelties();
         this.formSubNoveltie.reset();
+        this.associateNoveltieWithSubNoveltie(response.body.id);
       }
     }, (error: HttpErrorResponse) => {
       this.errorSubNoveltieService = error;
@@ -151,15 +155,26 @@ export class NoveltiePageComponent implements OnInit {
     });
   }
 
-  associateNoveltieWithSubNoveltie(subnoveltie: SubNolvetieDto): void {
+  associateNoveltieWithSubNoveltie(idNoveltie: number): void {
     let association: CreateAssociation = {
       appNoveltysId: this.noveltieData.id,
-      appSubNoveltysId: subnoveltie.id
+      appSubNoveltysId: idNoveltie
     }
     this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
       if (response.status === HttpStatusCode.Created)
         this.getListRelNoveltySubNovelty(this.noveltieData.id);
     });
+  }
+
+  dissasociateSubNoveltie(noveltie: CreateAssociation): void {
+    this.subNoveltieService.dissasociateNoveltieAndSubnoveltie(noveltie).subscribe(response => {
+      if (response.status === HttpStatusCode.Ok)
+        this.getListRelNoveltySubNovelty(this.noveltieData.id);
+    });
+  }
+
+  associateSubNoveltie(noveltie: CreateAssociation): void {
+    this.associateNoveltieWithSubNoveltie(noveltie.appSubNoveltysId);
   }
 
   getListRelNoveltySubNovelty(id: any): void {

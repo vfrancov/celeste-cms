@@ -134,7 +134,8 @@ export const dataTableHeadFloors: any[] = [
   }
 ];
 
-export const dataTableHeadSubNovelties: string[] = ['Nombre', 'Estado', 'Asociar'];
+export const dataTableHeadSubNovelties: string[] = ['Nombre', 'Estado'];
+export const dataTableHeadRelated: string[] = ['Nombre', 'Estado', 'Acción'];
 
 export const dataTableHeadReports: any[] = [
   {
@@ -163,8 +164,13 @@ export const dataTableHeadReports: any[] = [
     isSort: true
   },
   {
-    title: 'Ubicación',
+    title: 'Zona',
     field: 'zoneName',
+    isSort: true
+  },
+  {
+    title: 'Piso',
+    field: 'floorName',
     isSort: true
   },
   {

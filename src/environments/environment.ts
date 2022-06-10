@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   baseUrl: 'https://api.appceleste.com',
   type: 'Dev',
-  version: '1.0.5'
+  version: '1.0.5',
+  datoCMSApiKey: '24ec577fa2a4b54e02de4738b14312'
 };
 
 /*

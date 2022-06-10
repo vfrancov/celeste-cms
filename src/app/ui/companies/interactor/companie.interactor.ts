@@ -49,7 +49,10 @@ export class CompanieInteractor {
 
   deleteCompanie(id: number): void {
     this.companieService.deleteCompanie(id, RequestAction.delete).subscribe(
-      response => console.log(response)
+      response => {
+        if(response.status === HttpStatusCode.Ok)
+          this._view.getAllCompanies();
+      }
     )
   }
 }

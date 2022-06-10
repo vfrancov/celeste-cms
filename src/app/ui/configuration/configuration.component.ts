@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { MenuPermissions, permissions } from "@core/constants/permissions.enum";
@@ -16,7 +16,6 @@ import { UserPermissions } from "@domain/shared/menu.dto";
 import { UserDto } from "@domain/user/user.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { IUserRepository } from "@domain/user/users.repository";
-import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +24,8 @@ import swal from 'sweetalert2';
 })
 export class ConfigurationPageComponent implements OnInit {
 
-  @ViewChild(ModalComponent) modalConfiguration: IModalComponent;
+  @ViewChild('modalConfiguration') modalConfiguration: IModalComponent;
+  @ViewChild('modalEditConfiguration') modalEditConfiguration: IModalComponent;
 
   userData: UserDto[];
   dataTableHead: any[] = dataTableHeadConfiguration;
@@ -60,6 +60,7 @@ export class ConfigurationPageComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUserData();
     this.getModules();
+    this.initializateForm();
   }
 
   fetchUserData(): void {
@@ -78,13 +79,20 @@ export class ConfigurationPageComponent implements OnInit {
   }
 
   showUpEditModal(user: UserDto): void {
+    this.formArryControls.clear();
     this._configurationService.getUserConfiguration(user.id).subscribe(response => {
       this.userMenuPermissions = response.body;
+      this.userMenuPermissions.forEach(permissions => this.formArryControls.push(this.formGroupPermissions(permissions)));
     });
   }
 
-  updateUserPermissions(menu: any): void {
-    console.log(menu);
+  updateUserPermissions(index: number): void {
+    this._permissions.updatePermissions([this.formUserPermissions.value.permissions[index]]).subscribe(
+      (response: HttpResponse<any>) => {
+        if (response.status === HttpStatusCode.Created) {
+          swal.fire(configurationCreated);
+        }
+      });
   }
 
   setUserModule(module: ComboDTO): void {
@@ -115,9 +123,33 @@ export class ConfigurationPageComponent implements OnInit {
 
     this.userService.saveConfiguration(menuSystem).subscribe(response => {
       this.modalConfiguration.closeModal();
-      if (response.status === HttpStatusCode.Created)
+      if (response.status === HttpStatusCode.Created) {
         swal.fire(configurationCreated);
+        this.fetchUserData();
+      }
+
     }, (error: HttpErrorResponse) => this.errorConfiguration = error);
+  }
+
+  private initializateForm(): void {
+    this.formUserPermissions = this.formBuilder.group({
+      permissions: this.formBuilder.array([])
+    });
+  }
+
+  private formGroupPermissions(access: any): FormGroup {
+    return this.formBuilder.group({
+      create: [access.create],
+      read: [access.read],
+      update: [access.update],
+      delete: [access.delete],
+      menuItemsId: [access.menuItemsId],
+      userId: [access.userId]
+    })
+  }
+
+  private get formArryControls(): FormArray {
+    return <FormArray>this.formUserPermissions.controls['permissions'];
   }
 
   private setActionItems(permissions: Array<MenuPermissions>): any {
@@ -151,18 +183,5 @@ export class ConfigurationPageComponent implements OnInit {
   applyFilter(filter: any): void {
     this.userRequest.filter = filter.filter;
     this.fetchUserData();
-  }
-
-  setPermissions(menu): void {
-    let menuConfiguration = [{
-      menuItemsId: menu.menuItemsId,
-      userId: menu.userId,
-      create: (menu.create) ? true : false,
-      read: (menu.read) ? true : false,
-      update: (menu.update) ? true : false,
-      delete: (menu.delete) ? true : false
-    }];
-
-    console.log(menuConfiguration);
   }
 }
