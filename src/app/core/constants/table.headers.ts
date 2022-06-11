@@ -144,7 +144,7 @@ export const dataTableHeadReports: any[] = [
     isSort: true
   },
   {
-    title: 'Identificación Novedad',
+    title: 'Identificación',
     field: 'identify',
     isSort: true
   },
@@ -171,6 +171,16 @@ export const dataTableHeadReports: any[] = [
   {
     title: 'Piso',
     field: 'floorName',
+    isSort: true
+  },
+  {
+    title: 'Correo',
+    field: 'email',
+    isSort: true
+  },
+  {
+    title: 'Celular',
+    field: 'cellphone',
     isSort: true
   },
   {

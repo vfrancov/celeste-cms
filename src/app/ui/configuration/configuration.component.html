@@ -88,6 +88,7 @@
         Configuración de Usuario
       </div>
       <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center" *ngIf="userMenuPermissions.length === 0">No tiene menu configurado</li>
         <form [formGroup]="formUserPermissions">
           <div formArrayName="permissions">
             <li class="list-group-item"

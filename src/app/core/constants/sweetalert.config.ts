@@ -11,6 +11,26 @@ export const userWarning: SweetAlertOptions = {
   confirmButtonText: 'OK'
 }
 
+export const userDisable: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas deshabilitar el usuario?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const userEnable: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas habilitar el usuario?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
 export const userChangePasswordSuccess: SweetAlertOptions = {
   title: 'Modificación Exitosa',
   text: "Has cambiado la contraseña!",

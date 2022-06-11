@@ -5,12 +5,12 @@ import dashboardResponse from '../data/dashboard-response.json';
 
 
 export class DashboardController extends BaseController {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    static happyPath(request: Request, response: Response): void {
-        Logger.log('request body', request.body);
-        super.sendResponse(response, dashboardResponse);
-    }
+  static happyPath(request: Request, response: Response): void {
+    Logger.log('request body', request.body);
+    super.sendResponse(response, dashboardResponse);
+  }
 }

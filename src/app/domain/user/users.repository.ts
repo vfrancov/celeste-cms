@@ -15,4 +15,5 @@ export interface IUserRepository {
   changePassword(id: number, payload: ChangePassword): Observable<HttpResponse<any>>
   saveConfiguration(configuration: Array<MenuDTO>): Observable<HttpResponse<any>>
   getConfiguration(id: number): Observable<HttpResponse<any>>
+  disableUser(id: number, status: number): Observable<HttpResponse<any>>
 }

@@ -30,7 +30,7 @@
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
               <td>{{user.phoneNumber}}</td>
-              <td>{{user.statusName}}</td>
+              <td><span class="badge badge-{{(user.statusId === 2) ? 'danger' : 'primary'}}">{{user.statusName | status}}</span></td>
               <td>{{user.roleName}}</td>
               <td>{{user.username}}</td>
               <td>{{user.companyName}}</td>
@@ -44,6 +44,10 @@
                   <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                     data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)"><i
                       class="fa fa-key"></i></button>
+                  <button class="btn btn-primary btn-sm" (click)="disableUser(user)" *ngIf="user.statusId !== 2"><i
+                      class="fa fa-ban"></i></button>
+                  <button class="btn btn-success btn-sm" (click)="disableUser(user)" *ngIf="user.statusId === 2"><i
+                      class="fa fa-check"></i></button>
                 </div>
               </td>
             </tr>
@@ -91,16 +95,19 @@
                         class="fa {{(togglePassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
                   </div>
                 </div>
-                <span [class.text-danger]="!formCreateUserData.errors?.match" *ngIf="!formCreateUserData.errors?.match">las contraseñas no coinciden</span>
+                <span [class.text-danger]="!formCreateUserData.errors?.match"
+                  *ngIf="!formCreateUserData.errors?.match">las contraseñas no coinciden</span>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="confirm">Confirmar Contraseña</label>
                 <div class="input-group mb-3">
-                  <input type="{{(toggleConfirmPassword) ? 'text' : 'password'}}" formControlName="confirm" class="form-control" aria-describedby="confirm-password" maxlength="8">
+                  <input type="{{(toggleConfirmPassword) ? 'text' : 'password'}}" formControlName="confirm"
+                    class="form-control" aria-describedby="confirm-password" maxlength="8">
                   <div class="input-group-append pointer" (click)="showConfirmPassword()">
-                    <span class="input-group-text" id="confirm-password"><i class="fa {{(toggleConfirmPassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
+                    <span class="input-group-text" id="confirm-password"><i
+                        class="fa {{(toggleConfirmPassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
                   </div>
                 </div>
               </div>
@@ -114,10 +121,12 @@
     </div>
     <ng-template *ngIf="isEditUser then edit else create"></ng-template>
     <ng-template #edit>
-      <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editUserData()" [disabled]="formCreateUserData.valid">Actualizar Usuario</button>
+      <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editUserData()"
+        [disabled]="formCreateUserData.valid">Actualizar Usuario</button>
     </ng-template>
     <ng-template #create>
-      <button type="submit" class="btn btn-primary btn-modal-create" (click)="createUserData()" [disabled]="formCreateUserData.valid">Guardar Usuario</button>
+      <button type="submit" class="btn btn-primary btn-modal-create" (click)="createUserData()"
+        [disabled]="formCreateUserData.valid">Guardar Usuario</button>
     </ng-template>
   </modal-component>
   <modal-component #modalChageUserPassword [idModal]="'modalChangeUserPassword'"
@@ -126,7 +135,8 @@
       <div class="col">
         <div class="alert alert-info">Recuerda: la contraseña debe ser minimo de 8 caracteres, una vez definas tu
           contraseña debes confirmarla y deben coincidir</div>
-        <alert-message [error]="changePasswordService" [response]="showErrorFloorService" *ngIf="showErrorChangePassword"></alert-message>
+        <alert-message [error]="changePasswordService" [response]="showErrorFloorService"
+          *ngIf="showErrorChangePassword"></alert-message>
         <form [formGroup]="formChangeUserPassword">
           <input type="hidden" formControlName="id" readonly>
           <div class="form-group">
@@ -154,10 +164,12 @@
                     class="fa {{(toggleConfirmChangePassword) ? 'fa-eye' : 'fa-eye-slash'}}"></i></span>
               </div>
             </div>
-            <span [class.text-danger]="!formChangeUserPassword.errors?.match" *ngIf="!formChangeUserPassword.errors?.match">las contraseñas no coinciden</span>
+            <span [class.text-danger]="!formChangeUserPassword.errors?.match"
+              *ngIf="!formChangeUserPassword.errors?.match">las contraseñas no coinciden</span>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" (click)="changeUserPassword()" [disabled]="!formChangeUserPassword.errors?.match">Cambiar Contraseña</button>
+            <button class="btn btn-primary" (click)="changeUserPassword()"
+              [disabled]="!formChangeUserPassword.errors?.match">Cambiar Contraseña</button>
           </div>
         </form>
       </div>

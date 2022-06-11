@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
-import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
+import { userChangePasswordSuccess, userCreatedUser, userDisable, userEdit, userEnable, userWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadUsers } from "@core/constants/table.headers";
 import { ChangePasswordField, PasswordValidation, UsersField } from "@core/constants/users.field";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
@@ -128,6 +128,18 @@ export class UsersPageComponent implements OnInit {
     this.showErrorChangePassword = false;
     this.userDtoData = user;
     this.formChangeUserPassword.patchValue(user);
+  }
+
+  disableUser(user: UserDto): void {
+    let message = (user.statusId === 1) ? userDisable : userEnable;
+    swal.fire(message).then((action: SweetAlertResult) => {
+      if (action.isConfirmed)
+        this.userService.disableUser(user.id, (user.statusId === 1) ? RequestAction.disable : RequestAction.enable).subscribe(response => {
+          if (response.status === HttpStatusCode.NoContent) {
+            this.fetchUserData();
+          }
+        });
+    });
   }
 
   changeUserPassword(): void {

@@ -43,6 +43,10 @@ export class UsersServices implements IUserRepository {
   }
 
   getConfiguration(id: number): Observable<HttpResponse<any>> {
-    return this.http.get(`${environment.baseUrl}/api/Menu/${id}`, {observe : 'response'});
+    return this.http.get(`${environment.baseUrl}/api/Menu/${id}`, { observe: 'response' });
+  }
+
+  disableUser(id: number, status: number): Observable<HttpResponse<any>> {
+    return this.http.put(`${environment.baseUrl}/api/Users/ChangeStatus/${id}/${status}`, {}, { observe: 'response' });
   }
 }

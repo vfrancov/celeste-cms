@@ -75,7 +75,6 @@ export class ConfigurationPageComponent implements OnInit {
 
   showUpConfigModal(user: UserDto): void {
     this.userId = user.id;
-    this.userService.getConfiguration(user.id).subscribe(response => console.log(response));
   }
 
   showUpEditModal(user: UserDto): void {
@@ -89,9 +88,8 @@ export class ConfigurationPageComponent implements OnInit {
   updateUserPermissions(index: number): void {
     this._permissions.updatePermissions([this.formUserPermissions.value.permissions[index]]).subscribe(
       (response: HttpResponse<any>) => {
-        if (response.status === HttpStatusCode.Created) {
+        if (response.status === HttpStatusCode.Created)
           swal.fire(configurationCreated);
-        }
       });
   }
 
@@ -126,6 +124,7 @@ export class ConfigurationPageComponent implements OnInit {
       if (response.status === HttpStatusCode.Created) {
         swal.fire(configurationCreated);
         this.fetchUserData();
+        this.uncheckAll();
       }
 
     }, (error: HttpErrorResponse) => this.errorConfiguration = error);
@@ -146,6 +145,11 @@ export class ConfigurationPageComponent implements OnInit {
       menuItemsId: [access.menuItemsId],
       userId: [access.userId]
     })
+  }
+
+  uncheckAll(): void {
+    let allModuleChecks: Array<any> = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+    allModuleChecks.forEach(input => input.checked = false);
   }
 
   private get formArryControls(): FormArray {

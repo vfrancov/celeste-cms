@@ -7,7 +7,12 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class ShowErrorPipe implements PipeTransform {
   transform(errors: HttpErrorResponse): string {
     let result: string;
-    Object.keys(errors.error?.errors).forEach(key => result = errors.error?.errors[key].join(', '));
+
+    if(!errors.error?.errors)
+      result = errors.error?.message;
+    else
+      Object.keys(errors.error?.errors).forEach(key => result = errors.error?.errors[key].join(', '));
+
     return result;
   }
 }
