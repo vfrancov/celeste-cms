@@ -2,14 +2,19 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS
 import { Inject, Injectable, Provider } from "@angular/core";
 import { Navigation } from "@core/constants/navigataion.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
-import { UserDto } from "@domain/user/user.dto";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
-import { Observable } from "rxjs";
+import { UserDto } from "@domain/user/user.dto";
+import { BehaviorSubject, Observable } from "rxjs";
+import { finalize } from "rxjs/operators";
+import { UtilsService } from "./utils.service";
 
 @Injectable()
 export class HttpConfigService implements HttpInterceptor {
 
-  constructor(@Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository) { }
+  constructor(
+    @Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository,
+    private _utils: UtilsService
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const getToken: UserDto = this.localStorage.getItem(Navigation.userSession);
@@ -21,9 +26,11 @@ export class HttpConfigService implements HttpInterceptor {
           authorization: `Bearer ${getToken.token}`
         }
       });
-    }
 
-    return next.handle(request);
+      this._utils._requestOnAction.next(true);
+    };
+
+    return next.handle(request).pipe(finalize(() => this._utils._requestOnAction.next(false)));
   }
 }
 

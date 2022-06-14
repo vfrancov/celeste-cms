@@ -36,9 +36,9 @@
                 <div class="btn-group">
                   <button *ngIf="userPermissions.update" class="btn btn-info btn-sm"
                     (click)="showModalWithCompanieData(companie)" data-bs-toggle="modal"
-                    data-bs-target="#modalCreateAndEditCompanie"><i class="fa fa-edit"></i></button>
+                    data-bs-target="#modalCreateAndEditCompanie" disableOnRequest><i class="fa fa-edit"></i></button>
                   <button *ngIf="userPermissions.delete" class="btn btn-danger btn-sm"
-                    (click)="deleteCompanie(companie)"><i class="fa fa-trash"></i></button>
+                    (click)="deleteCompanie(companie)" disableOnRequest><i class="fa fa-trash"></i></button>
                 </div>
               </td>
             </tr>
@@ -83,11 +83,11 @@
     <ng-template *ngIf="isEditCompanie then edit else create"></ng-template>
     <ng-template #edit>
       <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editCompanie()"
-        [disabled]="formCompanie.invalid">Actualizar Empresa</button>
+        [disabled]="formCompanie.invalid" disableOnRequest>Actualizar Empresa</button>
     </ng-template>
     <ng-template #create>
       <button type="submit" class="btn btn-primary btn-modal-create" (click)="createCompanie()"
-        [disabled]="formCompanie.invalid">Guardar Empresa</button>
+        [disabled]="formCompanie.invalid" disableOnRequest>Guardar Empresa</button>
     </ng-template>
   </modal-component>
 </content-component>

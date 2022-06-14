@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import Cropper from 'cropperjs';
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class UtilsService {
 
   private readonly FILE_NAME_PROPERTY: string = 'fileName';
+  public _requestOnAction = new BehaviorSubject<boolean>(false);
 
   isEmptyOrNull(value: any): boolean {
     return (value === undefined || value === null);
@@ -54,16 +56,5 @@ export class UtilsService {
 
   private setFirstLetterUppercase(word: string): string {
     return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
-  }
-
-  cropImageBeforeUpload(file: any): void {
-    const cropper = new Cropper(file, {
-      aspectRatio: 16 / 9,
-      autoCrop: true,
-      center: true,
-      crop(event) {
-        console.log(event);
-      }
-    });
   }
 }

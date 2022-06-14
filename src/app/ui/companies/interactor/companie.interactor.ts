@@ -3,12 +3,14 @@ import { Inject, Injectable } from "@angular/core";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
-import { CompaniesDto, CreateCompanie } from "@domain/companies/companies.dto";
+import { CompaniesDto, CreateCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { ICompaniesRepository } from "@domain/companies/companies.repository";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
 import { CompaniePresenter } from "../presenter/companie.presenter";
+import swal, { SweetAlertResult } from 'sweetalert2';
+import { companieUpdated } from "@core/constants/sweetalert.config";
 
 @Injectable()
 export class CompanieInteractor {
@@ -39,6 +41,19 @@ export class CompanieInteractor {
       },
       (error: HttpErrorResponse) => this._presenter.isRegister(error.ok, error)
     );
+  }
+
+  editCompanie(payload: UpdateCompanie): void {
+    this.companieService.updateCompanie(payload).subscribe((response: HttpResponse<IResponseBody>) => {
+      if(response.status === HttpStatusCode.NoContent) {
+        swal.fire(companieUpdated);
+        this._view.modalCompanie.closeModal();
+        this._view.getAllCompanies();
+      }
+    }, (error: HttpErrorResponse) => {
+      this._view.modalCompanie.closeModal();
+      swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
+    })
   }
 
   getCompanie(id: number): void {

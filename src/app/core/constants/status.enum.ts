@@ -1,5 +1,6 @@
 export const Status = {
   isLoading: true,
   notLoading: false,
-  defaultTextUploadImage: 'Subir Imagen'
+  defaultTextUploadImage: 'Subir Imagen',
+  disabled : 'disabled'
 }

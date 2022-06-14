@@ -27,13 +27,13 @@
                     <div class="d-flex justify-content-between">
                       <div class="d-flex justify-content-around">
                         <button class="btn btn-danger btn-sm cursor-pointer" (click)="deleteNoveltie(noveltie)"
-                          *ngIf="userPermissions.update"><i class="fa fa-trash"></i></button>
+                          *ngIf="userPermissions.delete" disableOnRequest><i class="fa fa-trash"></i></button>
                         <button class="btn btn-warning btn-sm cursor-pointer ml-1" data-bs-toggle="modal"
                           data-bs-target="#modalAssignSubNovelties" (click)="getNoveltyById(noveltie)"
-                          *ngIf="userPermissions.delete"><i class="fa fa-list"></i></button>
+                          disableOnRequest><i class="fa fa-list"></i></button>
                       </div>
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateOrEditNoveltie"
-                        (click)="getNoveltyById(noveltie)">Actualizar Novedad</button>
+                        (click)="getNoveltyById(noveltie)" *ngIf="userPermissions.update">Actualizar Novedad</button>
                     </div>
                   </div>
                 </div>
@@ -73,11 +73,12 @@
           <div class="form-group d-flex justify-content-end">
             <ng-container *ngIf="isEditNovelty then edit else create"></ng-container>
             <ng-template #edit>
-              <button class="btn btn-primary" (click)="updateNoveltie()" *ngIf="create">Actualizar Novedad</button>
+              <button class="btn btn-primary" (click)="updateNoveltie()" *ngIf="create" disableOnRequest>Actualizar
+                Novedad</button>
             </ng-template>
             <ng-template #create>
-              <button class="btn btn-primary" (click)="createNoveltie()" [disabled]="!formNoveltie.valid"
-                *ngIf="create">Guardar Novedad</button>
+              <button class="btn btn-primary" (click)="createNoveltie()" [disabled]="!formNoveltie.valid" *ngIf="create"
+                disableOnRequest>Guardar Novedad</button>
             </ng-template>
           </div>
         </form>
@@ -97,7 +98,7 @@
             <input type="text" class="form-control" formControlName="name">
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" (click)="createSubNoveltie()">Registrar Subnovedad</button>
+            <button class="btn btn-primary" (click)="createSubNoveltie()" disableOnRequest>Registrar Subnovedad</button>
           </div>
         </form>
       </div>
@@ -152,11 +153,13 @@
                       </ng-template>
                     </td>
                     <td class="text-center">
-                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId != 0"
-                        class="btn btn-primary btn-sm btn-block" (click)="dissasociateSubNoveltie(noveltieandsubnoveltie)"><i class="fa fa-arrow"></i>
+                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId != 0" class="btn btn-primary btn-sm btn-block"
+                        (click)="dissasociateSubNoveltie(noveltieandsubnoveltie)" disableOnRequest><i
+                          class="fa fa-arrow"></i>
                         Desasociar</button>
                       <button *ngIf="noveltieandsubnoveltie.appNoveltysId === 0"
-                        class="btn btn-primary btn-sm btn-block" (click)="associateSubNoveltie(noveltieandsubnoveltie)"><i class="fa fa-arrow"></i>
+                        class="btn btn-primary btn-sm btn-block" (click)="associateSubNoveltie(noveltieandsubnoveltie)"
+                        disableOnRequest><i class="fa fa-arrow"></i>
                         Asociar</button>
                     </td>
                   </tr>

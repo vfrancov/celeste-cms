@@ -67,11 +67,11 @@
           <ng-container *ngIf="isEditZone then edit else create"></ng-container>
           <ng-template #edit>
             <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formZone.invalid"
-              (click)="updateZone()">Actualizar Zona</button>
+              (click)="updateZone()" disableOnRequest>Actualizar Zona</button>
           </ng-template>
           <ng-template #create>
             <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formZone.invalid"
-              (click)="createZone()">Guardar Zona</button>
+              (click)="createZone()" disableOnRequest>Guardar Zona</button>
           </ng-template>
         </form>
       </div>

@@ -49,6 +49,6 @@ export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInte
   }
 
   editCompanie(payload: UpdateCompanie): void {
-
+    this._interactor.editCompanie(payload);
   }
 }

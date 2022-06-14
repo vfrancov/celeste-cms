@@ -35,9 +35,9 @@
                 <div class="btn-group">
                   <button *ngIf="!user.setConfiguration && userPermissions.update"
                     class="btn btn-primary btn-sm btn-small" data-bs-toggle="modal" data-bs-target="#modalDefineConfig"
-                    (click)="showUpConfigModal(user)"><i class="fa fa-cog"></i></button>
+                    (click)="showUpConfigModal(user)" disableOnRequest><i class="fa fa-cog"></i></button>
                   <button class="btn btn-info btn-sm btn-small" data-bs-toggle="modal"
-                    data-bs-target="#modalEditConfiguration" (click)="showUpEditModal(user)"><i
+                    data-bs-target="#modalEditConfiguration" (click)="showUpEditModal(user)" disableOnRequest><i
                       class="fa fa-edit"></i></button>
                 </div>
               </td>
@@ -78,7 +78,7 @@
             <label class="custom-control-label" for="{{permission.name}}">{{permission.name}}</label>
           </div>
         </div>
-        <button class="btn btn-primary" (click)="saveMenuAndUserPermissions()">Guardar Configuración</button>
+        <button class="btn btn-primary" (click)="saveMenuAndUserPermissions()" disableOnRequest>Guardar Configuración</button>
       </div>
     </div>
   </modal-component>
@@ -111,7 +111,7 @@
                   <label class="custom-control-label" for="delete-{{i}}">Eliminar</label>
                 </div>
                 <div class="form-group mt-2">
-                  <button class="btn btn-sm btn-info" (click)="updateUserPermissions(i)">Actualizar Permisos</button>
+                  <button class="btn btn-sm btn-info" (click)="updateUserPermissions(i)" disableOnRequest>Actualizar Permisos</button>
                 </div>
               </div>
             </li>

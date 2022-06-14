@@ -37,16 +37,16 @@
               <td>
                 <div class="btn-group">
                   <button class="btn btn-info btn-sm" (click)="showModalWithUserData(user)" data-bs-toggle="modal"
-                    data-bs-target="#modalCreateAndEditUsers" *ngIf="userPermissions.update"><i
-                      class="fa fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)" *ngIf="userPermissions.delete"><i
+                    data-bs-target="#modalCreateAndEditUsers" *ngIf="userPermissions.update" title="Editar"><i
+                    class="fa fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)" *ngIf="userPermissions.delete" title="Eliminar"><i
                       class="fa fa-trash"></i></button>
                   <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)"><i
+                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)" title="Cambiar Contraseña"><i
                       class="fa fa-key"></i></button>
-                  <button class="btn btn-primary btn-sm" (click)="disableUser(user)" *ngIf="user.statusId !== 2"><i
+                  <button class="btn btn-primary btn-sm" (click)="disableUser(user)" *ngIf="user.statusId !== 2" title="Deshabilitar Usuario"><i
                       class="fa fa-ban"></i></button>
-                  <button class="btn btn-success btn-sm" (click)="disableUser(user)" *ngIf="user.statusId === 2"><i
+                  <button class="btn btn-success btn-sm" (click)="disableUser(user)" *ngIf="user.statusId === 2" title="Habilitar Usuario"><i
                       class="fa fa-check"></i></button>
                 </div>
               </td>
@@ -122,11 +122,11 @@
     <ng-template *ngIf="isEditUser then edit else create"></ng-template>
     <ng-template #edit>
       <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editUserData()"
-        [disabled]="formCreateUserData.valid">Actualizar Usuario</button>
+        [disabled]="formCreateUserData.valid" disableOnRequest>Actualizar Usuario</button>
     </ng-template>
     <ng-template #create>
       <button type="submit" class="btn btn-primary btn-modal-create" (click)="createUserData()"
-        [disabled]="formCreateUserData.valid">Guardar Usuario</button>
+        [disabled]="formCreateUserData.valid" disableOnRequest>Guardar Usuario</button>
     </ng-template>
   </modal-component>
   <modal-component #modalChageUserPassword [idModal]="'modalChangeUserPassword'"
@@ -169,7 +169,7 @@
           </div>
           <div class="form-group">
             <button class="btn btn-primary" (click)="changeUserPassword()"
-              [disabled]="!formChangeUserPassword.errors?.match">Cambiar Contraseña</button>
+              [disabled]="!formChangeUserPassword.errors?.match" disableOnRequest>Cambiar Contraseña</button>
           </div>
         </form>
       </div>

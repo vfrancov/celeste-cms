@@ -32,10 +32,10 @@
                 <td>
                   <div class="btn-group">
                     <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreateAndEditFloor"
-                      (click)="showModalFloorWithData(floor)" *ngIf="userPermissions.update">
+                      (click)="showModalFloorWithData(floor)" *ngIf="userPermissions.update" disableOnRequest>
                       <i class="fa fa-edit"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteFloor(floor)" *ngIf="userPermissions.delete">
+                    <button class="btn btn-danger btn-sm" (click)="deleteFloor(floor)" *ngIf="userPermissions.delete" disableOnRequest>
                       <i class="fa fa-trash"></i>
                     </button>
                   </div>
@@ -65,11 +65,11 @@
           <ng-container *ngIf="isEditFloor then edit else create"></ng-container>
           <ng-template #edit>
             <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formFloor.invalid"
-              (click)="updateFloor()">Actualizar Piso</button>
+              (click)="updateFloor()" disableOnRequest>Actualizar Piso</button>
           </ng-template>
           <ng-template #create>
             <button type="submit" class="btn btn-primary btn-modal-create" [disabled]="formFloor.invalid"
-              (click)="createFloor()">Guardar Piso</button>
+              (click)="createFloor()" disableOnRequest>Guardar Piso</button>
           </ng-template>
         </form>
       </div>
