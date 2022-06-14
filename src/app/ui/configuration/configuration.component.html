@@ -93,6 +93,9 @@
           <div formArrayName="permissions">
             <li class="list-group-item"
               *ngFor="let menu of formUserPermissions['controls'].permissions['controls']; let i = index">
+              <div class="badge badge-success mb-1">
+               {{userMenuPermissions[i].menuName}}
+              </div>
               <div [formGroupName]="i">
                 <div class="custom-control custom-checkbox small">
                   <input id="create-{{i}}" type="checkbox" class="custom-control-input" formControlName="create">
