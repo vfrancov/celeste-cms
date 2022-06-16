@@ -48,7 +48,7 @@
     [modalTitle]="'Registrar Novedad'">
     <div class="row">
       <div class="col">
-        <alert-message [error]="errorNoveltieService" [response]="showErrorService"></alert-message>
+        <alert-message [error]="errorNoveltieService" *ngIf="showErrorService"></alert-message>
         <form [formGroup]="formNoveltie">
           <div class="form-group">
             <label for="">Nombre de la novedad</label>

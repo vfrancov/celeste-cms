@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -40,7 +40,7 @@ export class NoveltiePageComponent implements OnInit {
   formDataUpdateNoveltie: UpdateNovelty;
   errorNoveltieService: HttpErrorResponse;
   errorSubNoveltieService: HttpErrorResponse;
-  showErrorService: HttpResponse<any>;
+  showErrorService: boolean;
   imageName: string = Status.defaultTextUploadImage;
   isEditNovelty: boolean;
   noveltieData: NoveltyDTO;
@@ -48,6 +48,7 @@ export class NoveltiePageComponent implements OnInit {
   userPermissions: UserPermissions;
   imageModal: string;
   imageResult: string | ArrayBuffer;
+  isSelectedImage: boolean = false;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -91,7 +92,7 @@ export class NoveltiePageComponent implements OnInit {
     this.imageName = this.utils.setFileName(event);
     this.formDataNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
-    this.utils.getImageResult(event).then(result => this.imageResult = result);
+    this.isSelectedImage = true;
   }
 
   createNoveltie(): void {
@@ -104,6 +105,7 @@ export class NoveltiePageComponent implements OnInit {
       }
     }, (error: HttpErrorResponse) => {
       this.errorNoveltieService = error;
+      this.showErrorService = !error.ok;
     });
   }
 
@@ -116,10 +118,12 @@ export class NoveltiePageComponent implements OnInit {
       }
     }, (error: HttpErrorResponse) => {
       this.errorSubNoveltieService = error;
+      this.showErrorService = !error.ok;
     });
   }
 
   getNoveltyById(novelty: GetNovelty): void {
+    this.showErrorService = false;
     this.noveltieService.getNoveltieById(novelty.id).subscribe(response => {
       this.formNoveltie.patchValue(response.body);
       this.isEditNovelty = true;
@@ -127,10 +131,14 @@ export class NoveltiePageComponent implements OnInit {
       this.getListRelNoveltySubNovelty(this.noveltieData.id);
     }, (error: HttpErrorResponse) => {
       this.errorNoveltieService = error;
+      this.showErrorService = !error.ok;
     });
   }
 
   updateNoveltie(): void {
+    if (!this.isSelectedImage)
+      this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value);
+
     this.noveltieService.updateNoveltie(
       this.formNoveltie.get('id').value, this.formDataUpdateNoveltie).subscribe(response => {
         if (response.status === HttpStatusCode.NoContent) {
@@ -139,7 +147,10 @@ export class NoveltiePageComponent implements OnInit {
           this.formNoveltie.reset();
           this.readAllNoveltie();
         }
-      }, (error: HttpErrorResponse) => this.errorNoveltieService = error)
+      }, (error: HttpErrorResponse) => {
+        this.errorNoveltieService = error;
+        this.showErrorService = !error.ok;
+      });
   }
 
   deleteNoveltie(noveltie: any): void {
@@ -150,6 +161,9 @@ export class NoveltiePageComponent implements OnInit {
             swal.fire(noveltieDeleted);
             this.readAllNoveltie();
           }
+        }, (error: HttpErrorResponse) => {
+          this.errorNoveltieService = error;
+          this.showErrorService = !error.ok;
         });
       }
     });
@@ -163,6 +177,8 @@ export class NoveltiePageComponent implements OnInit {
     this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
       if (response.status === HttpStatusCode.Created)
         this.getListRelNoveltySubNovelty(this.noveltieData.id);
+    }, (error: HttpErrorResponse) => {
+
     });
   }
 
@@ -179,7 +195,10 @@ export class NoveltiePageComponent implements OnInit {
 
   getListRelNoveltySubNovelty(id: any): void {
     this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(
-      response => this.noveltiesAndSubNovelties = response.body.list
+      response => this.noveltiesAndSubNovelties = response.body.list,
+      (error: HttpErrorResponse) => {
+
+      }
     );
   }
 
@@ -187,6 +206,7 @@ export class NoveltiePageComponent implements OnInit {
     this.formNoveltie.reset();
     this.imageName = Status.defaultTextUploadImage;
     this.isEditNovelty = false;
+    this.showErrorService = false;
   }
 
   setImageModal(image: string): void {

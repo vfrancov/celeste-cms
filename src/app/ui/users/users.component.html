@@ -37,16 +37,16 @@
               <td>
                 <div class="btn-group">
                   <button class="btn btn-info btn-sm" (click)="showModalWithUserData(user)" data-bs-toggle="modal"
-                    data-bs-target="#modalCreateAndEditUsers" *ngIf="userPermissions.update" title="Editar"><i
+                    data-bs-target="#modalCreateAndEditUsers" *ngIf="userPermissions.update" title="Editar" disableOnRequest><i
                     class="fa fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)" *ngIf="userPermissions.delete" title="Eliminar"><i
+                  <button class="btn btn-danger btn-sm" (click)="deleteUserData(user)" *ngIf="userPermissions.delete" title="Eliminar" disableOnRequest><i
                       class="fa fa-trash"></i></button>
                   <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)" title="Cambiar Contraseña"><i
+                    data-bs-target="#modalChangeUserPassword" (click)="setUserData(user)" title="Cambiar Contraseña" disableOnRequest><i
                       class="fa fa-key"></i></button>
-                  <button class="btn btn-primary btn-sm" (click)="disableUser(user)" *ngIf="user.statusId !== 2" title="Deshabilitar Usuario"><i
+                  <button class="btn btn-primary btn-sm" (click)="disableUser(user)" *ngIf="user.statusId !== 2" title="Deshabilitar Usuario" disableOnRequest><i
                       class="fa fa-ban"></i></button>
-                  <button class="btn btn-success btn-sm" (click)="disableUser(user)" *ngIf="user.statusId === 2" title="Habilitar Usuario"><i
+                  <button class="btn btn-success btn-sm" (click)="disableUser(user)" *ngIf="user.statusId === 2" title="Habilitar Usuario" disableOnRequest><i
                       class="fa fa-check"></i></button>
                 </div>
               </td>

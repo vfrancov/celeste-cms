@@ -17,7 +17,10 @@ export class UtilsService {
   }
 
   toFormData(objectForm: object, file?: Event): any {
-    let formData = new FormData();
+    const formData = new FormData();
+
+    if(!file)
+      delete objectForm[this.FILE_NAME_PROPERTY];
 
     Object.keys(objectForm).forEach(key => {
       (key.match(this.FILE_NAME_PROPERTY)?.length > 0) ?
@@ -44,8 +47,8 @@ export class UtilsService {
   }
 
   private setFileValue(event: Event): FileList {
-    const element = event.currentTarget as HTMLInputElement;
-    let file: FileList | null = element.files;
+    const element = event?.currentTarget as HTMLInputElement;
+    let file: FileList | null = element?.files;
 
     return file;
   }

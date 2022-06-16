@@ -38,7 +38,7 @@
     <i class="fa fa-undo-alt fa-sm"></i>
     <small>RESTAURAR</small>
   </button>
-  <button [disabled]="formField.invalid" class="btn btn-sm btn-outline-success ml-2" (click)="applyFilter()">
+  <button [disabled]="formField.invalid" class="btn btn-sm btn-outline-success ml-2" (click)="applyFilter()" disableOnRequest>
     <i class="fa fa-check fa-sm"></i>
     <small>APLICAR FILTRO</small>
   </button>
