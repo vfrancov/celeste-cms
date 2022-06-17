@@ -6,13 +6,13 @@
   </div>
   <div class="data-filter__option-fields" *ngIf="!showFilterButton">
     <form [formGroup]="formField">
-      <div formArrayName="filter">
+      <div formArrayName="filter" class="d-flex flex-wrap">
         <div *ngFor="let item of formField['controls'].filter['controls']; let i=index">
           <div [formGroupName]="i" class="option-container">
             <select formControlName="field" class="form-control" (change)="columnSelected($event)">
               <option selected>Columna</option>
-              <ng-container *ngFor="let field of filterFields | keyvalue">
-                <option value="{{field.value.field}}" *ngIf="field.value.isSort">{{field.value.title}}</option>
+              <ng-container *ngFor="let field of filterFields">
+                <option value="{{field.field}}" *ngIf="field.isSort">{{field.title}}</option>
               </ng-container>
             </select>
             <select formControlName="logic" class="form-control ml-1" (change)="criteriaSelected($event)">

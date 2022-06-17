@@ -141,6 +141,15 @@ export const noveltieSuccess: SweetAlertOptions = {
   confirmButtonText: 'OK'
 }
 
+export const noveltieUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Novedad actualizada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
 export const noveltieWarning: SweetAlertOptions = {
   title: 'Advertencia',
   text: "¿Deseas eliminar la novedad?",

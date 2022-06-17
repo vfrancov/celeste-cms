@@ -66,7 +66,7 @@
                 <i class="fas fa-file"></i>
               </span>
               <span class="text">{{imageName}}</span>
-              <input id="uploadNoveltieImage" type="file" formControlName="fileName" (change)="onFileSelect($event)"
+              <input #inputFile id="uploadNoveltieImage" type="file" formControlName="fileName" (change)="onFileSelect($event)"
                 [hidden]="true" accept=".jpg,.png">
             </label>
           </div>

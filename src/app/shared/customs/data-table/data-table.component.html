@@ -3,7 +3,7 @@
   <div class="card-body">
     <div class="table-responsive">
       <div class="d-flex mb-1">
-        <button class="btn btn-sm btn-success mr-1" *ngIf="export" (click)="exportToExcel()">Excel</button>
+        <button class="btn btn-sm btn-success mr-1" *ngIf="export" (click)="exportToExcel()" disableOnRequest>Excel</button>
       </div>
       <ng-content select="data-filter"></ng-content>
       <table class="table table-bordered">

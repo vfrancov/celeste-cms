@@ -57,6 +57,11 @@ export class UtilsService {
     return this.setFileValue(event)[0].name;
   }
 
+  resetFileValue(event: Event): void {
+    const element = event?.target as HTMLInputElement;
+    element.files = null;
+  }
+
   private setFirstLetterUppercase(word: string): string {
     return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
   }

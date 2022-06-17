@@ -5,7 +5,7 @@ import { CustomsModule } from "./customs/customs.module";
 import { PagesModule } from './pages/pages.module';
 
 @NgModule({
-  declarations: [DisableOnRequestDirective],
+  declarations: [DisableOnRequestDirective, DisableOnRequestDirective],
   imports: [PagesModule],
   exports: [PagesModule, CustomsModule, PipesModule, DisableOnRequestDirective]
 })

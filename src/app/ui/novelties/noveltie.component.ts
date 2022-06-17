@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
@@ -8,7 +8,7 @@ import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { Status } from "@core/constants/status.enum";
 import { subNoveltieFields } from "@core/constants/subnovelties.field";
-import { noveltieDeleted, noveltieSuccess, noveltieWarning } from "@core/constants/sweetalert.config";
+import { noveltieDeleted, noveltieSuccess, noveltieUpdated, noveltieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadRelated, dataTableHeadSubNovelties } from "@core/constants/table.headers";
 import { UtilsService } from "@core/services/utils.service";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
@@ -28,6 +28,7 @@ import swal, { SweetAlertResult } from 'sweetalert2';
 export class NoveltiePageComponent implements OnInit {
 
   @ViewChild('modalCreateOrEditNoveltie') modalCreateOrEditNoveltie: ModalComponent;
+  @ViewChild('inputFile') inputFile: ElementRef;
 
   novelties: NoveltyDTO[] = [];
   subNovelties: SubNolvetieDto[] = [];
@@ -49,6 +50,7 @@ export class NoveltiePageComponent implements OnInit {
   imageModal: string;
   imageResult: string | ArrayBuffer;
   isSelectedImage: boolean = false;
+  isSelectedFile: Event;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -93,6 +95,7 @@ export class NoveltiePageComponent implements OnInit {
     this.formDataNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.isSelectedImage = true;
+    this.isSelectedFile = event;
   }
 
   createNoveltie(): void {
@@ -143,9 +146,10 @@ export class NoveltiePageComponent implements OnInit {
       this.formNoveltie.get('id').value, this.formDataUpdateNoveltie).subscribe(response => {
         if (response.status === HttpStatusCode.NoContent) {
           this.modalCreateOrEditNoveltie.closeModal();
-          swal.fire(noveltieSuccess);
-          this.formNoveltie.reset();
-          this.readAllNoveltie();
+          swal.fire(noveltieUpdated).then((action: SweetAlertResult) => {
+            if (action.isConfirmed)
+              location.reload();
+          });
         }
       }, (error: HttpErrorResponse) => {
         this.errorNoveltieService = error;
