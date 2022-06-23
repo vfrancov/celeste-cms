@@ -9,5 +9,6 @@ export interface INoveltyRepository {
   createNoveltie(payload: CreateNovelty): Observable<HttpResponse<any>>
   updateNoveltie(id: number, payload: UpdateNovelty): Observable<HttpResponse<any>>
   getNoveltieById(id: number | any): Observable<HttpResponse<GetNovelty>>
+  getSubNoveltiesById(id: number): Observable<HttpResponse<IResponseBody>>
   deleteNoveltie(id: number, status: number): Observable<HttpResponse<any>>
 }

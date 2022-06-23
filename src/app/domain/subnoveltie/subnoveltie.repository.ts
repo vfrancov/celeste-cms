@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 export interface ISubNoveltyRepository {
     readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
     createSubNoveltie(payload: CreateSubNoveltie): Observable<HttpResponse<any>>
-    associateNoveltieAndSubNoveltie(asociation: CreateAssociation): Observable<HttpResponse<any>>
+    associateNoveltieAndSubNoveltie(asociation: any): Observable<HttpResponse<any>>
     listRelNoveltySubNovelty(id: any): Observable<HttpResponse<IResponseBody>>
     dissasociateNoveltieAndSubnoveltie(payload: CreateAssociation): Observable<HttpResponse<IResponseBody>>
 }

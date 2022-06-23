@@ -214,3 +214,12 @@ export const configurationCreated: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const messageSessionDestroy: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "Ha ocurrido un error!",
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

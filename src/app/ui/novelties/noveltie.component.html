@@ -15,7 +15,7 @@
               No hay novedades
             </div>
             <ng-container *ngFor="let noveltie of novelties">
-              <div class="col-3">
+              <div class="col-3 mb-2">
                 <div class="card" style="width: 100%;">
                   <img class="card-img-top cursor-pointer img-cropped" [src]="noveltie.imagenUrl"
                     alt="{{noveltie.name}}" height="200px" data-bs-toggle="modal" data-bs-target="#modalShowImage"
@@ -29,8 +29,8 @@
                         <button class="btn btn-danger btn-sm cursor-pointer" (click)="deleteNoveltie(noveltie)"
                           *ngIf="userPermissions.delete" disableOnRequest><i class="fa fa-trash"></i></button>
                         <button class="btn btn-warning btn-sm cursor-pointer ml-1" data-bs-toggle="modal"
-                          data-bs-target="#modalAssignSubNovelties" (click)="getNoveltyById(noveltie)"
-                          disableOnRequest><i class="fa fa-list"></i></button>
+                          data-bs-target="#modalAssignSubNovelties" (click)="getSubNoveltyById(noveltie)"
+                          disableOnRequest><i class="fa fa-list"></i> Asociar</button>
                       </div>
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateOrEditNoveltie"
                         (click)="getNoveltyById(noveltie)" *ngIf="userPermissions.update">Actualizar Novedad</button>
@@ -86,7 +86,7 @@
     </div>
   </modal-component>
   <modal-component #modalAssignSubNovelties [idModal]="'modalAssignSubNovelties'" [modalLarge]="true"
-    [modalTitle]="'Registrar Subnovedad y Asociar'">
+    [modalTitle]="'Registrar SubNovedades y Asociación'">
     <div class="row">
       <div class="col">
         <form [formGroup]="formSubNoveltie">
@@ -98,7 +98,7 @@
             <input type="text" class="form-control" formControlName="name">
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" (click)="createSubNoveltie()" disableOnRequest>Registrar Subnovedad</button>
+            <button class="btn btn-primary" (click)="createSubNoveltie()" [disabled]="formSubNoveltie.invalid" disableOnRequest>Registrar Subnovedad</button>
           </div>
         </form>
       </div>
@@ -124,9 +124,12 @@
                 </ng-container>
               </thead>
               <tbody>
+                <tr *ngIf="subNovelties.length === 0">
+                  <td colspan="2" class="text-center">No hay subnovedades asociadas</td>
+                </tr>
                 <ng-container *ngFor="let subnoveltie of subNovelties">
                   <tr>
-                    <td>{{subnoveltie.name}}</td>
+                    <td>{{subnoveltie.appSubNoveltysName}}</td>
                     <td>{{subnoveltie.statusName | status}}</td>
                   </tr>
                 </ng-container>
@@ -141,6 +144,9 @@
                 </ng-container>
               </thead>
               <tbody>
+                <tr *ngIf="noveltiesAndSubNovelties.length === 0">
+                  <td colspan="3" class="text-center">No hay subnovedades relacionadas</td>
+                </tr>
                 <ng-container *ngFor="let noveltieandsubnoveltie of noveltiesAndSubNovelties">
                   <tr>
                     <td>{{noveltieandsubnoveltie.name}}</td>

@@ -45,6 +45,7 @@ export class NoveltiePageComponent implements OnInit {
   imageName: string = Status.defaultTextUploadImage;
   isEditNovelty: boolean;
   noveltieData: NoveltyDTO;
+  appNoveltieId: number;
   noveltiesAndSubNovelties: any[] = [];
   userPermissions: UserPermissions;
   imageModal: string;
@@ -80,7 +81,9 @@ export class NoveltiePageComponent implements OnInit {
 
   readAllNoveltie(): void {
     this.noveltieService.readAll(this.filterRequestBody).subscribe(
-      response => this.novelties = response.body.list
+      response => {
+        this.novelties = response.body.list;
+      }
     );
   }
 
@@ -115,9 +118,9 @@ export class NoveltiePageComponent implements OnInit {
   createSubNoveltie(): void {
     this.subNoveltieService.createSubNoveltie(this.formSubNoveltie.value).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
-        this.readAllSubNovelties();
         this.formSubNoveltie.reset();
         this.associateNoveltieWithSubNoveltie(response.body.id);
+        //this.getSubNoveltyById({id : this.appNoveltieId});
       }
     }, (error: HttpErrorResponse) => {
       this.errorSubNoveltieService = error;
@@ -131,10 +134,17 @@ export class NoveltiePageComponent implements OnInit {
       this.formNoveltie.patchValue(response.body);
       this.isEditNovelty = true;
       this.noveltieData = response.body;
-      this.getListRelNoveltySubNovelty(this.noveltieData.id);
     }, (error: HttpErrorResponse) => {
       this.errorNoveltieService = error;
       this.showErrorService = !error.ok;
+    });
+  }
+
+  getSubNoveltyById(novelty: any): void {
+    this.noveltieService.getSubNoveltiesById(novelty.id).subscribe(response => {
+      this.appNoveltieId = novelty.id;
+      this.subNovelties = response.body.list;
+      this.getListRelNoveltySubNovelty(novelty.id);
     });
   }
 
@@ -173,23 +183,27 @@ export class NoveltiePageComponent implements OnInit {
     });
   }
 
-  associateNoveltieWithSubNoveltie(idNoveltie: number): void {
-    let association: CreateAssociation = {
-      appNoveltysId: this.noveltieData.id,
-      appSubNoveltysId: idNoveltie
+  associateNoveltieWithSubNoveltie(idSubNoveltie: number): void {
+    let association = {
+      appNoveltysId: this.appNoveltieId,
+      appSubNoveltysId: idSubNoveltie
     }
-    this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
-      if (response.status === HttpStatusCode.Created)
-        this.getListRelNoveltySubNovelty(this.noveltieData.id);
-    }, (error: HttpErrorResponse) => {
 
+    this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
+      if (response.status === HttpStatusCode.Created) {
+        const requestSubNovelties = {
+          id : this.appNoveltieId
+        }
+        this.getListRelNoveltySubNovelty(this.appNoveltieId);
+        this.getSubNoveltyById(requestSubNovelties);
+      }
     });
   }
 
   dissasociateSubNoveltie(noveltie: CreateAssociation): void {
     this.subNoveltieService.dissasociateNoveltieAndSubnoveltie(noveltie).subscribe(response => {
       if (response.status === HttpStatusCode.Ok)
-        this.getListRelNoveltySubNovelty(this.noveltieData.id);
+        this.getListRelNoveltySubNovelty(this.appNoveltieId);
     });
   }
 
@@ -199,9 +213,8 @@ export class NoveltiePageComponent implements OnInit {
 
   getListRelNoveltySubNovelty(id: any): void {
     this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(
-      response => this.noveltiesAndSubNovelties = response.body.list,
-      (error: HttpErrorResponse) => {
-
+      response => {
+        this.noveltiesAndSubNovelties = response.body.list;
       }
     );
   }

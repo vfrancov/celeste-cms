@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { Navigation } from "@core/constants/navigataion.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
+import { messageSessionDestroy } from "@core/constants/sweetalert.config";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -25,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       if(error.status >= HttpStatusCode.InternalServerError || error.status >= HttpStatusCode.NotFound)
-        swal.fire('Error', error.message, 'warning');
+        swal.fire(messageSessionDestroy);
 
       return throwError(error);
     }));

@@ -19,7 +19,7 @@ export class SubNoveltieService implements ISubNoveltyRepository {
     return this.http.post(`${environment.baseUrl}/api/AppSubNovelty`, payload, { observe: 'response' });
   }
 
-  associateNoveltieAndSubNoveltie(asociation: CreateAssociation): Observable<HttpResponse<any>> {
+  associateNoveltieAndSubNoveltie(asociation: any): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.baseUrl}/api/AppSubNovelty/NoveltySubNovelty`, asociation, { observe: 'response' });
   }
 
