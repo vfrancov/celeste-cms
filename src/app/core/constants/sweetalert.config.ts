@@ -217,7 +217,7 @@ export const configurationCreated: SweetAlertOptions = {
 
 export const messageSessionDestroy: SweetAlertOptions = {
   title: 'Advertencia',
-  text: "Ha ocurrido un error!",
+  text: "Has iniciado sesión en otro dispositivo",
   icon: 'warning',
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',

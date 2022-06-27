@@ -22,10 +22,14 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       if (error.status === HttpStatusCode.Unauthorized) {
         this.localStorage.removeItem();
-        this._router.navigate([Navigation.login]);
+
+        swal.fire(messageSessionDestroy).then((action: SweetAlertResult) => {
+          if (action.isConfirmed)
+            this._router.navigate([Navigation.login]);
+        });
       }
 
-      if(error.status >= HttpStatusCode.InternalServerError || error.status >= HttpStatusCode.NotFound)
+      if (error.status >= HttpStatusCode.InternalServerError || error.status >= HttpStatusCode.NotFound)
         swal.fire(messageSessionDestroy);
 
       return throwError(error);
