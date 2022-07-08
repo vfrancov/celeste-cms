@@ -4,5 +4,6 @@ import { environment } from "@environment/environment";
 
 export const AuthenticationFormFields: IAuthenticationFields = {
   username: [(environment.production) ? '' : 'deivisvb', Validators.required],
-  password: [(environment.production) ? '' : 'davb2882D&%', Validators.required]
+  password: [(environment.production) ? '' : 'davb2882D&%', Validators.required],
+  rememberPassword: [false]
 }

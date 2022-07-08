@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
@@ -20,15 +20,18 @@ import { ISubNoveltyRepository } from "@domain/subnoveltie/subnoveltie.repositor
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
+import Cropper from "cropperjs";
 
 @Component({
   selector: 'noveltie-component',
   templateUrl: './noveltie.component.html'
 })
-export class NoveltiePageComponent implements OnInit {
+export class NoveltiePageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('modalCreateOrEditNoveltie') modalCreateOrEditNoveltie: ModalComponent;
   @ViewChild('inputFile') inputFile: ElementRef;
+  @ViewChild('canvas') canvasElement: ElementRef;
+  private canvasContext: CanvasRenderingContext2D;
 
   novelties: NoveltyDTO[] = [];
   subNovelties: SubNolvetieDto[] = [];
@@ -49,9 +52,12 @@ export class NoveltiePageComponent implements OnInit {
   noveltiesAndSubNovelties: any[] = [];
   userPermissions: UserPermissions;
   imageModal: string;
-  imageResult: string | ArrayBuffer;
+  imageResult: string | ArrayBuffer = "assets/img/empty-image.png";
+  imageDestination: string;
   isSelectedImage: boolean = false;
   isSelectedFile: Event;
+  amountOfPagesRelated: number;
+  amountOfRecordsRelated: number;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -69,6 +75,12 @@ export class NoveltiePageComponent implements OnInit {
     this.initializeFormCreateSubNoveltie();
     this.readAllNoveltie();
     this.readAllSubNovelties();
+  }
+
+  ngAfterViewInit(): void {
+    /* setTimeout(() => {
+      this.canvasContext = this.canvasElement.nativeElement.getContext('2d');
+    }, 1000); */
   }
 
   initializeFormCreateNoveltie(): void {
@@ -97,8 +109,13 @@ export class NoveltiePageComponent implements OnInit {
     this.imageName = this.utils.setFileName(event);
     this.formDataNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
+    this.utils.getImageResult(event).then(result => this.imageResult = result);
+    /* this.utils.getImageForCanvas("assets/img/empty-image.png").then(result => {
+      this.canvasContext = this.canvasElement.nativeElement.getContext('2d');
+      this.canvasContext.drawImage(result, 377.75, 200);
+    }); */
     this.isSelectedImage = true;
-    this.isSelectedFile = event;
+    //this.isSelectedFile = event;
   }
 
   createNoveltie(): void {
@@ -192,7 +209,7 @@ export class NoveltiePageComponent implements OnInit {
     this.subNoveltieService.associateNoveltieAndSubNoveltie(association).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
         const requestSubNovelties = {
-          id : this.appNoveltieId
+          id: this.appNoveltieId
         }
         this.getListRelNoveltySubNovelty(this.appNoveltieId);
         this.getSubNoveltyById(requestSubNovelties);
@@ -214,6 +231,8 @@ export class NoveltiePageComponent implements OnInit {
   getListRelNoveltySubNovelty(id: any): void {
     this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(
       response => {
+        this.amountOfPagesRelated = response.body.pages;
+        this.amountOfRecordsRelated = response.body.records;
         this.noveltiesAndSubNovelties = response.body.list;
       }
     );
@@ -228,5 +247,13 @@ export class NoveltiePageComponent implements OnInit {
 
   setImageModal(image: string): void {
     this.imageModal = image;
+  }
+
+  applyFilter(filter: any): void {
+
+  }
+
+  restoreFilter(event: any): void {
+
   }
 }

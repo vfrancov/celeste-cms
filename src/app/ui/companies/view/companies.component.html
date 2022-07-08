@@ -31,7 +31,7 @@
               <td>{{companie.address}}</td>
               <td>{{companie.phoneNumber}}</td>
               <td>{{companie.email}}</td>
-              <td>{{companie.statusName}}</td>
+              <td>{{companie.statusName | status}}</td>
               <td>
                 <div class="btn-group">
                   <button *ngIf="userPermissions.update" class="btn btn-info btn-sm"

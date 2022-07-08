@@ -1,9 +1,15 @@
 <content-component [title]="'Novedades'">
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus novedades</p>
-    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
-      data-bs-target="#modalCreateOrEditNoveltie" (click)="prepareForm()" *ngIf="userPermissions.create">Crear
-      Novedad</button>
+    <button
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#modalCreateOrEditNoveltie"
+      (click)="prepareForm()"
+      *ngIf="userPermissions.create"
+    >
+      Crear Novedad
+    </button>
   </div>
   <div class="row">
     <div class="col">
@@ -16,24 +22,53 @@
             </div>
             <ng-container *ngFor="let noveltie of novelties">
               <div class="col-3 mb-2">
-                <div class="card" style="width: 100%;">
-                  <img class="card-img-top cursor-pointer img-cropped" [src]="noveltie.imagenUrl"
-                    alt="{{noveltie.name}}" height="200px" data-bs-toggle="modal" data-bs-target="#modalShowImage"
-                    (click)="setImageModal(noveltie.imagenUrl)">
+                <div class="card" style="width: 100%">
+                  <img
+                    class="card-img-top cursor-pointer img-cropped"
+                    [src]="noveltie.imagenUrl"
+                    alt="{{ noveltie.name }}"
+                    height="200px"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalShowImage"
+                    (click)="setImageModal(noveltie.imagenUrl)"
+                  />
                   <div class="card-body">
-                    <h5 class="card-title">Novedad tipo ({{noveltie.typeNoveltyName}})</h5>
-                    <h5 class="card-title">Empresa: {{noveltie.companyName}}</h5>
-                    <p class="card-text">{{noveltie.name}}</p>
+                    <h5 class="card-title">
+                      Novedad tipo ({{ noveltie.typeNoveltyName }})
+                    </h5>
+                    <h5 class="card-title">
+                      Empresa: {{ noveltie.companyName }}
+                    </h5>
+                    <p class="card-text">{{ noveltie.name }}</p>
                     <div class="d-flex justify-content-between">
                       <div class="d-flex justify-content-around">
-                        <button class="btn btn-danger btn-sm cursor-pointer" (click)="deleteNoveltie(noveltie)"
-                          *ngIf="userPermissions.delete" disableOnRequest><i class="fa fa-trash"></i></button>
-                        <button class="btn btn-warning btn-sm cursor-pointer ml-1" data-bs-toggle="modal"
-                          data-bs-target="#modalAssignSubNovelties" (click)="getSubNoveltyById(noveltie)"
-                          disableOnRequest><i class="fa fa-list"></i> Asociar</button>
+                        <button
+                          class="btn btn-danger btn-sm cursor-pointer"
+                          (click)="deleteNoveltie(noveltie)"
+                          *ngIf="userPermissions.delete"
+                          disableOnRequest
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                        <button
+                          class="btn btn-warning btn-sm cursor-pointer ml-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalAssignSubNovelties"
+                          (click)="getSubNoveltyById(noveltie)"
+                          disableOnRequest
+                        >
+                          <i class="fa fa-list"></i> Asociar
+                        </button>
                       </div>
-                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateOrEditNoveltie"
-                        (click)="getNoveltyById(noveltie)" *ngIf="userPermissions.update">Actualizar Novedad</button>
+                      <button
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCreateOrEditNoveltie"
+                        (click)="getNoveltyById(noveltie)"
+                        *ngIf="userPermissions.update"
+                      >
+                        Actualizar Novedad
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -44,61 +79,116 @@
       </div>
     </div>
   </div>
-  <modal-component #modalCreateOrEditNoveltie [idModal]="'modalCreateOrEditNoveltie'"
-    [modalTitle]="'Registrar Novedad'">
+  <modal-component
+    #modalCreateOrEditNoveltie
+    [idModal]="'modalCreateOrEditNoveltie'"
+    [modalTitle]="'Registrar Novedad'"
+    [modalLarge]="false"
+  >
     <div class="row">
       <div class="col">
-        <alert-message [error]="errorNoveltieService" *ngIf="showErrorService"></alert-message>
+        <alert-message
+          [error]="errorNoveltieService"
+          *ngIf="showErrorService"
+        ></alert-message>
         <form [formGroup]="formNoveltie">
           <div class="form-group">
             <label for="">Nombre de la novedad</label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="name" />
           </div>
-          <combobox formControlName="typeNoveltyId" [label]="'Tipo de Novedad'" [name]="'typeNoveltyId'"
-            [endpoint]="'api/ComboBoxGeneral/GetTypeNovelty'">
+          <combobox
+            formControlName="typeNoveltyId"
+            [label]="'Tipo de Novedad'"
+            [name]="'typeNoveltyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetTypeNovelty'"
+          >
           </combobox>
-          <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
-            [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
+          <combobox
+            formControlName="companyId"
+            [label]="'Empresa'"
+            [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'"
+          >
           </combobox>
           <div class="form-group">
             <label class="btn btn-secondary btn-icon-split">
               <span for="uploadNoveltieImage" class="icon text-white-50">
                 <i class="fas fa-file"></i>
               </span>
-              <span class="text">{{imageName}}</span>
-              <input #inputFile id="uploadNoveltieImage" type="file" formControlName="fileName" (change)="onFileSelect($event)"
-                [hidden]="true" accept=".jpg,.png">
+              <span class="text">{{ imageName }}</span>
+              <input
+                #inputFile
+                id="uploadNoveltieImage"
+                type="file"
+                formControlName="fileName"
+                (change)="onFileSelect($event)"
+                [hidden]="true"
+                accept=".jpg,.png"
+              />
             </label>
           </div>
           <div class="form-group d-flex justify-content-end">
-            <ng-container *ngIf="isEditNovelty then edit else create"></ng-container>
+            <ng-container
+              *ngIf="isEditNovelty; then edit; else create"
+            ></ng-container>
             <ng-template #edit>
-              <button class="btn btn-primary" (click)="updateNoveltie()" *ngIf="create" disableOnRequest>Actualizar
-                Novedad</button>
+              <button
+                class="btn btn-primary"
+                (click)="updateNoveltie()"
+                *ngIf="create"
+                disableOnRequest
+              >
+                Actualizar Novedad
+              </button>
             </ng-template>
             <ng-template #create>
-              <button class="btn btn-primary" (click)="createNoveltie()" [disabled]="!formNoveltie.valid" *ngIf="create"
-                disableOnRequest>Guardar Novedad</button>
+              <button
+                class="btn btn-primary"
+                (click)="createNoveltie()"
+                [disabled]="!formNoveltie.valid"
+                *ngIf="create"
+                disableOnRequest
+              >
+                Guardar Novedad
+              </button>
             </ng-template>
           </div>
         </form>
       </div>
+      <!-- <div class="col-6 p-0 d-flex justify-content-center">
+        <img #image [src]="imageResult" class="img-to-crop">
+        <canvas #canvas></canvas>
+      </div> -->
     </div>
   </modal-component>
-  <modal-component #modalAssignSubNovelties [idModal]="'modalAssignSubNovelties'" [modalLarge]="true"
-    [modalTitle]="'Registrar SubNovedades y Asociación'">
+  <modal-component
+    #modalAssignSubNovelties
+    [idModal]="'modalAssignSubNovelties'"
+    [modalLarge]="true"
+    [modalTitle]="'Registrar SubNovedades y Asociación'"
+  >
     <div class="row">
       <div class="col">
         <form [formGroup]="formSubNoveltie">
-          <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
-            [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
+          <combobox
+            formControlName="companyId"
+            [label]="'Empresa'"
+            [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'"
+          >
           </combobox>
           <div class="form-group">
             <label for="">Nombre de la SubNovedad</label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="name" />
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" (click)="createSubNoveltie()" [disabled]="formSubNoveltie.invalid" disableOnRequest>Registrar Subnovedad</button>
+            <button
+              class="btn btn-primary"
+              (click)="createSubNoveltie()"
+              [disabled]="!formSubNoveltie.invalid ? null : 'disabled'"
+            >
+              Registrar Subnovedad
+            </button>
           </div>
         </form>
       </div>
@@ -107,51 +197,103 @@
       <div class="col">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="subnovelties-tab" data-bs-toggle="tab" data-bs-target="#subnovelties"
-              type="button" role="tab" aria-controls="subnovelties" aria-selected="true">SubNovedades</button>
+            <button
+              class="nav-link active"
+              id="subnovelties-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#subnovelties"
+              type="button"
+              role="tab"
+              aria-controls="subnovelties"
+              aria-selected="true"
+            >
+              SubNovedades
+            </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="association-tab" data-bs-toggle="tab" data-bs-target="#association"
-              type="button" role="tab" aria-controls="association" aria-selected="false">Relacionadas</button>
+            <button
+              class="nav-link"
+              id="association-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#association"
+              type="button"
+              role="tab"
+              aria-controls="association"
+              aria-selected="false"
+            >
+              Relacionadas
+            </button>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="subnovelties" role="tabpanel" aria-labelledby="subnovelties-tab">
+          <div
+            class="tab-pane fade show active"
+            id="subnovelties"
+            role="tabpanel"
+            aria-labelledby="subnovelties-tab"
+          >
             <data-table [title]="'Sub Novedades'">
+              <data-filter
+                [filterFields]="dataTableHead"
+                (emitFilter)="applyFilter($event)"
+                (emitRestore)="restoreFilter($event)"
+              ></data-filter>
               <thead>
                 <ng-container *ngFor="let thead of dataTableHead">
-                  <th>{{thead}}</th>
+                  <th>{{ thead }}</th>
                 </ng-container>
               </thead>
               <tbody>
                 <tr *ngIf="subNovelties.length === 0">
-                  <td colspan="2" class="text-center">No hay subnovedades asociadas</td>
+                  <td colspan="2" class="text-center">
+                    No hay subnovedades asociadas
+                  </td>
                 </tr>
                 <ng-container *ngFor="let subnoveltie of subNovelties">
                   <tr>
-                    <td>{{subnoveltie.appSubNoveltysName}}</td>
-                    <td>{{subnoveltie.statusName | status}}</td>
+                    <td>{{ subnoveltie.appSubNoveltysName }}</td>
+                    <td>{{ subnoveltie.statusName | status }}</td>
                   </tr>
                 </ng-container>
               </tbody>
             </data-table>
           </div>
-          <div class="tab-pane fade" id="association" role="tabpanel" aria-labelledby="association-tab">
-            <data-table [title]="'Asociaciones de Subnovedad'">
+          <div
+            class="tab-pane fade"
+            id="association"
+            role="tabpanel"
+            aria-labelledby="association-tab"
+          >
+            <data-table
+              [title]="'Asociaciones de Subnovedad'"
+              [pages]="amountOfPagesRelated"
+              [rows]="amountOfRecordsRelated"
+            >
               <thead>
                 <ng-container *ngFor="let thead of dataTableHeadRelated">
-                  <th>{{thead}}</th>
+                  <th>{{ thead }}</th>
                 </ng-container>
               </thead>
               <tbody>
                 <tr *ngIf="noveltiesAndSubNovelties.length === 0">
-                  <td colspan="3" class="text-center">No hay subnovedades relacionadas</td>
+                  <td colspan="3" class="text-center">
+                    No hay subnovedades relacionadas
+                  </td>
                 </tr>
-                <ng-container *ngFor="let noveltieandsubnoveltie of noveltiesAndSubNovelties">
+                <ng-container
+                  *ngFor="
+                    let noveltieandsubnoveltie of noveltiesAndSubNovelties
+                  "
+                >
                   <tr>
-                    <td>{{noveltieandsubnoveltie.name}}</td>
+                    <td>{{ noveltieandsubnoveltie.name }}</td>
                     <td class="text-center">
-                      <div *ngIf="noveltieandsubnoveltie.appNoveltysId != 0; else notAssociated">
+                      <div
+                        *ngIf="
+                          noveltieandsubnoveltie.appNoveltysId != 0;
+                          else notAssociated
+                        "
+                      >
                         <i class="fa fa-check"></i>
                       </div>
                       <ng-template #notAssociated>
@@ -159,14 +301,24 @@
                       </ng-template>
                     </td>
                     <td class="text-center">
-                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId != 0" class="btn btn-primary btn-sm btn-block"
-                        (click)="dissasociateSubNoveltie(noveltieandsubnoveltie)" disableOnRequest><i
-                          class="fa fa-arrow"></i>
-                        Desasociar</button>
-                      <button *ngIf="noveltieandsubnoveltie.appNoveltysId === 0"
-                        class="btn btn-primary btn-sm btn-block" (click)="associateSubNoveltie(noveltieandsubnoveltie)"
-                        disableOnRequest><i class="fa fa-arrow"></i>
-                        Asociar</button>
+                      <button
+                        *ngIf="noveltieandsubnoveltie.appNoveltysId != 0"
+                        class="btn btn-primary btn-sm btn-block"
+                        (click)="
+                          dissasociateSubNoveltie(noveltieandsubnoveltie)
+                        "
+                        disableOnRequest
+                      >
+                        <i class="fa fa-arrow"></i> Desasociar
+                      </button>
+                      <button
+                        *ngIf="noveltieandsubnoveltie.appNoveltysId === 0"
+                        class="btn btn-primary btn-sm btn-block"
+                        (click)="associateSubNoveltie(noveltieandsubnoveltie)"
+                        disableOnRequest
+                      >
+                        <i class="fa fa-arrow"></i> Asociar
+                      </button>
                     </td>
                   </tr>
                 </ng-container>
@@ -177,7 +329,10 @@
       </div>
     </div>
   </modal-component>
-  <modal-component [idModal]="'modalShowImage'" [modalTitle]="'Imagen de la Novedad'">
-    <img [src]="imageModal" width="100%">
+  <modal-component
+    [idModal]="'modalShowImage'"
+    [modalTitle]="'Imagen de la Novedad'"
+  >
+    <img [src]="imageModal" width="100%" />
   </modal-component>
 </content-component>

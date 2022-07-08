@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import Cropper from 'cropperjs';
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +18,7 @@ export class UtilsService {
   toFormData(objectForm: object, file?: Event): any {
     const formData = new FormData();
 
-    if(!file)
+    if (!file)
       delete objectForm[this.FILE_NAME_PROPERTY];
 
     Object.keys(objectForm).forEach(key => {
@@ -34,15 +33,30 @@ export class UtilsService {
 
   getImageResult(event: Event): Promise<string | ArrayBuffer> {
     return new Promise((resolve, reject) => {
-      let selectedFile = (event.target as HTMLInputElement).files?.item(0);
+      const selectedFile = (event.target as HTMLInputElement).files?.item(0);
 
       if (!selectedFile)
         reject();
 
       let fileReader = new FileReader();
+      const imageObject = new Image();
+      imageObject.src = (event.target as HTMLInputElement).value;
 
       fileReader.readAsDataURL(selectedFile);
-      fileReader.onload = () => resolve(fileReader.result);
+      fileReader.onload = () => {
+
+        resolve(fileReader.result);
+      };
+    });
+  }
+
+  getImageForCanvas(source: string): Promise<HTMLImageElement> {
+    const image = new Image();
+    image.src = source;
+    return new Promise((resolve, reject) => {
+      image.onload = () => {
+        resolve(image);
+      }
     });
   }
 

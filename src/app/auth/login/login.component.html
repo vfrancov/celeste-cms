@@ -2,7 +2,7 @@
   <div class="top-bar-celeste d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between full-width">
       <h2 class="ml-5 text-color-white">Celeste CMS</h2>
-      <small class="mr-5 text-color-white">Version {{appVersion}}</small>
+      <small class="mr-5 text-color-white">Version {{ appVersion }}</small>
     </div>
   </div>
   <div class="container">
@@ -10,30 +10,58 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="p-5">
-            <alert-message [error]="errorAuthenticationService" [response]="authResponse"></alert-message>
+            <alert-message
+              [error]="errorAuthenticationService"
+              [response]="authResponse"
+            ></alert-message>
             <div class="text-center">
               <h1 class="h4 mb-4 text-color-white">Celeste CMS</h1>
             </div>
             <form [formGroup]="authLoginForm" class="user">
               <div class="form-group">
-                <input type="text" formControlName="username" class="form-control form-control-user" id="exampleInputEmail"
-                  aria-describedby="emailHelp" placeholder="Ingresa tu Usuario" autofocus>
+                <input
+                  type="text"
+                  formControlName="username"
+                  class="form-control form-control-user"
+                  id="exampleInputEmail"
+                  aria-describedby="emailHelp"
+                  placeholder="Ingresa tu Usuario"
+                  autofocus
+                />
               </div>
               <div class="form-group">
-                <input type="password" formControlName="password" class="form-control form-control-user" id="exampleInputPassword"
-                  placeholder="Contraseña">
+                <input
+                  type="password"
+                  formControlName="password"
+                  class="form-control form-control-user"
+                  id="exampleInputPassword"
+                  placeholder="Contraseña"
+                />
               </div>
               <div class="form-group">
                 <div class="custom-control custom-checkbox small">
-                  <input type="checkbox" class="custom-control-input" id="customCheck">
-                  <label class="custom-control-label text-color-white" for="customCheck">Recordar datos de sesión</label>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="rememberPassword"
+                    formControlName="rememberPassword"
+                  />
+                  <label
+                    class="custom-control-label text-color-white"
+                    for="rememberPassword"
+                    >Recordar datos de sesión</label
+                  >
                 </div>
               </div>
-              <button class="btn btn-primary btn-user btn-block" (click)="initSession()" [disabled]="authLoginForm.invalid || isLoading">
-                {{ (isLoading) ? 'Ingresando ...' : 'Ingresar' }}
+              <button
+                class="btn btn-primary btn-user btn-block"
+                (click)="initSession()"
+                [disabled]="authLoginForm.invalid || isLoading"
+              >
+                {{ isLoading ? "Ingresando ..." : "Ingresar" }}
               </button>
             </form>
-            <hr>
+            <hr />
             <div class="text-center">
               <a class="small text-color-white">¿Olvidaste tu contraseña?</a>
             </div>
@@ -46,11 +74,12 @@
       <div class="row">
         <div class="col">
           <div class="d-flex justify-content-center">
-            <span class="text-color-white">Todos los derechos reservados &copy; 2021</span>
+            <span class="text-color-white"
+              >Todos los derechos reservados &copy; 2021</span
+            >
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

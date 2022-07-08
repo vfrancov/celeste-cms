@@ -16,7 +16,11 @@ export class LocalStorageService implements ILocalStorageRepository {
     return window.localStorage.clear();
   }
 
+  removeItemByKey(key: string): void {
+    return window.localStorage.removeItem(key);
+  }
+
   getPermissions(): UserDto {
     return this.getItem(Navigation.userSession);
   }
-}      
+}

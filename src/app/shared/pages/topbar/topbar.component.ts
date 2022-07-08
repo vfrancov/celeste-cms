@@ -27,7 +27,7 @@ export class TopbarComponent implements OnInit {
   }
 
   logoutSession(): void {
-    this.localstorage.removeItem();
+    this.localstorage.removeItemByKey(Navigation.userSession);
     this.router.navigate([Navigation.login]);
   }
 }

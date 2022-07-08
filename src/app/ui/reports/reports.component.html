@@ -3,8 +3,8 @@
     <p>Gestiona tus Reportes</p>
   </div>
   <a #linkReport [href]="linkReportDownload" [download]="reportName" [hidden]="true">Download</a>
-  <data-table [title]="'Reportes'" [export]="true" [pages]="amountOfPages" [rows]="amountOfRows"
-    (emitPage)="selectedPage($event)" (exportExcel)="exportExcel($event)">
+  <data-table [title]="'Reportes'" [export]="true" [reload]="true" [pages]="amountOfPages" [rows]="amountOfRows"
+    (emitPage)="selectedPage($event)" (exportExcel)="exportExcel($event)" (reloadGrid)="restoreFilter($event)">
     <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)"
       (emitRestore)="restoreFilter($event)"></data-filter>
     <thead>

@@ -1,15 +1,16 @@
-import { HttpStatusCode } from '@core/constants/httpstatuscode.enum';
-import { IAuthRepository } from '@domain/auth/authentication.repository';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { UserDto } from '@domain/user/user.dto';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthenticationFormFields } from '@core/constants/authentication.fields';
+import { HttpStatusCode } from '@core/constants/httpstatuscode.enum';
 import { Navigation } from '@core/constants/navigataion.enum';
 import { RepositoryProvider } from '@core/constants/repository.enum';
-import { ILocalStorageRepository } from '@domain/localstorage/localstorage.repository';
 import { Status } from '@core/constants/status.enum';
-import { AuthenticationFormFields } from '@core/constants/authentication.fields';
+import { AuthDTO } from '@domain/auth/auth.dto';
+import { IAuthRepository } from '@domain/auth/authentication.repository';
+import { ILocalStorageRepository } from '@domain/localstorage/localstorage.repository';
+import { UserDto } from '@domain/user/user.dto';
 import { environment } from '@environment/environment';
 
 @Component({
@@ -25,6 +26,7 @@ export class AuthLoginComponent implements OnInit {
   errorAuthenticationService: HttpErrorResponse;
   isLoading: boolean = Status.notLoading;
   authResponse: HttpResponse<any>;
+  isRememberPassword: boolean = false;
   private readonly _IS_SUPER_ADMIN: number = 1;
 
   constructor(
@@ -35,6 +37,7 @@ export class AuthLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeAuthLogin();
+    this.getRememberPassword();
   }
 
   initializeAuthLogin(): void {
@@ -47,12 +50,27 @@ export class AuthLoginComponent implements OnInit {
       response => {
         this.checkResponseAuthentication(response);
         this.authResponse = response
+        this.setRememberPassword(response);
       },
       (error: HttpErrorResponse) => {
         this.errorAuthenticationService = error;
         this.isLoading = Status.notLoading;
       }
     );
+  }
+
+  private setRememberPassword(response: HttpResponse<UserDto>): void {
+    if ((response.status === HttpStatusCode.Ok) && this.authLoginForm.get(Navigation.rememberPassword).value)
+      this.localStorage.saveItem(Navigation.rememberPassword, this.authLoginForm.value);
+    else
+      this.localStorage.removeItemByKey(Navigation.rememberPassword);
+  }
+
+  private getRememberPassword(): void {
+    const authData : AuthDTO = this.localStorage.getItem(Navigation.rememberPassword);
+
+    if(authData)
+      this.authLoginForm.patchValue(authData);
   }
 
   private checkResponseAuthentication(response: HttpResponse<UserDto>): void {
@@ -64,7 +82,7 @@ export class AuthLoginComponent implements OnInit {
   private redirectAndStoreSession(response: HttpResponse<UserDto>): void {
     this.localStorage.saveItem(Navigation.userSession, response.body);
     (response.body.rolId === this._IS_SUPER_ADMIN) ?
-    this.router.navigate([Navigation.companies]) :
-    this.router.navigate([Navigation.dashboard]);
+      this.router.navigate([Navigation.companies]) :
+      this.router.navigate([Navigation.dashboard]);
   }
 }

@@ -4,6 +4,7 @@
     <div class="table-responsive">
       <div class="d-flex mb-1">
         <button class="btn btn-sm btn-success mr-1" *ngIf="export" (click)="exportToExcel()" disableOnRequest>Excel</button>
+        <button class="btn btn-sm btn-info mr-1" *ngIf="reload" (click)="reloadTheGrid()" disableOnRequest>Actualizar Datos</button>
       </div>
       <ng-content select="data-filter"></ng-content>
       <table class="table table-bordered">
@@ -14,14 +15,14 @@
         <div class="dataTables_info">Mostrando 1 - 10 de {{rows}} registros</div>
         <div class="dataTables_paginate paging_simple_numbers">
           <ul class="pagination">
-            <li class="paginate_button page-item previous">
-              <a href="javascript:" class="page-link">Anterior</a>
+            <li class="paginate_button page-item previous" [class.disabled]="currentPage === 0">
+              <a href="javascript:" class="page-link" (click)="previousPage()">Anterior</a>
             </li>
-            <li class="paginate_button page-item" *ngFor="let page of [].constructor(pages); let i = index">
+            <li class="paginate_button page-item" [class.active]="i === currentPage" *ngFor="let page of [].constructor(pages); let i = index">
               <a href="javascript:" class="page-link" (click)="setPage(i)">{{i + 1}}</a>
             </li>
-            <li class="paginate_button page-item next">
-              <a href="javascript:" class="page-link">Siguiente</a>
+            <li class="paginate_button page-item next" [class.disabled]="currentPage === pages - 1">
+              <a href="javascript:" class="page-link" (click)="nextPage()">Siguiente</a>
               </li>
           </ul>
         </div>
