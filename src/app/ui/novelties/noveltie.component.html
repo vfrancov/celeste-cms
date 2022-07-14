@@ -155,10 +155,6 @@
           </div>
         </form>
       </div>
-      <!-- <div class="col-6 p-0 d-flex justify-content-center">
-        <img #image [src]="imageResult" class="img-to-crop">
-        <canvas #canvas></canvas>
-      </div> -->
     </div>
   </modal-component>
   <modal-component
@@ -233,11 +229,6 @@
             aria-labelledby="subnovelties-tab"
           >
             <data-table [title]="'Sub Novedades'">
-              <data-filter
-                [filterFields]="dataTableHead"
-                (emitFilter)="applyFilter($event)"
-                (emitRestore)="restoreFilter($event)"
-              ></data-filter>
               <thead>
                 <ng-container *ngFor="let thead of dataTableHead">
                   <th>{{ thead }}</th>
@@ -268,10 +259,17 @@
               [title]="'Asociaciones de Subnovedad'"
               [pages]="amountOfPagesRelated"
               [rows]="amountOfRecordsRelated"
+              [pagination]="true"
+              (emitPage)="selectedPage($event)"
             >
+            <data-filter
+                [filterFields]="dataTableHeadRelated"
+                (emitFilter)="applyFilter($event)"
+                (emitRestore)="restoreFilter($event)"
+              ></data-filter>
               <thead>
                 <ng-container *ngFor="let thead of dataTableHeadRelated">
-                  <th>{{ thead }}</th>
+                  <th>{{ thead.title }}</th>
                 </ng-container>
               </thead>
               <tbody>

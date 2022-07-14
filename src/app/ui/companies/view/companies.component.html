@@ -1,44 +1,81 @@
 <content-component [title]="'Empresas'">
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus empresas</p>
-    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
-      data-bs-target="#modalCreateAndEditCompanie" (click)="showFormToCreate()" *ngIf="userPermissions.create">Registrar
-      Empresa</button>
+    <button
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#modalCreateAndEditCompanie"
+      (click)="showFormToCreate()"
+      *ngIf="userPermissions.create"
+    >
+      Registrar Empresa
+    </button>
   </div>
   <div class="row">
     <div class="col">
-      <data-table [title]="'Empresas'" [pages]="amountOfPages" [rows]="amountOfRows" (emitPage)="selectedPage($event)">
-        <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)"
-          (emitRestore)="restoreFilter($event)"></data-filter>
+      <data-table
+        [title]="'Empresas'"
+        [pages]="amountOfPages"
+        [rows]="amountOfRows"
+        [pagination]="true"
+        (emitPage)="selectedPage($event)"
+      >
+        <data-filter
+          [filterFields]="dataTableHead"
+          (emitFilter)="applyFilter($event)"
+          (emitRestore)="restoreFilter($event)"
+        ></data-filter>
         <thead>
           <ng-container *ngFor="let thead of dataTableHead | keyvalue">
-            <th class="pointer" (click)="sort(thead.value.field)" aria-sort="ascending">
-              {{thead.value.title}}
+            <th
+              class="pointer"
+              (click)="sort(thead.value.field)"
+              aria-sort="ascending"
+            >
+              {{ thead.value.title }}
               <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
-              <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}"></i>
+              <i class="fa fa-arrow-{{ isDescOrAsc ? 'down' : 'up' }}"></i>
             </th>
           </ng-container>
         </thead>
         <tbody>
           <tr>
-            <td [attr.colspan]="dataTableHead.length" class="text-center" *ngIf="companieData?.length === 0">No hay
-              registros</td>
+            <td
+              [attr.colspan]="dataTableHead.length"
+              class="text-center"
+              *ngIf="companieData?.length === 0"
+            >
+              No hay registros
+            </td>
           </tr>
           <ng-container *ngFor="let companie of companieData">
             <tr>
-              <td>{{companie.name}}</td>
-              <td>{{companie.nit}}</td>
-              <td>{{companie.address}}</td>
-              <td>{{companie.phoneNumber}}</td>
-              <td>{{companie.email}}</td>
-              <td>{{companie.statusName | status}}</td>
+              <td>{{ companie.name }}</td>
+              <td>{{ companie.nit }}</td>
+              <td>{{ companie.address }}</td>
+              <td>{{ companie.phoneNumber }}</td>
+              <td>{{ companie.email }}</td>
+              <td>{{ companie.statusName | status }}</td>
               <td>
                 <div class="btn-group">
-                  <button *ngIf="userPermissions.update" class="btn btn-info btn-sm"
-                    (click)="showModalWithCompanieData(companie)" data-bs-toggle="modal"
-                    data-bs-target="#modalCreateAndEditCompanie" disableOnRequest><i class="fa fa-edit"></i></button>
-                  <button *ngIf="userPermissions.delete" class="btn btn-danger btn-sm"
-                    (click)="deleteCompanie(companie)" disableOnRequest><i class="fa fa-trash"></i></button>
+                  <button
+                    *ngIf="userPermissions.update"
+                    class="btn btn-info btn-sm"
+                    (click)="showModalWithCompanieData(companie)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalCreateAndEditCompanie"
+                    disableOnRequest
+                  >
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button
+                    *ngIf="userPermissions.delete"
+                    class="btn btn-danger btn-sm"
+                    (click)="deleteCompanie(companie)"
+                    disableOnRequest
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
@@ -47,47 +84,81 @@
       </data-table>
     </div>
   </div>
-  <modal-component #modalCreateAndEditCompanie [idModal]="'modalCreateAndEditCompanie'"
-    [modalTitle]="'Registrar Empresa'" [modalLarge]="true">
+  <modal-component
+    #modalCreateAndEditCompanie
+    [idModal]="'modalCreateAndEditCompanie'"
+    [modalTitle]="'Registrar Empresa'"
+    [modalLarge]="true"
+  >
     <div class="row">
       <div class="col">
         <h5 class="no-margin">Registra tu empresa</h5>
         <small>Registra las empresas</small>
-        <alert-message [error]="companieErrorService" *ngIf="showErrorCompanieService"></alert-message>
+        <alert-message
+          [error]="companieErrorService"
+          *ngIf="showErrorCompanieService"
+        ></alert-message>
         <form class="mt-3" [formGroup]="formCompanie">
           <div class="form-group">
             <label for="name">Nombre Empresa</label>
-            <input type="text" class="form-control" formControlName="name" autofocus>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              autofocus
+            />
           </div>
           <div class="form-group">
             <label for="firstname">Nit</label>
-            <input type="text" class="form-control" formControlName="nit">
+            <input type="text" class="form-control" formControlName="nit" />
           </div>
           <div class="form-group">
             <label for="lastName">Correo Empresa</label>
-            <input type="email" class="form-control" formControlName="email">
-            <div *ngIf="checkEmail.errors?.email" [class.text-danger]="checkEmail.errors?.email">Ingrese un correo
-              valido</div>
+            <input type="email" class="form-control" formControlName="email" />
+            <div
+              *ngIf="checkEmail.errors?.email"
+              [class.text-danger]="checkEmail.errors?.email"
+            >
+              Ingrese un correo valido
+            </div>
           </div>
           <div class="form-group">
             <label for="phoneNumber">Dirección</label>
-            <input type="text" class="form-control" formControlName="address">
+            <input type="text" class="form-control" formControlName="address" />
           </div>
           <div class="form-group">
             <label for="username">Telefono</label>
-            <input type="text" class="form-control" formControlName="phoneNumber">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="phoneNumber"
+            />
           </div>
         </form>
       </div>
     </div>
-    <ng-template *ngIf="isEditCompanie then edit else create"></ng-template>
+    <ng-template *ngIf="isEditCompanie; then edit; else create"></ng-template>
     <ng-template #edit>
-      <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editCompanie()"
-        [disabled]="formCompanie.invalid" disableOnRequest>Actualizar Empresa</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-modal-edit"
+        (click)="editCompanie()"
+        [disabled]="formCompanie.invalid"
+        disableOnRequest
+      >
+        Actualizar Empresa
+      </button>
     </ng-template>
     <ng-template #create>
-      <button type="submit" class="btn btn-primary btn-modal-create" (click)="createCompanie()"
-        [disabled]="formCompanie.invalid" disableOnRequest>Guardar Empresa</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-modal-create"
+        (click)="createCompanie()"
+        [disabled]="formCompanie.invalid"
+        disableOnRequest
+      >
+        Guardar Empresa
+      </button>
     </ng-template>
   </modal-component>
 </content-component>

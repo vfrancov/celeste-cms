@@ -23,8 +23,8 @@ export class SubNoveltieService implements ISubNoveltyRepository {
     return this.http.post(`${environment.baseUrl}/api/AppSubNovelty/NoveltySubNovelty`, asociation, { observe: 'response' });
   }
 
-  listRelNoveltySubNovelty(id: number): Observable<HttpResponse<IResponseBody>> {
-    return this.http.get<IResponseBody>(`${environment.baseUrl}/api/AppSubNovelty/ListRelNoveltySubNovelty/${id}`, { observe: 'response' });
+  listRelNoveltySubNovelty(payload: IFilterRequestBody, id: number): Observable<HttpResponse<IResponseBody>> {
+    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/AppSubNovelty/ListRelNoveltySubNovelty/${id}`, payload, { observe: 'response' });
   }
 
   dissasociateNoveltieAndSubnoveltie(dissasosiation: CreateAssociation): Observable<HttpResponse<any>> {

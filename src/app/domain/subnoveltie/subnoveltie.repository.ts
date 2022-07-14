@@ -8,6 +8,6 @@ export interface ISubNoveltyRepository {
     readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
     createSubNoveltie(payload: CreateSubNoveltie): Observable<HttpResponse<any>>
     associateNoveltieAndSubNoveltie(asociation: any): Observable<HttpResponse<any>>
-    listRelNoveltySubNovelty(id: any): Observable<HttpResponse<IResponseBody>>
+    listRelNoveltySubNovelty(payload: IFilterRequestBody, id: any): Observable<HttpResponse<IResponseBody>>
     dissasociateNoveltieAndSubnoveltie(payload: CreateAssociation): Observable<HttpResponse<IResponseBody>>
 }

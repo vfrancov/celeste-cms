@@ -26,7 +26,7 @@ import Cropper from "cropperjs";
   selector: 'noveltie-component',
   templateUrl: './noveltie.component.html'
 })
-export class NoveltiePageComponent implements OnInit, AfterViewInit {
+export class NoveltiePageComponent implements OnInit {
 
   @ViewChild('modalCreateOrEditNoveltie') modalCreateOrEditNoveltie: ModalComponent;
   @ViewChild('inputFile') inputFile: ElementRef;
@@ -37,7 +37,7 @@ export class NoveltiePageComponent implements OnInit, AfterViewInit {
   subNovelties: SubNolvetieDto[] = [];
   filterRequestBody: IFilterRequestBody = new RequestBody;
   dataTableHead: string[] = dataTableHeadSubNovelties;
-  dataTableHeadRelated: string[] = dataTableHeadRelated;
+  dataTableHeadRelated: any[] = dataTableHeadRelated;
   formNoveltie: FormGroup;
   formSubNoveltie: FormGroup;
   formDataNoveltie: CreateNovelty;
@@ -77,12 +77,6 @@ export class NoveltiePageComponent implements OnInit, AfterViewInit {
     this.readAllSubNovelties();
   }
 
-  ngAfterViewInit(): void {
-    /* setTimeout(() => {
-      this.canvasContext = this.canvasElement.nativeElement.getContext('2d');
-    }, 1000); */
-  }
-
   initializeFormCreateNoveltie(): void {
     this.formNoveltie = this.formBuilder.group(NoveltieFields);
   }
@@ -110,12 +104,8 @@ export class NoveltiePageComponent implements OnInit, AfterViewInit {
     this.formDataNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.formDataUpdateNoveltie = this.utils.toFormData(this.formNoveltie.value, event);
     this.utils.getImageResult(event).then(result => this.imageResult = result);
-    /* this.utils.getImageForCanvas("assets/img/empty-image.png").then(result => {
-      this.canvasContext = this.canvasElement.nativeElement.getContext('2d');
-      this.canvasContext.drawImage(result, 377.75, 200);
-    }); */
     this.isSelectedImage = true;
-    //this.isSelectedFile = event;
+    this.isSelectedFile = event;
   }
 
   createNoveltie(): void {
@@ -229,7 +219,9 @@ export class NoveltiePageComponent implements OnInit, AfterViewInit {
   }
 
   getListRelNoveltySubNovelty(id: any): void {
-    this.subNoveltieService.listRelNoveltySubNovelty(id).subscribe(
+    this.filterRequestBody.sort[0].field = "idRelAppSubNovelty";
+    this.filterRequestBody.limit = 7;
+    this.subNoveltieService.listRelNoveltySubNovelty(this.filterRequestBody, id).subscribe(
       response => {
         this.amountOfPagesRelated = response.body.pages;
         this.amountOfRecordsRelated = response.body.records;
@@ -250,10 +242,17 @@ export class NoveltiePageComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filter: any): void {
-
+    this.filterRequestBody.filter = filter.filter;
+    this.getListRelNoveltySubNovelty(this.appNoveltieId);
   }
 
   restoreFilter(event: any): void {
+    this.filterRequestBody = new RequestBody;
+    this.getListRelNoveltySubNovelty(this.appNoveltieId);
+  }
 
+  selectedPage(page: number): void {
+    this.filterRequestBody.offset = page;
+    this.getListRelNoveltySubNovelty(this.appNoveltieId);
   }
 }

@@ -10,6 +10,7 @@ export class DataTableComponent {
   @Input() reload: boolean;
   @Input() pages: number;
   @Input() rows: number;
+  @Input() pagination: boolean;
   @Output() emitPage = new EventEmitter<number>();
   @Output() exportExcel = new EventEmitter<any>();
   @Output() reloadGrid = new EventEmitter<any>();

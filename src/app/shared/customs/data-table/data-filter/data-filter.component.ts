@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class DataFilterComponent implements OnInit {
 
-  @Input() filterFields: string[];
+  @Input() filterFields: any[];
   @Output() emitFilter = new EventEmitter<any>();
   @Output() emitRestore = new EventEmitter<any>();
 

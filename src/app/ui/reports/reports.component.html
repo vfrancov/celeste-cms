@@ -2,111 +2,151 @@
   <div class="d-flex justify-content-between mb-2">
     <p>Gestiona tus Reportes</p>
   </div>
-  <a #linkReport [href]="linkReportDownload" [download]="reportName" [hidden]="true">Download</a>
-  <data-table [title]="'Reportes'" [export]="true" [reload]="true" [pages]="amountOfPages" [rows]="amountOfRows"
-    (emitPage)="selectedPage($event)" (exportExcel)="exportExcel($event)" (reloadGrid)="restoreFilter($event)">
-    <data-filter [filterFields]="dataTableHead" (emitFilter)="applyFilter($event)"
-      (emitRestore)="restoreFilter($event)"></data-filter>
+  <a
+    #linkReport
+    [href]="linkReportDownload"
+    [download]="reportName"
+    [hidden]="true"
+    >Download</a
+  >
+  <data-table
+    [title]="'Reportes'"
+    [export]="true"
+    [reload]="true"
+    [pages]="amountOfPages"
+    [rows]="amountOfRows"
+    [pagination]="true"
+    (emitPage)="selectedPage($event)"
+    (exportExcel)="exportExcel($event)"
+    (reloadGrid)="restoreFilter($event)"
+  >
+    <data-filter
+      [filterFields]="dataTableHead"
+      (emitFilter)="applyFilter($event)"
+      (emitRestore)="restoreFilter($event)"
+    ></data-filter>
     <thead>
       <ng-container *ngFor="let thead of dataTableHead">
         <th class="pointer" (click)="sort(thead.field)">
-          {{thead.title}}
+          {{ thead.title }}
           <i class="fa fa-sort mr-1" *ngIf="thead.isSort"></i>
-          <i class="fa fa-arrow-{{(isDescOrAsc) ? 'down' : 'up'}}" *ngIf="thead.isSort"></i>
+          <i
+            class="fa fa-arrow-{{ isDescOrAsc ? 'down' : 'up' }}"
+            *ngIf="thead.isSort"
+          ></i>
         </th>
       </ng-container>
     </thead>
     <tbody>
       <tr *ngIf="reportsData?.length === 0">
-        <td [attr.colspan]="dataTableHead.length" class="text-center">No hay registros</td>
+        <td [attr.colspan]="dataTableHead.length" class="text-center">
+          No hay registros
+        </td>
       </tr>
       <ng-container *ngFor="let report of reportsData">
         <tr>
-          <td>{{report.companyName}}</td>
-          <td>{{report.identify}}</td>
-          <td>{{report.appNoveltyName}}</td>
+          <td>{{ report.companyName }}</td>
+          <td>{{ report.identify }}</td>
+          <td>{{ report.appNoveltyName }}</td>
           <td class="text-center">
-            <i class="fa fa-image cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalNoveltieImage"
-              (click)="setImageModal(report.imagenUrl)"></i>
+            <i
+              class="fa fa-image cursor-pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#modalNoveltieImage"
+              (click)="setImageModal(report.imagenUrl)"
+            ></i>
           </td>
-          <td>{{report.userName}}</td>
-          <td>{{report.zoneName}}</td>
-          <td>{{report.floorName}}</td>
-          <td>{{report.email}}</td>
-          <td>{{report.cellphone}}</td>
-          <td>{{report.dateInit | date : 'Y-MM-dd - hh:m:s a'}}</td>
-          <td>{{report.dateFinish | date : 'Y-MM-dd - hh:m:s a'}}</td>
+          <td>{{ report.userName }}</td>
+          <td>{{ report.zoneName }}</td>
+          <td>{{ report.floorName }}</td>
+          <td>{{ report.email }}</td>
+          <td>{{ report.cellphone }}</td>
+          <td>{{ report.dateInit | date: "Y-MM-dd - hh:m:s a" }}</td>
+          <td>{{ report.dateFinish | date: "Y-MM-dd - hh:m:s a" }}</td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalNoveltieDetails"
-                (click)="getDetailsNoveltieById(report)"><i class="fa fa-list"></i></button>
+              <button
+                class="btn btn-sm btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalNoveltieDetails"
+                (click)="getDetailsNoveltieById(report)"
+              >
+                <i class="fa fa-list"></i>
+              </button>
             </div>
           </td>
         </tr>
       </ng-container>
     </tbody>
   </data-table>
-  <modal-component #modalNoveltieDetails [idModal]="'modalNoveltieDetails'" [modalTitle]="'Detalles de Novedad'"
-    [modalLarge]="true">
+  <modal-component
+    #modalNoveltieDetails
+    [idModal]="'modalNoveltieDetails'"
+    [modalTitle]="'Detalles de Novedad'"
+    [modalLarge]="true"
+  >
     <div class="row">
       <div class="col">
-        <div class="card" style="width: 100%;">
-          <img [src]="detailsNoveltie?.imagenUrl" class="card-img-top" style="height: 15vw; object-fit: cover;">
+        <div class="card" style="width: 100%">
+          <img
+            [src]="detailsNoveltie?.imagenUrl"
+            class="card-img-top"
+            style="height: 15vw; object-fit: cover"
+          />
           <div class="card-body d-flex justify-content-between">
-            <div class="card" style="width: 46%;">
-              <div class="card-header">
-                Detalle General
-              </div>
+            <div class="card" style="width: 46%">
+              <div class="card-header">Detalle General</div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <label class="badge badge-info">Novedad</label>
-                  {{detailsNoveltie?.appNoveltyName}}
+                  {{ detailsNoveltie?.appNoveltyName }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Empresa</label>
-                  {{detailsNoveltie?.companyName}}
+                  {{ detailsNoveltie?.companyName }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Comentario</label>
-                  {{detailsNoveltie?.comment}}
+                  {{ detailsNoveltie?.comment }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Identificación</label>
-                  {{detailsNoveltie?.identify}}
+                  {{ detailsNoveltie?.identify }}
                 </li>
               </ul>
             </div>
-            <div class="card" style="width: 46%;">
-              <div class="card-header">
-                Detalle General
-              </div>
+            <div class="card" style="width: 46%">
+              <div class="card-header">Detalle General</div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <label class="badge badge-info">Fecha Inicial</label>
-                  {{detailsNoveltie?.dateInit}}
+                  {{ detailsNoveltie?.dateInit }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Fecha Final</label>
-                  {{detailsNoveltie?.dateFinish}}
+                  {{ detailsNoveltie?.dateFinish }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Usuario</label>
-                  {{detailsNoveltie?.userName}}
+                  {{ detailsNoveltie?.userName }}
                 </li>
                 <li class="list-group-item">
                   <label class="badge badge-info">Zona</label>
-                  {{detailsNoveltie?.zoneName}}
+                  {{ detailsNoveltie?.zoneName }}
                 </li>
               </ul>
             </div>
           </div>
           <div class="card-body">
-            <div class="card" style="width: 100%;">
-              <div class="card-header">
-                Sub Novedades
-              </div>
+            <div class="card" style="width: 100%">
+              <div class="card-header">Sub Novedades</div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let noveltie of detailsNoveltie?.data">{{noveltie.name}}</li>
+                <li
+                  class="list-group-item"
+                  *ngFor="let noveltie of detailsNoveltie?.data"
+                >
+                  {{ noveltie.name }}
+                </li>
               </ul>
             </div>
           </div>
@@ -114,7 +154,10 @@
       </div>
     </div>
   </modal-component>
-  <modal-component [idModal]="'modalNoveltieImage'" [modalTitle]="'Imagen de la Novedad'">
-    <img [src]="imageModal" width="100%">
+  <modal-component
+    [idModal]="'modalNoveltieImage'"
+    [modalTitle]="'Imagen de la Novedad'"
+  >
+    <img [src]="imageModal" width="100%" />
   </modal-component>
 </content-component>

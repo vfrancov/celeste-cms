@@ -11,7 +11,7 @@
         <ng-content select="thead"></ng-content>
         <ng-content select="tbody"></ng-content>
       </table>
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between" *ngIf="pagination">
         <div class="dataTables_info">Mostrando 1 - 10 de {{rows}} registros</div>
         <div class="dataTables_paginate paging_simple_numbers">
           <ul class="pagination">

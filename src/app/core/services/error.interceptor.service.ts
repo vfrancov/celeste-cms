@@ -30,7 +30,10 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       if (error.status >= HttpStatusCode.InternalServerError || error.status >= HttpStatusCode.NotFound)
-        swal.fire(messageSessionDestroy);
+        swal.fire(messageSessionDestroy).then(action => {
+          if (action.isConfirmed)
+            this._router.navigate([Navigation.login]);
+        });
 
       return throwError(error);
     }));
