@@ -60,6 +60,13 @@ export class UtilsService {
     });
   }
 
+  putZeroOnNullProperty(object: Object): Object {
+    Object.keys(object).forEach(property =>
+      (this.isEmptyOrNull(object[property])) ? object[property] = 0 : object[property] = object[property]
+    );
+    return object;
+  }
+
   private setFileValue(event: Event): FileList {
     const element = event?.currentTarget as HTMLInputElement;
     let file: FileList | null = element?.files;

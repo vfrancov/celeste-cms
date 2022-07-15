@@ -24,6 +24,7 @@ export class ReportsPageComponent implements OnInit {
   public imageModal: string;
   public linkReportDownload: SafeResourceUrl;
   public reportName: string = `Reporte-${new Date().getTime()}.xlsx`;
+  public fileId: string;
 
   constructor(private _reports: ReportServices, private _sanitizer: DomSanitizer, private _renderer: Renderer2) { }
 
@@ -36,10 +37,7 @@ export class ReportsPageComponent implements OnInit {
       this.reportsData = response.body.list;
       this.amountOfPages = response.body.pages;
       this.amountOfRows = response.body.records;
-
-      if (response.body.fileName)
-        this.downloadFile(response.body.fileName.split('/')[5]);
-
+      this.fileId = response.body.fileName.split('/')[5];
     }, (error: HttpErrorResponse) => {
       swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
     });
@@ -64,6 +62,7 @@ export class ReportsPageComponent implements OnInit {
   exportExcel(event: any): void {
     this.requestBody.download = true;
     this.fetchDataReport();
+    this.downloadFile(this.fileId);
   }
 
   sort(fieldToSort: string): void {

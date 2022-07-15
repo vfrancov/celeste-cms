@@ -8,6 +8,7 @@ import { RequestAction } from "@core/constants/requestactions.enum";
 import { zoneCreated, zoneDeleted, zoneUpdated, zoneWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadZones } from "@core/constants/table.headers";
 import { zoneFields } from "@core/constants/zones.field";
+import { UtilsService } from "@core/services/utils.service";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { UserPermissions } from "@domain/shared/menu.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
@@ -41,7 +42,8 @@ export class ZonePageComponent implements OnInit {
     @Inject(RepositoryProvider.zoneRepository) private zoneService: IZoneRepository,
     @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
     private _router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private utils: UtilsService
   ) {
     this.userPermissions = this._permissions.getPermissions(this._router.url);
   }
@@ -66,6 +68,7 @@ export class ZonePageComponent implements OnInit {
   }
 
   createZone(): void {
+    this.utils.putZeroOnNullProperty(this.formZone.value);
     this.zoneService.createZone(this.formZone.value).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
         this.modalCreateAndEditZone.closeModal();
@@ -79,6 +82,7 @@ export class ZonePageComponent implements OnInit {
   }
 
   showModalZonaWithData(zone: ZoneDto): void {
+    this.showErrorZoneService = false;
     this.zoneService.getZoneById(zone.id).subscribe(response => {
       this.formZone.patchValue(response.body);
       this.isEditZone = true;
@@ -87,6 +91,7 @@ export class ZonePageComponent implements OnInit {
   }
 
   showModalCreateZone(): void {
+    this.showErrorZoneService = false;
     this.isEditZone = false;
     this.formZone.reset();
   }
