@@ -4,6 +4,7 @@ import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { floorDeleted, floorSuccess, floorUpdated, floorWarning } from "@core/constants/sweetalert.config";
+import { UtilsService } from "@core/services/utils.service";
 import { CreateFloor, GetFloor, UpdateFloor } from "@domain/floor/floor.dto";
 import { IFloorRepository } from "@domain/floor/floor.repository";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
@@ -17,7 +18,11 @@ export class FloorInteractor implements IFloorInteractorInput {
   private _presenter: IFloorInteractorOutput;
   private _view: IFloorPresenterOutput;
 
-  constructor(@Inject(RepositoryProvider.floorRepository) private floorService: IFloorRepository) { }
+  constructor(
+    @Inject(RepositoryProvider.floorRepository)
+    private floorService: IFloorRepository,
+    private _utils: UtilsService
+  ) { }
 
   setPresenter(presenter: IFloorInteractorOutput): void {
     this._presenter = presenter;
@@ -39,6 +44,7 @@ export class FloorInteractor implements IFloorInteractorInput {
   }
 
   createFloor(formFloor: CreateFloor): void {
+    this._utils.putZeroOnNullProperty(formFloor);
     this.floorService.createFloor(formFloor).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCreateAndEditFloor.closeModal();
