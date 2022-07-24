@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
 import { ZoneProvider } from '@domain/zone/zone.provider';
 import { DataTableModule } from '@shared/customs/data-table/datatable.module';
 import { SharedModule } from '@shared/shared.module';
-import { ZonePageComponent } from './zone.component';
+import { ZoneInteractor } from './interactor/zone.interactor';
+import { ZonePresenter } from './presenter/zone.presenter';
+import { ZonePageComponent } from './view/zone.component';
 import { zoneRoutes } from './zone.routing';
 
 @NgModule({
@@ -18,6 +20,10 @@ import { zoneRoutes } from './zone.routing';
     SharedModule,
     RouterModule.forChild(zoneRoutes)
   ],
-  providers: [ZoneProvider]
+  providers: [
+    ZoneProvider,
+    { provide: 'zonePresenter', useClass: ZonePresenter },
+    ZoneInteractor
+  ]
 })
 export class ZoneModule { }

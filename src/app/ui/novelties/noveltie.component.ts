@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
@@ -20,7 +20,6 @@ import { ISubNoveltyRepository } from "@domain/subnoveltie/subnoveltie.repositor
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
-import Cropper from "cropperjs";
 
 @Component({
   selector: 'noveltie-component',

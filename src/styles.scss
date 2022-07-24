@@ -15,6 +15,13 @@
   background-size: cover;
 }
 
+.bg-login-image-password {
+  background: url('./assets/img/bg-change-password.webp') center center;
+  background-size: cover;
+  height: 100%;
+  border-right: 1px solid #4e73df;
+}
+
 .text-color-white {
   color: #fff;
 }
@@ -54,4 +61,16 @@
   width: auto;
   height: auto;
   object-fit: cover;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh !important;
+  position: relative;
+}
+
+a:hover {
+  color: #000;
 }

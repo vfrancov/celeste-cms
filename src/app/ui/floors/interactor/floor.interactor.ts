@@ -19,8 +19,7 @@ export class FloorInteractor implements IFloorInteractorInput {
   private _view: IFloorPresenterOutput;
 
   constructor(
-    @Inject(RepositoryProvider.floorRepository)
-    private floorService: IFloorRepository,
+    @Inject(RepositoryProvider.floorRepository) private floorService: IFloorRepository,
     private _utils: UtilsService
   ) { }
 

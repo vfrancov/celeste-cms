@@ -2,28 +2,25 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
-import { RequestAction } from "@core/constants/requestactions.enum";
-import { zoneCreated, zoneDeleted, zoneUpdated, zoneWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadZones } from "@core/constants/table.headers";
 import { zoneFields } from "@core/constants/zones.field";
-import { UtilsService } from "@core/services/utils.service";
+import { IModalComponent } from "@domain/companies/IModalComponent";
 import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { UserPermissions } from "@domain/shared/menu.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ZoneDto } from "@domain/zone/zone.dto";
 import { IZoneRepository } from "@domain/zone/zone.repository";
-import { ModalComponent } from "@shared/customs/modal/modal.component";
-import swal, { SweetAlertResult } from 'sweetalert2';
+import { ZonePresenterInput } from "../presenter/zone.presenter.input";
+import { ZonePresenterOutput } from "../presenter/zone.presenter.output";
 
 @Component({
   selector: 'zone-component',
   templateUrl: './zone.component.html'
 })
-export class ZonePageComponent implements OnInit {
+export class ZonePageComponent implements OnInit, ZonePresenterOutput {
 
-  @ViewChild('modalCreateAndEditZone') modalCreateAndEditZone: ModalComponent;
+  @ViewChild('modalCreateAndEditZone') modalCreateAndEditZone: IModalComponent;
 
   dataTableHead: string[] = dataTableHeadZones;
   zoneData: ZoneDto[] = [];
@@ -39,13 +36,13 @@ export class ZonePageComponent implements OnInit {
   amountOfRows: number;
 
   constructor(
-    @Inject(RepositoryProvider.zoneRepository) private zoneService: IZoneRepository,
     @Inject(RepositoryProvider.userPermissions) private _permissions: IUserPermissionsRepository,
+    @Inject('zonePresenter') private _zonePresenter: ZonePresenterInput,
     private _router: Router,
-    private formBuilder: FormBuilder,
-    private utils: UtilsService
+    private formBuilder: FormBuilder
   ) {
     this.userPermissions = this._permissions.getPermissions(this._router.url);
+    this._zonePresenter.setView(this);
   }
 
   ngOnInit(): void {
@@ -54,13 +51,7 @@ export class ZonePageComponent implements OnInit {
   }
 
   readAll(): void {
-    this.zoneService.readAll(this.requestBody).subscribe(
-      response => {
-        this.zoneData = response.body.list;
-        this.amountOfPages = response.body.pages;
-        this.amountOfRows = response.body.records;
-      }
-    );
+    this._zonePresenter.readAll(this.requestBody);
   }
 
   initializeZoneForm(): void {
@@ -68,26 +59,11 @@ export class ZonePageComponent implements OnInit {
   }
 
   createZone(): void {
-    this.utils.putZeroOnNullProperty(this.formZone.value);
-    this.zoneService.createZone(this.formZone.value).subscribe(response => {
-      if (response.status === HttpStatusCode.Created) {
-        this.modalCreateAndEditZone.closeModal();
-        swal.fire(zoneCreated);
-        this.readAll();
-      }
-    }, (error: HttpErrorResponse) => {
-      this.zoneErrorService = error;
-      this.showErrorZoneService = !error.ok;
-    });
+    this._zonePresenter.createZone(this.formZone.value);
   }
 
   showModalZonaWithData(zone: ZoneDto): void {
-    this.showErrorZoneService = false;
-    this.zoneService.getZoneById(zone.id).subscribe(response => {
-      this.formZone.patchValue(response.body);
-      this.isEditZone = true;
-      this.zone = response.body;
-    })
+    this._zonePresenter.showModalZonaWithData(zone);
   }
 
   showModalCreateZone(): void {
@@ -97,30 +73,11 @@ export class ZonePageComponent implements OnInit {
   }
 
   updateZone(): void {
-    this.zoneService.updateZone(this.zone.id, this.formZone.value).subscribe(response => {
-      if (response.status === HttpStatusCode.NoContent) {
-        this.modalCreateAndEditZone.closeModal();
-        swal.fire(zoneUpdated);
-        this.isEditZone = false;
-        this.readAll();
-      }
-    }, (error: HttpErrorResponse) => {
-      this.zoneErrorService = error;
-      this.showErrorZoneService = !error.ok;
-    });
+    this._zonePresenter.updateZone(this.zone.id, this.formZone.value);
   }
 
   deleteZone(zone: ZoneDto): void {
-    swal.fire(zoneWarning).then((action: SweetAlertResult) => {
-      if (action.isConfirmed) {
-        this.zoneService.deleteZone(zone.id, RequestAction.delete).subscribe(response => {
-          if (response.status === HttpStatusCode.Ok) {
-            swal.fire(zoneDeleted);
-            this.readAll();
-          }
-        });
-      }
-    });
+    this._zonePresenter.deleteZone(zone.id);
   }
 
   sort(fieldToSort: string): void {
