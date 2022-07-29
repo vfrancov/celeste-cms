@@ -10,7 +10,6 @@ import { IFilterRequestBody, RequestBody } from "@domain/http/request.body.dto";
 import { UserPermissions } from "@domain/shared/menu.dto";
 import { IUserPermissionsRepository } from "@domain/user/userpermissions.repository";
 import { ZoneDto } from "@domain/zone/zone.dto";
-import { IZoneRepository } from "@domain/zone/zone.repository";
 import { ZonePresenterInput } from "../presenter/zone.presenter.input";
 import { ZonePresenterOutput } from "../presenter/zone.presenter.output";
 

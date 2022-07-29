@@ -12,7 +12,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { RequestAction } from "@core/constants/requestactions.enum";
 
 @Injectable()
-export class ZoneInteractor {
+export class ZoneInteractor implements ZoneInteractorOutput {
   private _presenter: ZoneInteractorOutput;
   private _view: ZonePresenterOutput;
 

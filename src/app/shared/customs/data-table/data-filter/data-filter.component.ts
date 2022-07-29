@@ -20,7 +20,9 @@ export class DataFilterComponent implements OnInit {
   addOtherCriteria: boolean;
   isDate: boolean;
   criterias: any = {
-    'contiene': 'eq'
+    'contiene': 'eq',
+    'mayor igual' : 'gte',
+    'menor igual' : 'lte'
   }
 
   amountOfCriteria: any[] = [1];
