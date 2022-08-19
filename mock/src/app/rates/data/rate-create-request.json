@@ -1,0 +1,11 @@
+{
+  "method": "post",
+  "headers": {
+      "Authorization": "Bearer 1f6d83dd-6090-4d0c-8856-2c5bc4cf7317"
+  },
+  "body": {
+      "concept": "Concepto",
+      "value": 10000
+  },
+  "url": "/api/Rate"
+}

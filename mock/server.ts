@@ -1,6 +1,7 @@
 import { AuthRouter } from "./src/app/auth";
 import { CompanieRouter } from "./src/app/companies";
 import { DashboardRouter } from "./src/app/dashboard";
+import { RatesRouter } from "./src/app/rates";
 import { ReportsRouter } from "./src/app/reports";
 import { ZoneRouter } from "./src/app/zones";
 import { serverConfig } from "./src/config/server.enum";
@@ -21,6 +22,11 @@ class ApplicationStart {
         CompanieRouter.companiesAll(server);
         ZoneRouter.zoneAll(server);
         ReportsRouter.init(server);
+        RatesRouter.init(server);
+        RatesRouter.create(server);
+        RatesRouter.getbyid(server);
+        RatesRouter.update(server);
+        RatesRouter.delete(server);
 
         this.launchServer();
     }

@@ -223,3 +223,40 @@ export const messageSessionDestroy: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const rateCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Tarifa guardada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+
+}
+
+export const rateUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Tarifa actualizada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const rateDeleted: SweetAlertOptions = {
+  title: 'Eliminación Exitosa',
+  text: "Tarifa eliminada exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const rateWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar la Tarifa?",
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

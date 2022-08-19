@@ -1,0 +1,27 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "list": [
+      {
+        "id": 1,
+        "concept": "Polichado",
+        "value": 20000
+      },
+      {
+        "id": 2,
+        "concept": "Lavado",
+        "value": 30000
+      },
+      {
+        "id": 3,
+        "concept": "Otro Concepto",
+        "value": 20000
+      }
+    ],
+    "records": 3,
+    "pages": 1,
+    "fileName": ""
+  }
+}

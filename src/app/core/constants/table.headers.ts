@@ -109,6 +109,24 @@ export const dataTableHeadZones: any[] = [
   }
 ];
 
+export const dataTableHeadRates: any = [
+  {
+    title: 'Concepto',
+    field: 'concept',
+    isSort: true
+  },
+  {
+    title: 'Valor',
+    field: 'value',
+    isSort: true
+  },
+  {
+    title: 'Acciones',
+    field: 'action',
+    isSort: false
+  }
+];
+
 //'Nombre Zona', 'Nombre Piso', 'Estado', 'Acciones'
 
 export const dataTableHeadFloors: any[] = [

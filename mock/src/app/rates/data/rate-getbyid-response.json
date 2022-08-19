@@ -1,0 +1,10 @@
+{
+  "headers" : { },
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "id" : 1,
+    "concept" : "Polichado",
+    "value" : 10000
+  }
+}

@@ -140,6 +140,18 @@
           "update": true,
           "delete": true
         }
+      },
+      {
+        "menuId": 12,
+        "route": "billing",
+        "icon": "fas fa-fw fa-money-bill",
+        "menuName": "Facturación",
+        "actionMenu": {
+          "create": true,
+          "read": true,
+          "update": true,
+          "delete": true
+        }
       }
     ]
   }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://api.appceleste.com',
+  baseUrl: 'http://localhost:3000',
   type: 'Dev',
   version: '1.1.4',
   datoCMSApiKey: '24ec577fa2a4b54e02de4738b14312'
