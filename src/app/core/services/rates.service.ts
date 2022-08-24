@@ -13,22 +13,22 @@ export class RatesService implements IRateRepository {
   constructor(private http: HttpClient) { }
 
   readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Rate/All`, payload, { observe: 'response' });
+    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Tariff/All`, payload, { observe: 'response' });
   }
 
   createRate(payload: CreateRate): Observable<HttpResponse<any>> {
-    return this.http.post(`${environment.baseUrl}/api/Rate`, payload, { observe: 'response' });
+    return this.http.post(`${environment.baseUrl}/api/Tariff`, payload, { observe: 'response' });
   }
 
   updateRate(id: number, payload: Required<RatesDto>): Observable<HttpResponse<any>> {
-    return this.http.put(`${environment.baseUrl}/api/Rate/${id}`, payload, { observe: 'response' });
+    return this.http.put(`${environment.baseUrl}/api/Tariff/${id}`, payload, { observe: 'response' });
   }
 
   getRateById(id: number): Observable<HttpResponse<RatesDto>> {
-    return this.http.get<RatesDto>(`${environment.baseUrl}/api/Rate/${id}`, { observe: 'response' });
+    return this.http.get<RatesDto>(`${environment.baseUrl}/api/Tariff/${id}`, { observe: 'response' });
   }
 
   deleteRate(id: number, status: number): Observable<HttpResponse<any>> {
-    return this.http.delete(`${environment.baseUrl}/api/Rate/${id}`, { observe: 'response' });
+    return this.http.delete(`${environment.baseUrl}/api/Tariff/${id}`, { observe: 'response' });
   }
 }

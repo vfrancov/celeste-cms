@@ -8,5 +8,5 @@
       "limit": 10,
       "sort": []
   },
-  "url": "/api/Rate/All"
+  "url": "/api/Tariff/All"
 }
