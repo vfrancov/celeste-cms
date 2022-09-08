@@ -74,3 +74,16 @@
 a:hover {
   color: #000;
 }
+
+.reports-component {
+  .loader-image {
+    height: 15vw;
+    background-color: #f4f4f4;
+
+    & {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

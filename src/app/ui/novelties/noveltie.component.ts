@@ -57,6 +57,9 @@ export class NoveltiePageComponent implements OnInit {
   isSelectedFile: Event;
   amountOfPagesRelated: number;
   amountOfRecordsRelated: number;
+  amountOfPagesNovelties: number;
+  amountOfRecordsNovelties: number;
+  currentPage: number = 0;
 
   constructor(
     @Inject(RepositoryProvider.noveltieProperty) private noveltieService: INoveltyRepository,
@@ -70,6 +73,7 @@ export class NoveltiePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filterRequestBody.limit = 4;
     this.initializeFormCreateNoveltie();
     this.initializeFormCreateSubNoveltie();
     this.readAllNoveltie();
@@ -88,13 +92,18 @@ export class NoveltiePageComponent implements OnInit {
     this.noveltieService.readAll(this.filterRequestBody).subscribe(
       response => {
         this.novelties = response.body.list;
+        this.amountOfPagesNovelties = response.body.pages;
+        this.amountOfRecordsNovelties = response.body.records;
       }
     );
   }
 
   readAllSubNovelties(): void {
     this.subNoveltieService.readAll(this.filterRequestBody).subscribe(
-      response => this.subNovelties = response.body.list
+      response => {
+        console.log(response);
+        this.subNovelties = response.body.list;
+      }
     )
   }
 
@@ -253,5 +262,28 @@ export class NoveltiePageComponent implements OnInit {
   selectedPage(page: number): void {
     this.filterRequestBody.offset = page;
     this.getListRelNoveltySubNovelty(this.appNoveltieId);
+  }
+
+  previous(): void {
+    this.currentPage--;
+    this.filterRequestBody.offset = (this.currentPage <= 0) ? 0 : this.currentPage;
+    this.readAllNoveltie();
+  }
+
+  next(): void {
+    this.currentPage++;
+
+    if(this.currentPage === this.amountOfPagesNovelties)
+      return;
+    else {
+      this.filterRequestBody.offset = this.currentPage;
+      this.readAllNoveltie();
+    }
+  }
+
+  setPage(page: number): void {
+    this.filterRequestBody.offset = page;
+    this.currentPage = page;
+    this.readAllNoveltie();
   }
 }

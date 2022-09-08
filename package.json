@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:dev": "ng serve -o --port 4300",
+    "start:qa": "ng serve -o --port 4300 --configuration=qa",
     "start:prod": "ng serve -o --port 4300 --configuration=production",
     "clean": "rm -rf ./node_modules && package-lock.json",
     "build:prod": "ng build --prod --configuration=production",

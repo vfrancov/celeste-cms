@@ -8,7 +8,10 @@ import swal from 'sweetalert2';
 
 @Component({
   selector: 'reports-component',
-  templateUrl: './reports.component.html'
+  templateUrl: './reports.component.html',
+  host: {
+    class : 'reports-component'
+  }
 })
 export class ReportsPageComponent implements OnInit {
 
@@ -25,6 +28,7 @@ export class ReportsPageComponent implements OnInit {
   public linkReportDownload: SafeResourceUrl;
   public reportName: string = `Reporte-${new Date().getTime()}.xlsx`;
   public fileId: string;
+  public imageIsLoading: boolean;
 
   constructor(private _reports: ReportServices, private _sanitizer: DomSanitizer, private _renderer: Renderer2) { }
 
@@ -44,7 +48,13 @@ export class ReportsPageComponent implements OnInit {
   }
 
   getDetailsNoveltieById(report: any): void {
-    this._reports.getNoveltieById(report.subNoveltiesUser).subscribe(response => this.detailsNoveltie = response.body);
+    this.imageIsLoading = true;
+    this._reports.getNoveltieById(report.subNoveltiesUser).subscribe(response => {
+      this.detailsNoveltie = response.body;
+      this.imageIsLoading = false;
+    }, (error: HttpErrorResponse) => {
+      swal.fire('Error Service', `${error.statusText} ${error.url} ${error.name}`, 'warning');
+    });
   }
 
   setImageModal(image: string): void {

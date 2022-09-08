@@ -39,6 +39,33 @@
             ]
           },
           "configurations": {
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -74,6 +101,9 @@
             "browserTarget": "celeste:build"
           },
           "configurations": {
+            "qa": {
+              "browserTarget": "celeste:build:qa"
+            },
             "production": {
               "browserTarget": "celeste:build:production"
             }
@@ -122,6 +152,9 @@
             "devServerTarget": "celeste:serve"
           },
           "configurations": {
+            "qa": {
+              "devServerTarget": "celeste:serve:qa"
+            },
             "production": {
               "devServerTarget": "celeste:serve:production"
             }

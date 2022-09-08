@@ -75,6 +75,22 @@
               </div>
             </ng-container>
           </div>
+          <div class="d-flex justify-content-between">
+            <div class="dataTables_info">Mostrando {{currentPage + 1}} - {{filterRequestBody.limit}} de {{amountOfRecordsNovelties}} registros</div>
+            <div class="dataTables_paginate paging_simple_numbers">
+              <ul class="pagination">
+                <li class="paginate_button page-item previous" (click)="previous()" [class.disabled]="currentPage === 0">
+                  <a href="javascript:" class="page-link">Anterior</a>
+                </li>
+                <li class="paginate_button page-item" *ngFor="let page of [].constructor(amountOfPagesNovelties); let i = index">
+                  <a href="javascript:" class="page-link" (click)="setPage(i)">{{ (i + 1) }}</a>
+                </li>
+                <li class="paginate_button page-item next" (click)="next()" [class.disabled]="currentPage === amountOfPagesNovelties - 1">
+                  <a href="javascript:" class="page-link">Siguiente</a>
+                  </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
