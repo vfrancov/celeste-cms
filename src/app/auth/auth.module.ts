@@ -8,6 +8,10 @@ import { AuthLoginComponent } from "./login/login.component";
 import { SharedModule } from '@shared/shared.module';
 import { RecoveryViewComponent } from './recovery/view/recovery.component';
 import { ChangePasswordViewComponent } from './change-password/view/change-password.component';
+import { RecoveryPresenter } from './recovery/presenter/recovery.presenter';
+import { RecoveryInteractor } from './recovery/interactor/recovery.interactor';
+import { ChangePasswordPresenter } from './change-password/presenter/change-password.presenter';
+import { ChangePasswordInteractor } from './change-password/interactor/change-password.interactor';
 
 
 @NgModule({
@@ -19,6 +23,12 @@ import { ChangePasswordViewComponent } from './change-password/view/change-passw
     SharedModule,
     RouterModule.forChild(authRoute)
   ],
-  providers: [AuthProvider]
+  providers: [
+    AuthProvider,
+    { provide: 'RecoveryPresenter', useClass: RecoveryPresenter },
+    { provide: 'ChangePasswordPresenter', useClass: ChangePasswordPresenter },
+    RecoveryInteractor,
+    ChangePasswordInteractor
+  ]
 })
 export class AuthModule { }

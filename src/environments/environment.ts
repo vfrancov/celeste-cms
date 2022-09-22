@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseUrl: 'http://localhost:3000',
   type: 'Dev',
-  version: '1.1.5',
+  version: '1.1.6',
   datoCMSApiKey: '24ec577fa2a4b54e02de4738b14312'
 };
 

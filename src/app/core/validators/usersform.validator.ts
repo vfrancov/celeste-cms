@@ -5,6 +5,7 @@ export interface IUsersField {
   firstName: (string | ((control: AbstractControl) => ValidationErrors))[],
   lastName: (string | ((control: AbstractControl) => ValidationErrors))[],
   username?: (string | ((control: AbstractControl) => ValidationErrors))[],
+  emailAddress?: (string | ((control: AbstractControl) => ValidationErrors))[],
   password?: (string | ((control: AbstractControl) => ValidationErrors)[])[],
   confirm?: (string | ((control: AbstractControl) => ValidationErrors)[])[],
   phoneNumber?: (string | ((control: AbstractControl) => ValidationErrors))[],

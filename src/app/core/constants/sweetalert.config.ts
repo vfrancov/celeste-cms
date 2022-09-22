@@ -231,7 +231,6 @@ export const rateCreated: SweetAlertOptions = {
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
-
 }
 
 export const rateUpdated: SweetAlertOptions = {
@@ -256,6 +255,24 @@ export const rateWarning: SweetAlertOptions = {
   title: 'Advertencia',
   text: "¿Deseas eliminar la Tarifa?",
   icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const emailSended: SweetAlertOptions = {
+  title: 'Correo Enviado',
+  text: "Se ha enviado un código para realizar el cambio de tu contraseña! debes revisar tu correo",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const passwordChanged: SweetAlertOptions = {
+  title: 'Contraseña Actualizada!',
+  text: "Tu contraseña ha sido cambiada exitosamente",
+  icon: 'success',
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'

@@ -93,7 +93,7 @@ export class UsersPageComponent implements OnInit {
   }
 
   editUserData(): void {
-    this.formCreateUserData.get('statusId').setValue(RequestAction.update);
+    this.formCreateUserData.get('statusId').setValue(RequestAction.create);
     this.userService.updateUser(this.formCreateUserData.value).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.NoContent) {
         this.modalCreateAndEditUsers.closeModal();

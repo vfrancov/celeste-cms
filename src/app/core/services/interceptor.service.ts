@@ -4,7 +4,7 @@ import { Navigation } from "@core/constants/navigataion.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { ILocalStorageRepository } from "@domain/localstorage/localstorage.repository";
 import { UserDto } from "@domain/user/user.dto";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { UtilsService } from "./utils.service";
 

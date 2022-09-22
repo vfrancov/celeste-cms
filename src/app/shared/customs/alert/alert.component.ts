@@ -9,6 +9,7 @@ import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 export class AlertMessageComponent {
   @Input() error: HttpErrorResponse;
   @Input() response: HttpResponse<any>;
+  @Input() details: boolean = true;
   statusCode = HttpStatusCode;
 
   get noContentResponse(): boolean {

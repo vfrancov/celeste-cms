@@ -20,24 +20,25 @@
                       contraseña
                     </p>
                   </div>
-                  <form class="user">
+                  <form [formGroup]="recoveryForm" class="user mb-2">
                     <div class="form-group">
                       <input
                         type="email"
                         class="form-control form-control-user"
-                        id="exampleInputEmail"
+                        formControlName="email"
                         aria-describedby="emailHelp"
-                        placeholder="Ingresa tu contraseña"
+                        placeholder="Ingresa tu correo"
                       />
                     </div>
-                    <a
-                      [routerLink]="'/change-password'"
-                      [queryParams]="{token : '123'}"
+                    <button
+                      (click)="sendEmailToRecoveryPassword()"
                       class="btn btn-primary btn-user btn-block"
+                      [disabled]="recoveryForm.invalid || isLoading"
                     >
                       Enviar Instrucciones
-                    </a>
+                    </button>
                   </form>
+                  <alert-message [response]="response" [error]="errorResponse" [details]="false" *ngIf="showError"></alert-message>
                   <hr />
                   <div class="text-center">
                     <a [routerLink]="'/'" class="small"

@@ -16,6 +16,7 @@ export const UsersField: IUsersField = {
   firstName: ['', Validators.required],
   lastName: ['', Validators.required],
   username: ['', Validators.required],
+  emailAddress: ['', Validators.required],
   password: ['', [Validators.required]],
   confirm: ['asd', [Validators.required, PasswordValidation.matchPassword]],
   phoneNumber: [''],
