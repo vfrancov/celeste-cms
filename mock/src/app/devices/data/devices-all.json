@@ -1,0 +1,39 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "list": [
+      {
+        "id": 1,
+        "companyName": "Empresa Mock",
+        "deviceName": "Entrada",
+        "codeDevice": "12345-5678-45646",
+        "expireLicenseDate": "2022-10-30",
+        "statusDevice": 1,
+        "registerDate": "2022-10-04"
+      },
+      {
+        "id": 1,
+        "companyName": "Empresa Mock",
+        "deviceName": "Entrada",
+        "codeDevice": "12345-5678-45646",
+        "expireLicenseDate": "2022-10-30",
+        "statusDevice": 1,
+        "registerDate": "2022-10-04"
+      },
+      {
+        "id": 1,
+        "companyName": "Empresa Mock",
+        "deviceName": "Entrada",
+        "codeDevice": "12345-5678-45646",
+        "expireLicenseDate": "2022-10-30",
+        "statusDevice": 1,
+        "registerDate": "2022-10-04"
+      }
+    ],
+    "records": 3,
+    "pages": 1,
+    "fileName": ""
+  }
+}

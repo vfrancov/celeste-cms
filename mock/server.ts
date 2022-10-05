@@ -1,6 +1,7 @@
 import { AuthRouter } from "./src/app/auth";
 import { CompanieRouter } from "./src/app/companies";
 import { DashboardRouter } from "./src/app/dashboard";
+import { DevicesRouter } from "./src/app/devices";
 import { RatesRouter } from "./src/app/rates";
 import { ReportsRouter } from "./src/app/reports";
 import { ZoneRouter } from "./src/app/zones";
@@ -27,6 +28,11 @@ class ApplicationStart {
         RatesRouter.getbyid(server);
         RatesRouter.update(server);
         RatesRouter.delete(server);
+        DevicesRouter.init(server);
+        DevicesRouter.create(server);
+        DevicesRouter.getbyid(server);
+        DevicesRouter.update(server);
+        DevicesRouter.delete(server);
 
         this.launchServer();
     }

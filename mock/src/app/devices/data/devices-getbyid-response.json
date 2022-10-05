@@ -1,0 +1,14 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "id": 1,
+    "companyName": "Empresa Mock",
+    "deviceName": "Entrada",
+    "codeDevice": "12345-5678-45646",
+    "expireLicenseDate": "2022-10-30",
+    "statusDevice": 1,
+    "registerDate": "2022-10-04"
+  }
+}

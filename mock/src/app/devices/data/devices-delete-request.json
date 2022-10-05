@@ -1,0 +1,10 @@
+{
+  "method": "delete",
+  "headers": {
+      "Authorization": "Bearer 1f6d83dd-6090-4d0c-8856-2c5bc4cf7317"
+  },
+  "body": {
+      "id": 1
+  },
+  "url": "/api/Device/1"
+}

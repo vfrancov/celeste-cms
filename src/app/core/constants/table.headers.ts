@@ -127,6 +127,39 @@ export const dataTableHeadRates: any = [
   }
 ];
 
+export const dataTableHeadDevices: any = [
+  {
+    title: 'Empresa',
+    field: 'companyName',
+    isSort: true
+  },
+  {
+    title: 'Nombre Dispositivo',
+    field: 'deviceName',
+    isSort: true
+  },
+  {
+    title: 'Código Dispositivo',
+    field: 'codeDevice',
+    isSort: true
+  },
+  {
+    title: 'Fecha Expiración',
+    field: 'expireLicenceDate',
+    isSort: true
+  },
+  {
+    title: 'Estado Dispositivo',
+    field: 'statusDevice',
+    isSort: true
+  },
+  {
+    title: 'Acciones',
+    field: 'actions',
+    isSort: false
+  }
+]
+
 //'Nombre Zona', 'Nombre Piso', 'Estado', 'Acciones'
 
 export const dataTableHeadFloors: any[] = [

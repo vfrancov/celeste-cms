@@ -1,0 +1,169 @@
+<content-component [title]="'Dispositivos'">
+  <div class="d-flex justify-content-between mb-2">
+    <p>Gestiona tus Dispositivos</p>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#modalCreateAndEditDevice"
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      (click)="showModalCreateDevice()"
+      *ngIf="userPermissions.create"
+    >
+      Registrar Dispositivos
+    </button>
+  </div>
+  <div class="row">
+    <div class="col">
+      <data-table
+        [title]="'Dispositivos'"
+        [pages]="amountOfPages"
+        [rows]="amountOfRows"
+        [pagination]="true"
+        (emitPage)="selectedPage($event)"
+      >
+        <data-filter
+          [filterFields]="dataTableHead"
+          (emitFilter)="applyFilter($event)"
+          (emitRestore)="restoreFilter($event)"
+        ></data-filter>
+        <thead>
+          <ng-container *ngFor="let thead of dataTableHead | keyvalue">
+            <th
+              class="pointer"
+              (click)="sort(thead.value.field)"
+              aria-sort="ascending"
+            >
+              {{ thead.value.title }}
+              <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
+              <i class="fa fa-arrow-{{ isDescOrAsc ? 'down' : 'up' }}"></i>
+            </th>
+          </ng-container>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="deviceData.length === 0; else showDeviceRecords">
+            <tr>
+              <td [attr.colspan]="dataTableHead.length" class="text-center">
+                No hay dispositivos registrados
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #showDeviceRecords>
+            <ng-container *ngFor="let device of deviceData">
+              <tr>
+                <td>{{ device.companyName }}</td>
+                <td>{{ device.deviceName }}</td>
+                <td>{{ device.codeDevice }}</td>
+                <td>{{ device.expireLicenseDate }}</td>
+                <td>{{ device.statusDevice }}</td>
+                <td>
+                  <div class="btn-group">
+                    <button
+                      class="btn btn-info btn-sm"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalCreateAndEditDevice"
+                      (click)="showModalDeviceWithData(device)"
+                      *ngIf="userPermissions.update"
+                      title="Editar"
+                    >
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      (click)="deleteDevice(device)"
+                      *ngIf="userPermissions.delete"
+                      title="Eliminar"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+        </tbody>
+      </data-table>
+    </div>
+  </div>
+</content-component>
+<modal-component
+  #modalCreateAndEditDevice
+  [idModal]="'modalCreateAndEditDevice'"
+  [modalTitle]="'Registrar Dispositivo'"
+  [modalLarge]="true"
+>
+  <div class="row">
+    <div class="col">
+      <h5 class="no-margin">Registra tus Dispositivos</h5>
+      <small>Registra los dispositivos que necesites</small>
+      <alert-message
+        [error]="deviceErrorService"
+        *ngIf="showErrorDeviceService"
+      ></alert-message>
+      <form class="mt-3" [formGroup]="formDevice">
+        <!--         <combobox
+            formControlName="companyId"
+            [label]="'Empresa'"
+            [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'"
+          >
+          </combobox> -->
+        <div class="form-group">
+          <label for="deviceName">Nombre Dispositivo</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="deviceName"
+          />
+        </div>
+        <div class="form-group">
+          <label for="codeDevice">Código Dispositivo</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="codeDevice"
+          />
+        </div>
+        <div class="form-group">
+          <label for="expireLicenseDate">Fecha de Expiración</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="expireLicenseDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="statusDevice">Estado Dispositivo</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="statusDevice"
+          />
+        </div>
+        <ng-container
+          *ngIf="isEditDevice; then edit; else create"
+        ></ng-container>
+        <ng-template #edit>
+          <button
+            type="submit"
+            class="btn btn-primary btn-modal-create"
+            [disabled]="formDevice.invalid"
+            (click)="updateDevice()"
+            disableOnRequest
+          >
+            Actualizar Dispositivo
+          </button>
+        </ng-template>
+        <ng-template #create>
+          <button
+            type="submit"
+            class="btn btn-primary btn-modal-create"
+            [disabled]="formDevice.invalid"
+            (click)="createDevice()"
+            disableOnRequest
+          >
+            Guardar Dispositivo
+          </button>
+        </ng-template>
+      </form>
+    </div>
+  </div>
+</modal-component>

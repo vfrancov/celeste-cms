@@ -277,3 +277,39 @@ export const passwordChanged: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const deviceCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: "Dispositivo guardado exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const deviceUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: "Dispositivo actualizado exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const deviceDeleted: SweetAlertOptions = {
+  title: 'Eliminación Exitosa',
+  text: "Dispositivo eliminado exitosamente",
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}
+
+export const deviceWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas eliminar el Dispositivo?",
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

@@ -9,5 +9,6 @@ export enum RepositoryProvider {
   floorRepository = 'floorRepository',
   subnoveltieRepository = 'subNoveltieProvider',
   dashboardProvider = 'dashboardProvider',
-  userPermissions = 'userPermissions'
+  userPermissions = 'userPermissions',
+  deviceRepository = 'deviceRepository'
 }
