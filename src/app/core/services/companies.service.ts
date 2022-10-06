@@ -32,7 +32,7 @@ export class CompaniesService implements ICompaniesRepository {
     return this.http.delete(`${environment.baseUrl}/api/Companies/${id}`, { observe: 'response' });
   }
 
-  otroMetodo(): void {
-
+  enableOrDisableCompanie(status: number): Observable<HttpResponse<any>> {
+    return this.http.get(`${environment.baseUrl}/api/Companies/EnableOrDisable/${status}`, { observe: 'response' });
   }
 }

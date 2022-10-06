@@ -70,4 +70,18 @@ export class CompanieInteractor {
       }
     )
   }
+
+  enableCompanie(): void {
+    this.companieService.enableOrDisableCompanie(RequestAction.enable).subscribe(response => {
+      if(response.status === HttpStatusCode.Ok)
+        this._view.getAllCompanies();
+    });
+  }
+
+  disableCompanie(): void {
+    this.companieService.enableOrDisableCompanie(RequestAction.disable).subscribe(response => {
+      if(response.status === HttpStatusCode.Ok)
+        this._view.getAllCompanies();
+    });
+  }
 }

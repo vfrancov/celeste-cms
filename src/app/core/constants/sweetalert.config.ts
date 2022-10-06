@@ -313,3 +313,12 @@ export const deviceWarning: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const canActivateMessage: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: "¿Deseas activar/inactivar la Empresa?",
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK'
+}

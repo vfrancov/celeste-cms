@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { CompaniesField } from "@core/constants/companies.field";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
-import { companieCreated, companieWarning } from "@core/constants/sweetalert.config";
+import { canActivateMessage, companieCreated, companieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadCompanies } from "@core/constants/table.headers";
 import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/companies.dto";
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
@@ -46,6 +46,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   ) {
     this._presenter.setView(this);
     this.userPermissions = this._permissions.getPermissions(this._router.url);
+    console.log(this.userPermissions);
   }
 
   get checkEmail(): AbstractControl {
@@ -111,6 +112,21 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
 
   setDataInModal(companie: GetCompanie): void {
     this.formCompanie.patchValue(companie);
+  }
+
+  enableOrDisableCompanie(canActivate: boolean): void {
+    swal.fire(canActivateMessage).then((action) => {
+      if (action.isConfirmed)
+        (canActivate) ? this.enableCompanie() : this.disableCompanie();
+    });
+  }
+
+  enableCompanie(): void {
+    this._presenter.enableCompanie();
+  }
+
+  disableCompanie(): void {
+    this._presenter.disableCompanie();
   }
 
   sort(fieldToSort: string): void {

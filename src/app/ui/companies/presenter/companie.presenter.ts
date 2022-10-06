@@ -36,6 +36,14 @@ export class CompaniePresenter implements CompaniesPresenterInput, CompaniesInte
     this._view.showCompanieRecords(records, pages, rows);
   }
 
+  enableCompanie(): void {
+    this._interactor.enableCompanie();
+  }
+
+  disableCompanie(): void {
+    this._interactor.disableCompanie();
+  }
+
   fetchDataInModal(id: number): void {
     this._interactor.getCompanie(id);
   }

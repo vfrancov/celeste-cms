@@ -10,5 +10,6 @@ export interface UserPermissions {
     create: boolean,
     read: boolean,
     update: boolean,
-    delete: boolean
+    delete: boolean,
+    canActivate: boolean
 }

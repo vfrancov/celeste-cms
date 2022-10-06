@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 
 const appRoute: Routes = [
@@ -13,7 +13,7 @@ const appRoute: Routes = [
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute)],
+    RouterModule.forRoot(appRoute, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
