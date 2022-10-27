@@ -4,6 +4,7 @@ import { DashboardRouter } from "./src/app/dashboard";
 import { DevicesRouter } from "./src/app/devices";
 import { RatesRouter } from "./src/app/rates";
 import { ReportsRouter } from "./src/app/reports";
+import { UserRouter } from "./src/app/users";
 import { ZoneRouter } from "./src/app/zones";
 import { serverConfig } from "./src/config/server.enum";
 
@@ -33,6 +34,7 @@ class ApplicationStart {
         DevicesRouter.getbyid(server);
         DevicesRouter.update(server);
         DevicesRouter.delete(server);
+        UserRouter.readAll(server);
 
         this.launchServer();
     }

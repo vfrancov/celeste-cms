@@ -3,14 +3,14 @@ import { Inject, Injectable } from "@angular/core";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
-import { CompaniesDto, CreateCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
+import { companieUpdated } from "@core/constants/sweetalert.config";
+import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { ICompaniesRepository } from "@domain/companies/companies.repository";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
+import swal from 'sweetalert2';
 import { CompaniePresenter } from "../presenter/companie.presenter";
-import swal, { SweetAlertResult } from 'sweetalert2';
-import { companieUpdated } from "@core/constants/sweetalert.config";
 
 @Injectable()
 export class CompanieInteractor {
@@ -45,7 +45,7 @@ export class CompanieInteractor {
 
   editCompanie(payload: UpdateCompanie): void {
     this.companieService.updateCompanie(payload).subscribe((response: HttpResponse<IResponseBody>) => {
-      if(response.status === HttpStatusCode.NoContent) {
+      if (response.status === HttpStatusCode.NoContent) {
         swal.fire(companieUpdated);
         this._view.modalCompanie.closeModal();
         this._view.getAllCompanies();
@@ -65,23 +65,31 @@ export class CompanieInteractor {
   deleteCompanie(id: number): void {
     this.companieService.deleteCompanie(id, RequestAction.delete).subscribe(
       response => {
-        if(response.status === HttpStatusCode.Ok)
+        if (response.status === HttpStatusCode.Ok)
           this._view.getAllCompanies();
       }
     )
   }
 
-  enableCompanie(): void {
-    this.companieService.enableOrDisableCompanie(RequestAction.enable).subscribe(response => {
-      if(response.status === HttpStatusCode.Ok)
+  enableCompanie(companie: UpdateCompanie): void {
+    this.companieService.enableOrDisableCompanie(RequestAction.enable, companie).subscribe(response => {
+      if (response.status === HttpStatusCode.NoContent) {
         this._view.getAllCompanies();
+        swal.fire('Bien!', 'Se ha habilitado la empresa!', 'success');
+      }
+    }, (error: HttpErrorResponse) => {
+      swal.fire('Advertencia', error.error?.message, 'warning');
     });
   }
 
-  disableCompanie(): void {
-    this.companieService.enableOrDisableCompanie(RequestAction.disable).subscribe(response => {
-      if(response.status === HttpStatusCode.Ok)
+  disableCompanie(companie: UpdateCompanie): void {
+    this.companieService.enableOrDisableCompanie(RequestAction.disable, companie).subscribe(response => {
+      if (response.status === HttpStatusCode.NoContent) {
         this._view.getAllCompanies();
+        swal.fire('Bien!', 'Se ha deshabilitado la empresa!', 'success');
+      }
+    }, (error: HttpErrorResponse) => {
+      swal.fire('Advertencia', error.error?.message, 'warning');
     });
   }
 }

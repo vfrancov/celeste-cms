@@ -3,8 +3,8 @@ import { DeviceFields } from "@core/validators/devices.validators";
 
 export const deviceFields: DeviceFields = {
   companyId: ['', [Validators.required]],
-  deviceName: ['', [Validators.required]],
-  codeDevice: ['', [Validators.required]],
+  name: ['', [Validators.required]],
+  code: ['', [Validators.required]],
   expireLicenseDate: ['', [Validators.required]],
-  statusDevice: ['', [Validators.required]]
+  statusId: ['', [Validators.required]]
 }

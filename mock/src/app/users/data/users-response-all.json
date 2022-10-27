@@ -1,0 +1,42 @@
+{
+  "headers": {},
+  "status": 200,
+  "statusText": "OK",
+  "body": {
+    "list": [
+      {
+        "id": 1,
+        "firstName": "User Mock",
+        "lastName": "Lastname Mock",
+        "username": "mock",
+        "phoneNumber": "300123123213",
+        "statusName": "active",
+        "statusId": 1,
+        "roleId": 3,
+        "roleName": "Admin",
+        "companyId": 1,
+        "companyName": "Company Mock",
+        "setConfiguration": true,
+        "emailAddress": "mock@gmail.com"
+      },
+      {
+        "id": 1,
+        "firstName": "User Mock",
+        "lastName": "Lastname Mock",
+        "username": "mock",
+        "phoneNumber": "300123123213",
+        "statusName": "active",
+        "statusId": 1,
+        "roleId": 3,
+        "roleName": "Admin",
+        "companyId": 1,
+        "companyName": "Company Mock",
+        "setConfiguration": true,
+        "emailAddress": "mock@gmail.com"
+      }
+    ],
+    "records": 3,
+    "pages": 1,
+    "fileName": ""
+  }
+}

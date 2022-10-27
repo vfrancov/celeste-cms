@@ -9,6 +9,6 @@ export interface CompaniesPresenterInput extends CorePresenter {
     fetchDataInModal(id: number): void
     deleteCompanie(id: number): void
     editCompanie(payload: UpdateCompanie): void
-    enableCompanie(): void
-    disableCompanie(): void
+    enableCompanie(companie: UpdateCompanie): void
+    disableCompanie(companie: UpdateCompanie): void
 }

@@ -1,11 +1,12 @@
 export interface DeviceDto {
   id: number,
   companyName: string,
-  deviceName: string,
-  codeDevice: string,
-  expireLicenseDate: string,
-  statusDevice: number,
-  registerDate: string
+  companyId: number,
+  statusName: string,
+  statusId: number,
+  name: string,
+  code: string,
+  expireLicenseDate: string
 }
 
 export type CreateDevice = Omit<DeviceDto, 'id'>;

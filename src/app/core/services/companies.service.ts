@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
+import { ICompaniesRepository } from "@domain/companies/companies.repository";
 import { IFilterRequestBody } from "@domain/http/request.body.dto";
 import { IResponseBody } from "@domain/http/response.body.dto";
-import { ICompaniesRepository } from "@domain/companies/companies.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 
@@ -32,7 +32,7 @@ export class CompaniesService implements ICompaniesRepository {
     return this.http.delete(`${environment.baseUrl}/api/Companies/${id}`, { observe: 'response' });
   }
 
-  enableOrDisableCompanie(status: number): Observable<HttpResponse<any>> {
-    return this.http.get(`${environment.baseUrl}/api/Companies/EnableOrDisable/${status}`, { observe: 'response' });
+  enableOrDisableCompanie(status: number, payload: UpdateCompanie): Observable<HttpResponse<any>> {
+    return this.http.put(`${environment.baseUrl}/api/Companies/${payload.id}`, { ...payload, statusId: status }, { observe: 'response' });
   }
 }

@@ -10,5 +10,5 @@ export interface ICompaniesRepository {
   updateCompanie(payload: UpdateCompanie): Observable<HttpResponse<any>>
   getCompanieById(id: number): Observable<HttpResponse<GetCompanie>>
   deleteCompanie(id: number, status: number): Observable<HttpResponse<any>>
-  enableOrDisableCompanie(status: number): Observable<HttpResponse<any>>
+  enableOrDisableCompanie(status: number, companie: UpdateCompanie): Observable<HttpResponse<any>>
 }

@@ -4,12 +4,11 @@
     "Authorization": "Bearer 1f6d83dd-6090-4d0c-8856-2c5bc4cf7317"
   },
   "body": {
-    "companyName": "Empresa Mock",
-    "deviceName": "Entrada",
-    "codeDevice": "12345-5678-45646",
-    "expireLicenceDate": "2022-10-30",
-    "statusDevice": 1,
-    "registerDate": "2022-10-04"
+    "companyId": "Empresa Mock",
+    "statusId": 1,
+    "name": "12345-5678-45646",
+    "code": "2022-10-30",
+    "expireLicenseDate": "2022-10-04"
   },
   "url": "/api/Device"
 }

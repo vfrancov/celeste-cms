@@ -7,7 +7,7 @@ import { RepositoryProvider } from "@core/constants/repository.enum";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { canActivateMessage, companieCreated, companieWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadCompanies } from "@core/constants/table.headers";
-import { CompaniesDto, DeleteCompanie, GetCompanie } from "@domain/companies/companies.dto";
+import { CompaniesDto, DeleteCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companies.dto";
 import { CompaniesPresenterInput } from "@domain/companies/companies.presenter.input";
 import { CompaniesPresenterOutput } from "@domain/companies/companies.presenter.output";
 import { IModalComponent } from "@domain/companies/IModalComponent";
@@ -46,7 +46,7 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
   ) {
     this._presenter.setView(this);
     this.userPermissions = this._permissions.getPermissions(this._router.url);
-    console.log(this.userPermissions);
+    this.requestBody.limit = 9
   }
 
   get checkEmail(): AbstractControl {
@@ -114,19 +114,21 @@ export class CompaniesPageComponent implements CompaniesPresenterOutput, OnInit 
     this.formCompanie.patchValue(companie);
   }
 
-  enableOrDisableCompanie(canActivate: boolean): void {
+  enableOrDisableCompanie(companie: GetCompanie, statusId: number): void {
     swal.fire(canActivateMessage).then((action) => {
       if (action.isConfirmed)
-        (canActivate) ? this.enableCompanie() : this.disableCompanie();
+        (statusId === RequestAction.enable) ?
+          this.disableCompanie(companie) :
+          this.enableCompanie(companie);
     });
   }
 
-  enableCompanie(): void {
-    this._presenter.enableCompanie();
+  enableCompanie(companie: UpdateCompanie): void {
+    this._presenter.enableCompanie(companie);
   }
 
-  disableCompanie(): void {
-    this._presenter.disableCompanie();
+  disableCompanie(companie: UpdateCompanie): void {
+    this._presenter.disableCompanie(companie);
   }
 
   sort(fieldToSort: string): void {

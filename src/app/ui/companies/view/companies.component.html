@@ -78,13 +78,13 @@
                   </button>
                   <button
                     class="btn btn-{{
-                      userPermissions.canActivate ? 'success' : 'warning'
+                      (companie.statusId === 1) ? 'success' : 'warning'
                     }} btn-sm"
-                    (click)="enableOrDisableCompanie(userPermissions.canActivate)"
+                    (click)="enableOrDisableCompanie(companie, companie.statusId)"
                   >
                     <i
                       class="fa fa-{{
-                        userPermissions.canActivate ? 'check' : 'ban'
+                        (companie.statusId === 1) ? 'check' : 'ban'
                       }}"
                     ></i>
                   </button>
