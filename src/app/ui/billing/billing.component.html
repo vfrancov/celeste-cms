@@ -44,8 +44,8 @@
               <tr>
                 <td>{{ bill.identify }}</td>
                 <td>{{ bill.email }}</td>
-                <td>{{ bill.dateInit | date : 'Y-m-d hh:mm:ss a' }}</td>
-                <td>{{ bill.dateFinish | date : 'Y-m-d hh:mm:ss a' }}</td>
+                <td>{{ bill.dateInit | date: "Y-m-d hh:mm:ss a" }}</td>
+                <td>{{ bill.dateFinish | date: "Y-m-d hh:mm:ss a" }}</td>
                 <td>{{ bill.totalValue | currency }}</td>
                 <td>{{ bill.appFloorName }}</td>
                 <td>{{ bill.appZoneName }}</td>
@@ -74,12 +74,54 @@
 <modal-component
   #modalInvoiceDetail
   [idModal]="'modalInvoiceDetail'"
-  [modalTitle]="'Registrar Tarifas'"
-  [modalLarge]="true"
+  [modalTitle]="'Detalle de Recibo'"
 >
   <div class="row">
     <div class="col">
-
+      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+        Detalle Recibo
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <td>Recibo No</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>Placa</td>
+            <td>{{ invoiceDetails?.data.identify }}</td>
+          </tr>
+          <tr>
+            <td>Fecha</td>
+            <td>{{ invoiceDetails?.data.dateInit }}</td>
+          </tr>
+          <tr>
+            <td>Valor Total</td>
+            <td>{{ invoiceDetails?.data.totalValue }}</td>
+          </tr>
+          <tr>
+            <td>Zona</td>
+            <td>{{ invoiceDetails?.data.appZoneName }}</td>
+          </tr>
+          <tr>
+            <td>Piso</td>
+            <td>{{ invoiceDetails?.data.appFloorName }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+        Detalle Servicios
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr *ngFor="let service of invoiceDetails?.services">
+            <td>{{ service.tariffsConcept }}</td>
+          </tr>
+        </table>
+        <button class="btn btn-sm btn-info">
+          <i class="fa fa-print"></i> Imprimir
+        </button>
+      </div>
     </div>
   </div>
 </modal-component>
