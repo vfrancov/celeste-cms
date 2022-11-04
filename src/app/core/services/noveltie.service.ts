@@ -12,8 +12,8 @@ export class NoveltieService implements INoveltyRepository {
 
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/AppNovelty/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/AppNovelty/All`, payload, { observe: 'response' });
   }
 
   createNoveltie(payload: CreateNovelty): Observable<HttpResponse<any>> {
@@ -24,8 +24,8 @@ export class NoveltieService implements INoveltyRepository {
     return this.http.get<GetNovelty>(`${environment.baseUrl}/api/AppNovelty/${id}`, { observe: 'response' });
   }
 
-  getSubNoveltiesById(id: number): Observable<HttpResponse<IResponseBody>> {
-    return this.http.get<IResponseBody>(`${environment.baseUrl}/api/AppSubNovelty/ListNoveltySubNovelty/${id}`, { observe: 'response' });
+  getSubNoveltiesById(id: number): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.get<IResponseBody<any>>(`${environment.baseUrl}/api/AppSubNovelty/ListNoveltySubNovelty/${id}`, { observe: 'response' });
   }
 
   updateNoveltie(id: number, payload: UpdateNovelty): Observable<HttpResponse<any>> {

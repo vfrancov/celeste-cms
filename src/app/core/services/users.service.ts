@@ -14,8 +14,8 @@ export class UsersServices implements IUserRepository {
 
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Users/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/Users/All`, payload, { observe: 'response' });
   }
 
   createUser(payload: IUsersField): Observable<HttpResponse<any>> {

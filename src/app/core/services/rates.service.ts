@@ -12,8 +12,8 @@ export class RatesService implements IRateRepository {
 
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Tariff/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/Tariff/All`, payload, { observe: 'response' });
   }
 
   createRate(payload: CreateRate): Observable<HttpResponse<any>> {

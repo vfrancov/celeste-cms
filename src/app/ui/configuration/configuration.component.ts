@@ -65,7 +65,7 @@ export class ConfigurationPageComponent implements OnInit {
 
   fetchUserData(): void {
     this.userService.readAll(this.userRequest).subscribe(
-      (response: HttpResponse<IResponseBody>) => this.userData = response.body.list
+      (response: HttpResponse<IResponseBody<any>>) => this.userData = response.body.list
     );
   }
 

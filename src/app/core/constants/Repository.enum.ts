@@ -10,5 +10,6 @@ export enum RepositoryProvider {
   subnoveltieRepository = 'subNoveltieProvider',
   dashboardProvider = 'dashboardProvider',
   userPermissions = 'userPermissions',
-  deviceRepository = 'deviceRepository'
+  deviceRepository = 'deviceRepository',
+  billingProvider = 'billingProvider'
 }

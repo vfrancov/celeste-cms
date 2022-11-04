@@ -63,7 +63,7 @@ export class UsersPageComponent implements OnInit {
 
   fetchUserData(): void {
     this.userService.readAll(this.userRequest).subscribe(
-      (response: HttpResponse<IResponseBody>) => {
+      (response: HttpResponse<IResponseBody<any>>) => {
         this.userData = response.body.list;
         this.amountOfPages = response.body.pages;
         this.amountOfRows = response.body.records;

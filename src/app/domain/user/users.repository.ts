@@ -7,7 +7,7 @@ import { ChangePassword, UserDto } from "@domain/user/user.dto";
 import { Observable } from "rxjs";
 
 export interface IUserRepository {
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>>
   createUser(payload: IUsersField): Observable<HttpResponse<any>>
   updateUser(payload: IUsersField): Observable<HttpResponse<any>>
   getUserById(id: number): Observable<HttpResponse<UserDto>>

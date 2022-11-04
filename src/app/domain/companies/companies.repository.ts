@@ -5,7 +5,7 @@ import { IResponseBody } from "@domain/http/response.body.dto";
 import { Observable } from "rxjs";
 
 export interface ICompaniesRepository {
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>>
   createCompanie(payload: CreateCompanie): Observable<HttpResponse<any>>
   updateCompanie(payload: UpdateCompanie): Observable<HttpResponse<any>>
   getCompanieById(id: number): Observable<HttpResponse<GetCompanie>>

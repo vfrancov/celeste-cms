@@ -12,8 +12,8 @@ export class ZonesService implements IZoneRepository {
 
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Zone/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/Zone/All`, payload, { observe: 'response' });
   }
 
   createZone(payload: CreateZone): Observable<HttpResponse<any>> {

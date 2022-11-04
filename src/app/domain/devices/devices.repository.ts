@@ -5,7 +5,7 @@ import { Observable } from "rxjs"
 import { CreateDevice, DeviceDto, UpdateDevice } from "./devices.dto"
 
 export interface IDeviceRepository {
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>>
   createDevice(payload: CreateDevice): Observable<HttpResponse<any>>
   updateDevice(id: number, payload: UpdateDevice): Observable<HttpResponse<any>>
   getDeviceById(id: number): Observable<HttpResponse<DeviceDto>>

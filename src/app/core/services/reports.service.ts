@@ -9,8 +9,8 @@ import { Observable } from "rxjs";
 export class ReportServices {
   constructor(private http: HttpClient) { }
 
-  getResume(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Report/Novelty`, payload, { observe: 'response' });
+  getResume(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/Report/Novelty`, payload, { observe: 'response' });
   }
 
   getNoveltieById(id: number): Observable<HttpResponse<any>> {

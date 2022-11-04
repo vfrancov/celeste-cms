@@ -1,43 +1,85 @@
 <content-component [title]="'Facturación'">
   <div class="d-flex justify-content-between mb-2">
-      <p>Gestiona tus dispositivos</p>
+    <p>Facturación</p>
+  </div>
+  <div class="row">
+    <div class="col">
+      <data-table
+        [title]="'Facturación'"
+        [pages]="amountOfPages"
+        [rows]="amountOfRows"
+        [pagination]="true"
+        (emitPage)="selectedPage($event)"
+      >
+        <data-filter
+          [filterFields]="dataTableHead"
+          (emitFilter)="applyFilter($event)"
+          (emitRestore)="restoreFilter($event)"
+        ></data-filter>
+        <thead>
+          <ng-container *ngFor="let thead of dataTableHead | keyvalue">
+            <th
+              class="pointer"
+              (click)="sort(thead.value.field)"
+              aria-sort="ascending"
+            >
+              {{ thead.value.title }}
+              <i class="fa fa-sort mr-1" *ngIf="thead.value.isSort"></i>
+              <i class="fa fa-arrow-{{ isDescOrAsc ? 'down' : 'up' }}"></i>
+            </th>
+          </ng-container>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngIf="billingData.length === 0; else showInvoiceRecords"
+          >
+            <tr>
+              <td [attr.colspan]="dataTableHead.length" class="text-center">
+                No hay facturas registradas
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #showInvoiceRecords>
+            <ng-container *ngFor="let bill of billingData">
+              <tr>
+                <td>{{ bill.identify }}</td>
+                <td>{{ bill.email }}</td>
+                <td>{{ bill.dateInit | date : 'Y-m-d hh:mm:ss a' }}</td>
+                <td>{{ bill.dateFinish | date : 'Y-m-d hh:mm:ss a' }}</td>
+                <td>{{ bill.totalValue | currency }}</td>
+                <td>{{ bill.appFloorName }}</td>
+                <td>{{ bill.appZoneName }}</td>
+                <td>{{ bill.companyName }}</td>
+                <td>
+                  <div class="btn-group">
+                    <button
+                      class="btn btn-info btn-sm"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalInvoiceDetail"
+                      (click)="showInvoiceDetailInModal(bill.id)"
+                      title="Detalles"
+                    >
+                      <i class="fa fa-list"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+        </tbody>
+      </data-table>
     </div>
-    <div class="row">
-      <div class="col">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">Mis Recibos</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <th>Npmbre</th>
-                  <th>Correo</th>
-                  <th>Valor</th>
-                  <th>Servicios</th>
-                  <th>Fecha y Hora</th>
-                  <th>Imprimir</th>
-                  <td>Acciones</td>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>99898977899788</td>
-                    <td>Android</td>
-                    <td>Activo</td>
-                    <td>Activo</td>
-                    <td>Activo</td>
-                    <td>Activo</td>
-                    <td>
-                      <div class="btn-group">
-                          <button class="btn btn-info btn-small">Editar</button>
-                          <button class="btn btn-danger btn-small">Eliminar</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
 </content-component>
+<modal-component
+  #modalInvoiceDetail
+  [idModal]="'modalInvoiceDetail'"
+  [modalTitle]="'Registrar Tarifas'"
+  [modalLarge]="true"
+>
+  <div class="row">
+    <div class="col">
+
+    </div>
+  </div>
+</modal-component>

@@ -1,6 +1,6 @@
-export interface IResponseBody {
+export interface IResponseBody<T> {
   fileName: string,
-  list: Array<any>,
+  list: Array<T>,
   pages: number,
   records: number
 }

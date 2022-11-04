@@ -11,8 +11,8 @@ import { Observable } from "rxjs";
 export class SubNoveltieService implements ISubNoveltyRepository {
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/AppSubNovelty/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/AppSubNovelty/All`, payload, { observe: 'response' });
   }
 
   createSubNoveltie(payload: CreateSubNoveltie): Observable<HttpResponse<any>> {
@@ -23,8 +23,8 @@ export class SubNoveltieService implements ISubNoveltyRepository {
     return this.http.post(`${environment.baseUrl}/api/AppSubNovelty/NoveltySubNovelty`, asociation, { observe: 'response' });
   }
 
-  listRelNoveltySubNovelty(payload: IFilterRequestBody, id: number): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/AppSubNovelty/ListRelNoveltySubNovelty/${id}`, payload, { observe: 'response' });
+  listRelNoveltySubNovelty(payload: IFilterRequestBody, id: number): Observable<HttpResponse<IResponseBody<any>>> {
+    return this.http.post<IResponseBody<any>>(`${environment.baseUrl}/api/AppSubNovelty/ListRelNoveltySubNovelty/${id}`, payload, { observe: 'response' });
   }
 
   dissasociateNoveltieAndSubnoveltie(dissasosiation: CreateAssociation): Observable<HttpResponse<any>> {

@@ -35,7 +35,7 @@ export class CompanieInteractor {
 
   createCompanie(payload: CreateCompanie): void {
     this.companieService.createCompanie(payload).subscribe(
-      (response: HttpResponse<IResponseBody>) => {
+      (response: HttpResponse<IResponseBody<any>>) => {
         this._presenter.isRegister(response.status === HttpStatusCode.Created)
         this._view.modalCompanie.closeModal();
       },
@@ -44,7 +44,7 @@ export class CompanieInteractor {
   }
 
   editCompanie(payload: UpdateCompanie): void {
-    this.companieService.updateCompanie(payload).subscribe((response: HttpResponse<IResponseBody>) => {
+    this.companieService.updateCompanie(payload).subscribe((response: HttpResponse<IResponseBody<any>>) => {
       if (response.status === HttpStatusCode.NoContent) {
         swal.fire(companieUpdated);
         this._view.modalCompanie.closeModal();

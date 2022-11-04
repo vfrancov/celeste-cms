@@ -127,6 +127,54 @@ export const dataTableHeadRates: any = [
   }
 ];
 
+export const dataTableHeadBillings : any = [
+  {
+    title: 'Placa',
+    field : 'identify',
+    isSort : true
+  },
+  {
+    title: 'Correo',
+    field : 'email',
+    isSort : true
+  },
+  {
+    title: 'Fecha Inicial',
+    field : 'dateInit',
+    isSort : true
+  },
+  {
+    title: 'Fecha Final',
+    field : 'dateFinish',
+    isSort : true
+  },
+  {
+    title: 'Valor Total',
+    field : 'totalValue',
+    isSort : true
+  },
+  {
+    title: 'Piso',
+    field : 'appFloorName',
+    isSort : true
+  },
+  {
+    title: 'Parqueadero',
+    field : 'appZoneName',
+    isSort : true
+  },
+  {
+    title: 'Empresa',
+    field : 'companyName',
+    isSort : true
+  },
+  {
+    title: 'Acciones',
+    field : 'action',
+    isSort : false
+  }
+]
+
 export const dataTableHeadDevices: any = [
   {
     title: 'Empresa',
